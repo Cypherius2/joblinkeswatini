@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile | JobLinkEswatini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <a href="jobs.html" class="header-nav-item"><span>Jobs</span></a>
+                <a href="my-network.html" class="header-nav-item" id="connectLink"><span>My Network</span></a>
+                <a href="message-center.html" class="header-nav-item" id="messagingLink"><span>Messaging</span><span
+                        class="notification-badge" id="messaging-notification-dot"></span></a>
+            </nav>
+            <div class="auth-buttons">
+                <div id="loggedOutNav" style="display: flex;">
+                    <a href="login.html" class="header-nav-item">Sign In</a>
+                </div>
+                <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                    style="display: none;">
+                    <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                    <span>Me &#9662;</span>
+                    <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                        <a href="profile.html" class="dropdown-link">View Profile</a>
+                        <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-button" id="mobile-menu-button">&#9776;</button>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container page-container-profile-grid">
+
+            <!-- == Main Content Column (Left) == -->
+            <div class="profile-main-content">
+                <!-- 1. PROFILE HEADER -->
+                <section class="profile-header-card">
+                    <div class="profile-banner" id="profileBanner">
+                        <form id="coverPhotoForm"><label for="coverPhotoFile" id="coverPhotoLabel">&#128247; Change
+                                Cover</label><input type="file" id="coverPhotoFile" name="coverPhoto"
+                                accept="image/png, image/jpeg"></form>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-picture-container">
+                            <img id="profilePicture" src="images/placeholder.svg" alt="User Profile Picture"
+                                class="profile-picture">
+                            <form id="pictureForm"><label for="pictureFile" id="uploadIconLabel">+</label><input
+                                    type="file" id="pictureFile" name="profilePicture" accept="image/png, image/jpeg">
+                            </form>
+                        </div>
+                        <div class="profile-name-title">
+                            <h1 id="profileName">Loading...</h1>
+                            <p id="profileHeadline"></p>
+                            <span id="profileLocation" class="profile-location"></span>
+                        </div>
+                        <div class="profile-actions"></div>
+                    </div>
+                </section>
+
+                <!-- 2. ABOUT SECTION -->
+                <section id="about-section" class="profile-section-card">
+                    <div class="section-header">
+                        <h2>About</h2><a href="edit-profile.html" class="edit-icon" id="editAboutBtn"
+                            style="display: none;">&#9998;</a>
+                    </div>
+                    <p id="profileAbout"></p>
+                </section>
+
+                <!-- 3. EXPERIENCE SECTION -->
+                <section id="experience-section" class="profile-section-card">
+                    <div class="section-header">
+                        <h2>Experience</h2><a href="add-experience.html" class="add-button" id="addExperienceBtn"
+                            style="display: none;">+</a>
+                    </div>
+                    <div id="experienceList"></div>
+                </section>
+
+                <!-- 4. SKILLS SECTION -->
+                <section id="skills-section" class="profile-section-card">
+                    <div class="section-header">
+                        <h2>Skills</h2><a href="add-skill.html" class="add-button" id="addSkillBtn"
+                            style="display: none;">+</a>
+                    </div>
+                    <div id="skillsList" class="skills-container"></div>
+                </section>
+
+                <!-- 5. DOCUMENTS SECTION -->
+                <section id="documents-section" class="profile-section-card" style="display: none;">
+                    <h2>My Documents</h2>
+                    <ul id="documentList" class="document-list"></ul>
+                    <hr>
+                    <form id="documentForm" style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label for="documentFile">Upload New Document</label>
+                            <input type="file" id="documentFile" name="document" required>
+                        </div>
+                        <button type="submit" class="auth-button">Upload Document</button>
+                    </form>
+                </section>
+
+                <!-- 6. COMPANY'S JOB POSTINGS -->
+                <section id="company-jobs-section" class="profile-section-card" style="display: none;">
+                    <h2>Your Job Postings</h2>
+                    <div id="my-jobs-list"></div>
+                </section>
+            </div>
+
+            <!-- == Sidebar Column (Right) == -->
+            <aside class="profile-sidebar">
+                <div class="sidebar-card">
+                    <h3>Profile language</h3>
+                    <p>English</p>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Public profile & URL</h3>
+                    <p class="profile-link" id="publicProfileUrl">www.joblinkeswatini.com/in/username</p>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Who's viewed your profile</h3>
+                    <p style="color: #777;">Feature coming soon!</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <div id="global-chat-container" style="display: none;">
+        <!-- ... Global Chat HTML ... -->
+    </div>
+
+    <footer class="main-footer"></footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        // --- Reusable Render Functions ---
+        const renderProfileHeader = (user) => {
+            const serverUrl = '${API_URL}/api/users/';
+            const localPlaceholder = 'images/placeholder.svg';
+            const pic = document.getElementById('profilePicture');
+            const banner = document.getElementById('profileBanner');
+            const picUrl = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
+            const coverUrl = user.coverPhoto ? `${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}` : '';
+            pic.src = picUrl;
+            if (coverUrl) {
+                banner.style.backgroundImage = `url('${coverUrl}')`;
+            } else {
+                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
+            }
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileHeadline').textContent = user.headline;
+            document.getElementById('profileLocation').textContent = user.location;
+        };
+        const renderAbout = (user) => {
+            const aboutEl = document.getElementById('profileAbout');
+            if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
+        };
+        const renderExperience = (experience) => {
+            const expList = document.getElementById('experienceList');
+            if (!expList) return;
+            if (!experience || experience.length === 0) {
+                expList.innerHTML = '<p>No experience added yet. Click the + button to add your work history.</p>';
+                return;
+            }
+            expList.innerHTML = experience.map(exp => `
+                <div class="experience-item">
+                    <h3>${exp.title}</h3>
+                    <p class="company">${exp.company} | ${exp.location || ''}</p>
+                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
+                    <p>${exp.description || ''}</p>
+                </div>
+            `).join('');
+        };
+        const renderSkills = (skills) => {
+            const skillsList = document.getElementById('skillsList');
+            if (!skillsList) return;
+            if (!skills || skills.length === 0) {
+                skillsList.innerHTML = '<p>No skills added yet. Click the + button to showcase your talents.</p>';
+                return;
+            }
+            skillsList.innerHTML = skills.map(skill => `
+                <span class="skill-tag">
+                    ${skill.name}
+                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
+                </span>
+            `).join('');
+        };
+        const renderDocumentsSection = (documents) => {
+            const container = document.getElementById('documentList');
+            if (!container) return;
+            container.innerHTML = '';
+            if (!documents || documents.length === 0) {
+                container.innerHTML = '<li><p>You have not uploaded any documents yet.</p></li>';
+                return;
+            }
+            container.innerHTML = documents.map(doc => `
+                <li class="document-item">
+                    <a href="${API_URL}/api/users/${doc.filePath.replace(/\\/g, '/')}" target="_blank">${doc.originalName}</a>
+                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
+                </li>
+            `).join('');
+        };
+        const fetchAndRenderMyJobs = async (token) => {
+            const myJobsList = document.getElementById('my-jobs-list');
+            if (!myJobsList) return;
+            myJobsList.innerHTML = '<p>Loading your jobs...</p>';
+            try {
+                const response = await fetch(`${API_URL}/api/users/me/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
+                if (!response.ok) throw new Error('Could not fetch jobs');
+                const jobs = await response.json();
+                if (jobs.length === 0) {
+                    myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
+                }
+                myJobsList.innerHTML = jobs.map(job => `
+                    <div class="experience-item">
+                        <h3>${job.title}</h3>
+                        <p class="company">${job.company} - ${job.location}</p>
+                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to fetch user jobs:', error);
+                myJobsList.innerHTML = '<p>Could not load your jobs.</p>';
+            }
+        };
+
+        // --- MAIN SCRIPT ON PAGE LOAD ---
+        let currentUserData = {};
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) { window.location.href = 'login.html'; return; }
+            try {
+                const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } });
+                if (!response.ok) throw new Error('Authentication failed');
+                currentUserData = await response.json();
+
+                renderProfileHeader(currentUserData);
+                renderAbout(currentUserData);
+                renderExperience(currentUserData.experience);
+                renderSkills(currentUserData.skills);
+
+                const profileActions = document.querySelector('.profile-actions');
+                if (currentUserData.role === 'company') {
+                    profileActions.innerHTML = `<a href="post-job.html" class="profile-button-primary">Post New Job</a>`;
+                    document.getElementById('company-jobs-section').style.display = 'block';
+                    fetchAndRenderMyJobs(token);
+                } else { // Seeker
+                    profileActions.innerHTML = `<a href="edit-profile.html" class="profile-button-primary">Edit Profile</a>`;
+                    document.getElementById('addExperienceBtn').style.display = 'block';
+                    document.getElementById('addSkillBtn').style.display = 'block';
+                    document.getElementById('editAboutBtn').style.display = 'block';
+                    document.getElementById('documents-section').style.display = 'block';
+                    renderDocumentsSection(currentUserData.documents);
+                }
+            } catch (error) {
+                console.error('Failed to load profile:', error);
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        });
+
+        // --- EVENT LISTENERS ---
+        const pictureFile = document.getElementById('pictureFile');
+        if (pictureFile) pictureFile.addEventListener('change', async (event) => {
+            const token = localStorage.getItem('token');
+            const file = event.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+            try {
+                const response = await fetch(`${API_URL}/api/users/picture`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                if (response.ok) {
+                    currentUserData = await response.json();
+                    alert('Profile picture updated!');
+                    renderProfileHeader(currentUserData);
+                } else { alert('Upload failed.'); }
+            } catch (error) { console.error('Error uploading picture:', error); }
+        });
+
+        const coverPhotoFile = document.getElementById('coverPhotoFile');
+        if (coverPhotoFile) coverPhotoFile.addEventListener('change', async (event) => {
+            const token = localStorage.getItem('token');
+            const file = event.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('coverPhoto', file);
+            try {
+                const response = await fetch(`${API_URL}/api/users/cover`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                if (response.ok) {
+                    currentUserData = await response.json();
+                    alert('Cover photo updated!');
+                    renderProfileHeader(currentUserData);
+                } else { alert('Upload failed.'); }
+            } catch (error) { console.error('Error uploading cover photo:', error); }
+        });
+
+        const documentForm = document.getElementById('documentForm');
+        if (documentForm) {
+            documentForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const token = localStorage.getItem('token');
+                const file = document.getElementById('documentFile').files[0];
+                if (!file) { alert('Please select a file.'); return; }
+                const formData = new FormData();
+                formData.append('document', file);
+                try {
+                    const response = await fetch(`${API_URL}/api/users/document`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                    if (response.ok) {
+                        currentUserData = await response.json();
+                        alert('Document uploaded successfully!');
+                        renderDocumentsSection(currentUserData.documents);
+                        document.getElementById('documentForm').reset();
+                    } else { alert('File upload failed.'); }
+                } catch (error) { console.error('Error uploading document:', error); }
+            });
+        }
+
+        const mainContent = document.querySelector('.profile-main-content');
+        if (mainContent) {
+            mainContent.addEventListener('click', async (event) => {
+                const token = localStorage.getItem('token');
+                if (event.target.classList.contains('delete-skill-btn')) {
+                    const skillId = event.target.getAttribute('data-id');
+                    if (confirm('Are you sure you want to remove this skill?')) {
+                        try {
+                            const response = await fetch(`${API_URL}/api/users/skills/${skillId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
+                            if (response.ok) {
+                                currentUserData = await response.json();
+                                renderSkills(currentUserData.skills);
+                            } else { alert('Failed to delete skill.'); }
+                        } catch (error) { console.error('Error deleting skill:', error); }
+                    }
+                }
+                if (event.target.classList.contains('delete-doc-btn')) {
+                    const docId = event.target.getAttribute('data-id');
+                    if (confirm('Are you sure you want to delete this document?')) {
+                        try {
+                            const response = await fetch(`${API_URL}/api/users/document/${docId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
+                            if (response.ok) {
+                                currentUserData = await response.json();
+                                renderDocumentsSection(currentUserData.documents);
+                            } else { alert('Failed to delete document.'); }
+                        } catch (error) { console.error('Error deleting document:', error); }
+                    }
+                }
+                if (event.target.classList.contains('delete-btn')) {
+                    const jobId = event.target.getAttribute('data-id');
+                    if (confirm('Are you sure you want to delete this job posting?')) {
+                        try {
+                            const response = await fetch(`${API_URL}/api/users/jobs/${jobId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
+                            if (response.ok) {
+                                alert('Job deleted successfully.');
+                                fetchAndRenderMyJobs(token);
+                            } else {
+                                const errorData = await response.json();
+                                alert('Failed to delete job: ' + errorData.msg);
+                            }
+                        } catch (error) { console.error('Error deleting job:', error); }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

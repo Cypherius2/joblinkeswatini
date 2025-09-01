@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join JobLinkEswatini</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add your font links here if needed -->
+</head>
+
+<body class="auth-body">
+    <div id="notification-container"></div>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html" class="logo-link">
+                <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+            </a>
+            <h2>Create Your Professional Account</h2>
+        </div>
+
+        <!-- The Google Button and Divider -->
+        <button class="google-btn">...</button>
+        <div class="divider">OR</div>
+
+        <form class="auth-form" id="signupForm" novalidate>
+            <!-- ROLE SELECTOR IS ALREADY HERE AND CORRECT -->
+            <div class="form-group role-selector">
+                <label>You are a:</label>
+                <div>
+                    <input type="radio" id="role-seeker" name="role" value="seeker" checked>
+                    <label for="role-seeker">Job Seeker</label>
+                </div>
+                <div>
+                    <input type="radio" id="role-company" name="role" value="company">
+                    <label for="role-company">Company / Employer</label>
+                </div>
+            </div>
+
+            <!-- THIS IS THE NEWLY ADDED COMPANY NAME FIELD -->
+            <!-- It will be hidden by default with CSS/JS -->
+            <div class="form-group" id="companyNameGroup" style="display: none;">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" placeholder="Enter your company's name">
+            </div>
+
+            <!-- The rest of the form -->
+            <div class="form-group">
+                <label for="fullName">Full Name (Contact Person)</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+                <div class="error-message" id="fullNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password (6+ characters)" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <button type="submit" class="auth-button">Agree & Join</button>
+        </form>
+        <div class="auth-footer">
+            <p>Already on JobLinkEswatini? <a href="login.html">Sign In</a></p>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- SCRIPT TO SHOW/HIDE THE COMPANY NAME FIELD ---
+            const companyNameGroup = document.getElementById('companyNameGroup');
+            const roleRadios = document.querySelectorAll('input[name="role"]');
+
+            roleRadios.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    if (event.target.value === 'company') {
+                        companyNameGroup.style.display = 'block';
+                    } else {
+                        companyNameGroup.style.display = 'none';
+                    }
+                });
+            });
+
+
+            // --- SCRIPT TO HANDLE FORM SUBMISSION ---
+            const form = document.getElementById('signupForm');
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const role = document.querySelector('input[name="role"]:checked').value;
+
+                const signupData = {
+                    name: fullName,
+                    email: email,
+                    password: password,
+                    role: role
+                };
+
+                // If the user is a company, add the company name to the data
+                // (We don't actually save this to the User model yet, but it's good practice to include it)
+                if (role === 'company') {
+                    const companyName = document.getElementById('companyName').value;
+                    if (!companyName) {
+                        alert('Please enter a company name.');
+                        return;
+                    }
+                    // signupData.companyName = companyName; // For future use
+                }
+
+                try {
+                    const response = await fetch(`${API_URL}/api/users/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(signupData)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert('Registration successful! Please sign in.');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('Error: ' + result.msg);
+                    }
+                } catch (error) {
+                    console.error('Signup failed:', error);
+                    alert('Signup failed. Please try again later.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

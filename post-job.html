@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a New Job | JobLinkEswatini</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- You might need to add your Poppins font link here as well -->
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header">
+        <div class="container">
+            <!-- Header Left: Logo & Search -->
+            <div class="header-left">
+                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+                <div class="header-search-container">
+                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <input type="text" class="header-search-input" placeholder="Search">
+                </div>
+            </div>
+    
+            <!-- Header Right: Navigation (This part remains the same) -->
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="header-nav-item" id="connectLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    <span>My Network</span>
+                </a>
+                <a href="jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="header-nav-item" id="messagingLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                    </svg>
+                    <span>Messaging</span>
+                    <span class="notification-badge" id="messaging-notification-dot"></span>
+                </a>
+    
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                        style="display: none;">
+                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container page-container-profile">
+            <section class="profile-section-card">
+                <h2>Create a New Job Posting</h2>
+                <p>Fill out the details below to find the perfect candidate.</p>
+
+                <form class="auth-form" id="postJobForm" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="deadline">Application Deadline*</label>
+                        <input type="datetime-local" id="deadline" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Job Title</label>
+                        <input type="text" id="title" placeholder="e.g., Senior Software Engineer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" placeholder="e.g., Eswatini Tech Innovators" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g., Mbabane, Eswatini" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobType">Job Type</label>
+                        <select id="jobType" required>
+                            <option value="full-time">Full-time</option>
+                            <option value="part-time">Part-time</option>
+                            <option value="contract">Contract</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Job Description</label>
+                        <textarea id="description" rows="8"
+                            placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="auth-button"
+                        style="width: 100%; border-radius: 5px; margin-top: 1rem;">Post Job</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 JobLinkEswatini.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+
+            // Gatekeeper: If user is not logged in, redirect them.
+            if (!token) {
+                alert('You must be logged in to post a job.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const postJobForm = document.getElementById('postJobForm');
+            postJobForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+            
+                const jobData = {
+                    title: document.getElementById('title').value,
+                    company: document.getElementById('company').value,
+                    location: document.getElementById('location').value,
+                    jobType: document.getElementById('jobType').value,
+                    description: document.getElementById('description').value,
+                    deadline: document.getElementById('deadline').value // <-- Add this line
+                };
+
+                // Basic validation
+                if (!jobData.title || !jobData.company || !jobData.location || !jobData.description) {
+                    alert('Please fill out all fields.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('http://127.0.0.1:3000/api/jobs', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': token // Send the authentication token
+                        },
+                        body: JSON.stringify(jobData)
+                    });
+
+                    if (response.ok) {
+                        alert('Job posted successfully!');
+                        // Redirect to the main jobs page to see the new post
+                        window.location.href = 'jobs.html';
+                    } else {
+                        const errorData = await response.json();
+                        alert('Error posting job: ' + (errorData.msg || 'Please try again.'));
+                    }
+                } catch (error) {
+                    console.error('Failed to post job:', error);
+                    alert('An error occurred while posting the job. Please check the console.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1557 @@
+/* ==========================================================================
+   1. General & Core Styles
+   ========================================================================== */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.page-main {
+    padding: 3rem 0;
+}
+
+/* ==========================================================================
+   2. Header & Footer
+   ========================================================================== */
+.main-header {
+    background-color: #FFFFFF;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: #00205B;
+}
+
+.logo-eswatini {
+    color: #D21034;
+    font-weight: 500;
+}
+
+.main-nav a {
+    color: #555;
+    text-decoration: none;
+    margin: 0 1.5rem;
+    font-weight: 500;
+}
+
+.main-nav a.active {
+    color: #00205B;
+    font-weight: 700;
+}
+
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #00205B;
+}
+
+.main-footer {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+/* ==========================================================================
+   3. Buttons & Common Components
+   ========================================================================== */
+.nav-button-outline,
+.nav-button,
+.cta-button,
+.apply-button,
+.auth-button,
+.filter-button,
+.profile-button-primary,
+.profile-button-secondary,
+.document-link {
+    display: inline-block;
+    padding: 10px 22px;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-button-outline:hover,
+.profile-button-secondary:hover {
+    background-color: #00205B;
+    color: #FFFFFF;
+}
+
+.nav-button:hover,
+.auth-button:hover,
+.filter-button:hover,
+.profile-button-primary:hover,
+.document-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #a80c29;
+    /* Darker Red */
+}
+
+.nav-button-outline {
+    color: #00205B;
+    border-color: #00205B;
+    margin-right: 10px;
+}
+
+.nav-button {
+    background-color: #D21034;
+    color: #FFFFFF;
+    border: none;
+}
+
+.cta-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 15px 35px;
+    border-radius: 30px;
+}
+
+.apply-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 8px 18px;
+}
+
+.filter-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 25px;
+    font-size: 1.1rem;
+}
+
+.profile-button-primary {
+    background-color: #D21034;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+.profile-button-secondary {
+    color: #00205B;
+    border-color: #00205B;
+    margin-left: 10px;
+}
+
+.document-link {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 25px;
+}
+
+/* ==========================================================================
+   4. Page-Specific Layouts (Homepage, Jobs)
+   ========================================================================== */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    height: fit-content;
+}
+
+.content-main {
+    width: 75%;
+}
+
+.job-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.job-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.job-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   5. Profile Page (LinkedIn Style - FINAL)
+   ========================================================================== */
+.page-container-profile-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.profile-main-content {
+    flex: 3;
+}
+
+.profile-sidebar {
+    flex: 1;
+    position: sticky;
+    top: 120px;
+}
+
+.profile-header-card,
+.profile-section-card,
+.sidebar-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    margin-bottom: 1.5rem;
+}
+
+.profile-header-card {
+    overflow: visible;
+}
+
+.profile-banner {
+    height: 180px;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(to top, #00205B, #003380);
+}
+
+.profile-info {
+    padding: 1.5rem;
+    position: relative;
+    padding-left: 190px;
+    min-height: 80px;
+}
+
+.profile-picture-container {
+    position: absolute;
+    top: -75px;
+    left: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid #FFFFFF;
+    object-fit: cover;
+}
+
+.profile-name-title h1 {
+    margin: 0;
+    color: #00205B;
+}
+
+.profile-name-title p {
+    margin: 0.25rem 0;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.profile-actions {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.profile-section-card {
+    padding: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #00205B;
+    border: none;
+    padding: 0;
+}
+
+.add-button,
+.edit-icon {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00205B;
+    text-decoration: none;
+}
+
+.experience-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    padding-left: 30px;
+}
+
+.experience-item::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.experience-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background-color: #eef2f9;
+    color: #00205B;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    position: relative;
+    padding-right: 30px;
+}
+
+.delete-skill-btn {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #00205B;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+.skill-tag:hover .delete-skill-btn {
+    opacity: 1;
+}
+
+.sidebar-card {
+    padding: 1.5rem;
+}
+
+.sidebar-card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+#coverPhotoForm {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+#coverPhotoLabel {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+#uploadIconLabel {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #00205B;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+#pictureFile,
+#coverPhotoFile {
+    display: none;
+}
+
+.document-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.document-list {
+    list-style: none;
+    padding: 0;
+}
+
+.document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.document-item a {
+    font-weight: 500;
+    color: #00205B;
+    text-decoration: none;
+}
+
+.delete-doc-btn {
+    background: none;
+    border: none;
+    color: #D21034;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* ==========================================================================
+   6. Authentication Pages & Forms
+   ========================================================================== */
+.auth-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.auth-container {
+    background-color: #FFFFFF;
+    padding: 2.5rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.error-message {
+    color: #D21034;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   7. Responsive Design (Media Queries)
+   ========================================================================== */
+@media (max-width: 992px) {
+
+    .page-container-profile-grid,
+    .page-container,
+    .hero-container {
+        flex-direction: column;
+    }
+
+    .profile-main-content,
+    .profile-sidebar,
+    .sidebar,
+    .content-main,
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .profile-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .main-nav,
+    .auth-buttons {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .main-nav.is-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #FFFFFF;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info {
+        padding-left: 1.5rem;
+        padding-top: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-picture-container {
+        position: static;
+        transform: translateY(-50%);
+    }
+
+    .profile-name-title {
+        text-align: center;
+        margin-top: -60px;
+    }
+
+    .profile-actions {
+        position: static;
+        margin-top: 1rem;
+    }
+}
+
+/* --- Modern & Stylish File Upload Button --- */
+
+/* The <label> element that we will style as our button */
+.upload-button-label {
+    display: inline-flex;
+    /* Use flexbox to easily align the icon and text */
+    align-items: center;
+    gap: 0.75rem;
+    /* Adds space between the icon and the text */
+
+    padding: 12px 24px;
+    background-color: #00205B;
+    /* Primary blue color */
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 25px;
+    /* Pill shape */
+    border: 1px solid #001a4a;
+    /* Slightly darker border for depth */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+
+    transition: all 0.3s ease;
+    /* Smooth transition for all properties */
+    cursor: pointer;
+}
+
+/* The SVG icon inside our button */
+.upload-button-label svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    /* This makes the SVG icon the same color as the text (white) */
+}
+
+/* The hover effect */
+.upload-button-label:hover {
+    background-color: #D21034;
+    /* Accent red color */
+    border-color: #a80c29;
+    /* Darker red border */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* A more pronounced shadow on hover */
+}
+
+/* This class will hide the default, ugly file input button */
+.hidden-file-input {
+    display: none;
+}
+
+
+/* --- Navigation Profile Dropdown Menu --- */
+
+/* The main container for the picture and the dropdown */
+.profile-dropdown-container {
+    position: relative;
+    /* This is crucial for positioning the dropdown */
+    cursor: pointer;
+}
+
+/* The dropdown menu itself. It's hidden by default. */
+.profile-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    /* Position it below the icon with a 10px gap */
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 200px;
+    z-index: 1100;
+
+    /* Animation for appearing */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+/* The state when the dropdown is open */
+.profile-dropdown-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* The links inside the dropdown menu */
+.dropdown-link {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.dropdown-link:hover {
+    background-color: #f8f9fa;
+    /* A light gray on hover */
+}
+
+/* A separator line inside the dropdown */
+.dropdown-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 8px 0;
+}
+
+
+/* --- Final LinkedIn-Style Header Redesign --- */
+
+/* Main header container */
+.main-header .container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Left side of the header (Logo and Search) */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-search-container {
+    position: relative;
+    width: 300px;
+    left: 25px;
+}
+
+.header-search-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    /* Add padding for the icon */
+    border-radius: 20px;
+    border: none;
+    background-color: #eef3f8;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+}
+
+.header-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: #555;
+}
+
+/* Right side of the header (Nav Icons) */
+.main-nav {
+    margin-left: auto;
+    /* Pushes the nav to the right */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #555;
+    text-decoration: none;
+    padding: 0 8px;
+    position: relative;
+}
+
+.header-nav-item:hover {
+    color: #000;
+}
+
+.header-nav-item svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.header-nav-item span {
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.header-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    /* Position it at the bottom of the header */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    transform: scaleX(0);
+    /* Hidden by default */
+    transition: transform 0.2s ease;
+}
+
+.header-nav-item.active::after,
+.header-nav-item:hover::after {
+    transform: scaleX(1);
+    /* Show the underline on active/hover */
+}
+
+/* The "Me" dropdown is a special nav item */
+.header-nav-item--me {
+    cursor: pointer;
+}
+
+.header-nav-item--me .nav-profile-pic {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Add to style.css */
+.status-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background-color: #fffbe6;
+    color: #f59e0b;
+}
+
+.status-viewed {
+    background-color: #eef2f9;
+    color: #3b82f6;
+}
+
+.status-successful {
+    background-color: #f0fdf4;
+    color: #16a34a;
+}
+
+.status-unsuccessful {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+.applicant-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.action-button:hover {
+    background-color: #e9ecef;
+}
+
+/* Add to style.css */
+/* --- Applicant Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-overlay.is-open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-section {
+    margin-bottom: 1.5rem;
+}
+
+/* Add to style.css */
+.user-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.user-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    text-align: center;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.user-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid #f0f0f0;
+}
+
+.user-card h3 {
+    margin: 0.5rem 0;
+    color: #00205B;
+}
+
+.user-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+
+/* ==> REPLACE ALL PREVIOUS CHAT STYLES WITH THIS FINAL VERSION <== */
+
+/* --- Final Global Floating Chat UI --- */
+
+/* The main container for the bubble and window */
+#global-chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+/* The bubble that is always visible when logged in */
+#chat-bubble {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-color: #00205B;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+#chat-bubble:hover {
+    transform: scale(1.1);
+}
+
+#chat-bubble svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+}
+
+/* The main chat window, hidden by default */
+#chat-window {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    /* Positioned above the bubble */
+    right: 0;
+    width: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    /* This is crucial for vertical stacking */
+    height: 400px;
+
+    /* Animation */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+#chat-window.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* The header for the chat window */
+#chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+    flex-shrink: 0;
+    /* Prevents the header from shrinking */
+}
+
+#chat-back-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px 0 0;
+    display: none;
+    /* Hidden in conversation list view */
+}
+
+#chat-header-title {
+    font-weight: 500;
+}
+
+/* The list of different conversations */
+#chat-conversation-list {
+    flex-grow: 1;
+    /* Allows the list to fill the available space */
+    overflow-y: auto;
+}
+
+.conversation-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.conversation-item:hover {
+    background-color: #f8f9fa;
+}
+
+.conversation-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.conversation-item-info {
+    flex-grow: 1;
+    overflow: hidden;
+    /* Important for text-overflow */
+}
+
+.conversation-item-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.conversation-item-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==> REPLACE ALL PREVIOUS CHAT STYLES WITH THIS FINAL VERSION <== */
+
+/* --- Final Global Floating Chat UI --- */
+
+#global-chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000
+}
+
+#chat-bubble {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-color: #00205B;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform .2s
+}
+
+#chat-bubble:hover {
+    transform: scale(1.1)
+}
+
+#chat-bubble svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor
+}
+
+#chat-notification-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #D21034;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: none
+}
+
+#chat-window {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    width: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity .3s ease, transform .3s ease, visibility .3s
+}
+
+#chat-window.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0)
+}
+
+#chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+    flex-shrink: 0
+}
+
+#chat-back-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px 0 0;
+    display: none
+}
+
+#chat-header-title {
+    font-weight: 500
+}
+
+#chat-conversation-list {
+    flex-grow: 1;
+    overflow-y: auto
+}
+
+.conversation-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.conversation-item:hover {
+    background-color: #f8f9fa
+}
+
+.conversation-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover
+}
+
+.conversation-item-info {
+    flex-grow: 1;
+    overflow: hidden
+}
+
+.conversation-item-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500
+}
+
+.conversation-item-info p {
+    margin: 0;
+    font-size: .85rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#chat-messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column
+}
+
+#chat-form {
+    padding: .75rem;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: .5rem;
+    flex-shrink: 0
+}
+
+#chat-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-family: 'Poppins', sans-serif
+}
+
+#chat-form .apply-button {
+    border-radius: 20px !important;
+    padding: 10px 15px !important
+}
+
+/* ==> ADD THESE STYLES TO THE END OF your style.css FILE <== */
+
+/* --- Notification Badge Styles --- */
+
+/* The base style for the red dot itself */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    /* Position it slightly above the icon's top edge */
+    right: -5px;
+    /* Position it slightly past the icon's right edge */
+
+    width: 22px;
+    height: 22px;
+
+    background-color: #D21034;
+    /* The brand's accent red */
+    color: white;
+
+    border-radius: 50%;
+    /* Makes it a perfect circle */
+    border: 2px solid white;
+    /* Creates a clean separation */
+
+    /* Flexbox is the easiest way to perfectly center the number inside the circle */
+    display: none;
+    /* Hidden by default; JavaScript will show it */
+    justify-content: center;
+    align-items: center;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    box-sizing: border-box;
+    /* Ensures the border is included in the width/height */
+}
+
+/* This is CRUCIAL. The parents of the badge must be positioned relatively */
+/* so the badge knows what to position itself against. */
+.header-nav-item,
+#chat-bubble {
+    position: relative;
+}
+
+/* This is the specific style for the unread count INSIDE the conversation list */
+.conversation-item .notification-badge {
+    position: static;
+    /* Overrides the absolute positioning */
+    margin-left: auto;
+    /* Pushes the dot to the far right of the flex container */
+    transform: none;
+    /* Resets any transforms */
+}
+
+
+/* ==> ADD OR REPLACE THESE STYLES AT THE END OF your style.css FILE <== */
+
+/* --- Sticky Footer & Full-Height Layout Fix --- */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensures body takes up at least the full screen height */
+}
+
+.page-main {
+    flex-grow: 1;
+    /* Allows the main content to push the footer down */
+}
+
+/* ==========================================================================
+   5. Messaging Center Page Layout (WITH SCROLL FIX)
+   ========================================================================== */
+.messaging-grid-container {
+    display: grid;
+    grid-template-columns: 350px 1fr 300px;
+    gap: 1.5rem;
+    /* This is the key: it uses the remaining space */
+    height: calc(100vh - 200px);
+    /* Adjust 200px based on header/footer/padding height */
+    max-height: 800px;
+}
+
+.conversations-panel,
+.chat-panel {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevents content from spilling out */
+}
+
+.conversations-panel-header {
+    padding: 1rem;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+#conversation-list,
+.chat-messages {
+    overflow-y: auto;
+    /* THIS ENABLES INDEPENDENT SCROLLING */
+    flex-grow: 1;
+}
+
+.chat-panel .chat-messages {
+    padding: 1rem;
+}
+
+.chat-form {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+#conversation-list {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* --- Middle Panel: Active Chat --- */
+#active-chat-header {
+    display: none;
+    /* Hidden until a chat is selected */
+    align-items: center;
+    gap: 15px;
+}
+
+#active-chat-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#active-chat-messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modern Chat Bubble Styles */
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+    max-width: 70%;
+    width: fit-content;
+}
+
+.message-bubble.sent {
+    background-color: #005ce6;
+    /* A nice blue for sent messages */
+    color: white;
+    align-self: flex-end;
+    /* Aligns to the right */
+    border-bottom-right-radius: 4px;
+}
+
+.message-bubble.received {
+    background-color: #f1f1f1;
+    /* A light gray for received messages */
+    color: #333;
+    align-self: flex-start;
+    /* Aligns to the left */
+    border-bottom-left-radius: 4px;
+}
+
+/* Modern Chat Form */
+#active-chat-form {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    display: none;
+    /* Hidden until a chat is selected */
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#active-chat-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#emoji-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+#emoji-btn:hover {
+    opacity: 1;
+}
+
+/* --- Right Panel: Discovery --- */
+.discovery-panels {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.discovery-card {
+    background-color: #fff;
+    padding: 1.5rem;
+}
+
+.discovery-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.discovery-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.discovery-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* --- My Network Page Two-Column Layout --- */
+
+.network-grid-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.network-main {
+    flex: 3;
+    /* This makes the main content ~3 times wider */
+}
+
+.network-sidebar {
+    flex: 1;
+    /* This makes the sidebar narrower */
+    position: sticky;
+    top: 120px;
+    /* Adjust based on your header height */
+}
+
+.application-status-item {
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.application-status-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+}
+
+.application-status-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobLinkEswatini | Modern Professional Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header">
+        <div class="container">
+            <!-- Header Left: Logo & Search -->
+            <div class="header-left">
+                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+                <div class="header-search-container">
+                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <input type="text" class="header-search-input" placeholder="Search">
+                </div>
+            </div>
+    
+            <!-- Header Right: Navigation (This part remains the same) -->
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="header-nav-item" id="connectLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    <span>My Network</span>
+                </a>
+                <a href="jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="header-nav-item" id="messagingLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                    </svg>
+                    <span>Messaging</span>
+                    <span class="notification-badge" id="messaging-notification-dot"></span>
+                </a>
+    
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                        style="display: none;">
+                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h2 class="hero-headline">Find Your Future in the Kingdom of Eswatini</h2>
+                    <p class="hero-subheadline">Connect, learn, and grow with the largest professional network in the
+                        nation.</p>
+                    <a href="jobs.html" class="cta-button">Explore Jobs</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/"
+                        alt="Professional Networking Graphic">
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="container">
+                <div class="info-card">
+                    <h3>Explore Job Opportunities</h3>
+                    <p>Search and apply for roles at top companies in Eswatini that match your skills and passion.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Build Your Network</h3>
+                    <p>Connect with industry leaders, colleagues, and mentors to unlock new professional doors.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Develop In-Demand Skills</h3>
+                    <p>Access expert-led courses and articles to stay competitive in today's job market.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- The Global Chat Window HTML -->
+    <div id="global-chat-container" style="display: none;">
+        <div id="chat-window">
+            <div id="chat-header">
+                <button id="chat-back-btn">&larr;</button>
+                <span id="chat-header-title">Messages</span>
+            </div>
+            <div id="chat-conversation-list">
+                <!-- List of conversations will be rendered here -->
+            </div>
+            <div id="chat-messages" style="display: none;">
+                <!-- Messages for a specific conversation will be rendered here -->
+            </div>
+            <form id="chat-form" style="display: none;">
+                <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
+            </form>
+        </div>
+        <div id="chat-bubble">
+            <div id="chat-notification-dot"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 JobLinkEswatini. Built for the Future of Work.</p>
+            <nav class="footer-nav">
+                <a href="#">About</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+   <script>
+   
+    // js/main.js -- FINAL, DEPLOYMENT-READY VERSION
+
+// --- MODULE FOR HEADER/NAVIGATION LOGIC ---
+const headerModule = {
+    async init() {
+        this.token = localStorage.getItem('token');
+        this.cacheDOMElements();
+        this.setupEventListeners();
+        if (this.token) {
+            await this.renderLoggedInState();
+        } else {
+            this.renderLoggedOutState();
+        }
+    },
+
+    // ... (cacheDOMElements and setupEventListeners are the same)
+
+    async renderLoggedInState() {
+        if (!this.loggedOutNav || !this.loggedInNav) return;
+        this.loggedOutNav.style.display = 'none';
+        this.loggedInNav.style.display = 'flex';
+
+        try {
+            // ==========================================================
+            // THIS IS THE EXAMPLE OF THE CHANGE YOU NEED TO MAKE
+            // ==========================================================
+            // BEFORE: const response = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
+            //
+            // AFTER (using the variable from config.js):
+            const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
+            // ==========================================================
+            
+            if (!response.ok) throw new Error('Token invalid');
+            const user = await response.json();
+
+            if (this.navProfilePic) {
+                const serverUrl = API_URL; // Use the variable here too
+                const localPlaceholder = 'images/placeholder.svg';
+                this.navProfilePic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
+            }
+            // ... (the rest of the function is the same)
+        } catch (error) {
+            // ... (error handling)
+        }
+    },
+    // ... (renderLoggedOutState is the same)
+};
+
+// --- MODULE FOR GLOBAL CHAT LOGIC ---
+const chatModule = {
+    // You must apply the same change to all fetch calls inside this module. For example:
+    async fetchLoggedInUserId() {
+        try {
+            const res = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
+            // ...
+        } catch (err) { /* ... */ }
+    },
+    async checkForNewMessages() {
+        try {
+            const res = await fetch(`${API_URL}/api/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
+            // ...
+        } catch (err) { /* ... */ }
+    },
+    // ... and so on for every fetch() in this module.
+};
+
+// --- MODULE FOR MOBILE MENU LOGIC ---
+// (This module has no fetch calls, so no changes are needed)
+
+// --- INITIALIZE EVERYTHING WHEN THE PAGE LOADS ---
+document.addEventListener('DOMContentLoaded', () => {
+    headerModule.init();
+    chatModule.init();
+    mobileMenuModule.init();
+});
+</script>
+    
+</body>
+
+</html>

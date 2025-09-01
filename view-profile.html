@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile | JobLinkEswatini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header">
+        <div class="container">
+            <!-- Header Left: Logo & Search -->
+            <div class="header-left">
+                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+                <div class="header-search-container">
+                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <input type="text" class="header-search-input" placeholder="Search">
+                </div>
+            </div>
+    
+            <!-- Header Right: Navigation (This part remains the same) -->
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="header-nav-item" id="connectLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    <span>My Network</span>
+                </a>
+                <a href="jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="header-nav-item" id="messagingLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                    </svg>
+                    <span>Messaging</span>
+                    <span class="notification-badge" id="messaging-notification-dot"></span>
+                </a>
+    
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                        style="display: none;">
+                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container page-container-profile-grid">
+            <!-- == Main Content Column (Left) == -->
+            <div class="profile-main-content">
+                <!-- 1. PROFILE HEADER -->
+                <section class="profile-header-card">
+                    <div class="profile-banner" id="profileBanner"></div>
+                    <div class="profile-info">
+                        <div class="profile-picture-container" style="top: -75px; left: 20px;">
+                            <img id="profilePicture" src="images/placeholder.svg" alt="User Profile Picture"
+                                class="profile-picture">
+                        </div>
+                        <div class="profile-name-title">
+                            <h1 id="profileName">Loading Profile...</h1>
+                            <p id="profileHeadline"></p>
+                            <span id="profileLocation" class="profile-location"></span>
+                        </div>
+                        <div class="profile-actions">
+                            <!-- The "Message" button will be inserted here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. ABOUT, EXPERIENCE, SKILLS SECTIONS -->
+                <section id="about-section" class="profile-section-card" style="display: none;"></section>
+                <section id="experience-section" class="profile-section-card" style="display: none;"></section>
+                <section id="skills-section" class="profile-section-card" style="display: none;"></section>
+            </div>
+            <!-- == Sidebar Column (Right) == -->
+            <aside class="profile-sidebar">
+                <!-- Sidebar content -->
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer"></footer>
+    <!-- The Global Chat Window HTML -->
+    <div id="global-chat-container" style="display: none;">
+        <div id="chat-window">
+            <div id="chat-header">
+                <button id="chat-back-btn">&larr;</button>
+                <span id="chat-header-title">Messages</span>
+            </div>
+            <div id="chat-conversation-list">
+                <!-- List of conversations will be rendered here -->
+            </div>
+            <div id="chat-messages" style="display: none;">
+                <!-- Messages for a specific conversation will be rendered here -->
+            </div>
+            <form id="chat-form" style="display: none;">
+                <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
+            </form>
+        </div>
+        <div id="chat-bubble">
+            <div id="chat-notification-dot"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // --- Reusable Render Functions ---
+        const renderProfileHeader = (user) => {
+            const serverUrl = `${API_URL}/api/users`;
+            const placeholderPic = 'images/placeholder.svg';
+            const pic = document.getElementById('profilePicture');
+            const banner = document.getElementById('profileBanner');
+            pic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : placeholderPic;
+            if (user.coverPhoto) banner.style.backgroundImage = `url('${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}')`;
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileHeadline').textContent = user.headline;
+            document.getElementById('profileLocation').textContent = user.location;
+        };
+        const renderAbout = (user) => {
+            const container = document.getElementById('about-section');
+            if (user.about) {
+                container.style.display = 'block';
+                container.innerHTML = `<h2>About</h2><p>${user.about.replace(/\n/g, '<br>')}</p>`;
+            }
+        };
+        const renderExperience = (experience) => {
+            const container = document.getElementById('experience-section');
+            if (!experience || experience.length === 0) return;
+            container.style.display = 'block';
+            container.innerHTML = `<div class="section-header"><h2>Experience</h2></div><div id="experienceList">${experience.map(exp => `<div class="experience-item"><h3>${exp.title}</h3><p class="company">${exp.company}</p></div>`).join('')}</div>`;
+        };
+        const renderSkills = (skills) => {
+            const container = document.getElementById('skills-section');
+            if (!skills || skills.length === 0) return;
+            container.style.display = 'block';
+            container.innerHTML = `<div class="section-header"><h2>Skills</h2></div><div id="skillsList" class="skills-container">${skills.map(skill => `<span class="skill-tag">${skill.name}</span>`).join('')}</div>`;
+        };
+
+        // --- MAIN SCRIPT ON PAGE LOAD ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('id');
+
+            if (!userId) {
+                document.querySelector('.profile-main-content').innerHTML = '<h1>Error: No user specified.</h1>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/users/${userId}`);
+                if (!response.ok) throw new Error('Profile not found');
+                const user = await response.json();
+
+                document.title = `${user.name} | JobLinkEswatini`;
+                renderProfileHeader(user);
+                renderAbout(user);
+                renderExperience(user.experience);
+                renderSkills(user.skills);
+
+                const profileActionsContainer = document.querySelector('.profile-actions');
+                const token = localStorage.getItem('token');
+                if (token) {
+                    const loggedInUserId = JSON.parse(atob(token.split('.')[1])).user.id;
+                    if (loggedInUserId !== user._id) {
+                        // THIS IS THE CORRECTED CODE
+                        // It simply creates the button. The global main.js script handles the click.
+                        profileActionsContainer.innerHTML = `<button class="apply-button message-user-btn" data-userid="${user._id}" data-username="${user.name}">Message</button>`;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load profile:', error);
+                document.querySelector('.profile-main-content').innerHTML = `<h1>Profile Not Found</h1>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

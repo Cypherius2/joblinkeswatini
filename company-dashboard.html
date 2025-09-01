@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Dashboard | JobLinkEswatini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header">
+        <div class="container">
+            <!-- Header Left: Logo & Search -->
+            <div class="header-left">
+                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+                <div class="header-search-container">
+                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <input type="text" class="header-search-input" placeholder="Search">
+                </div>
+            </div>
+    
+            <!-- Header Right: Navigation (This part remains the same) -->
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="header-nav-item" id="connectLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    <span>My Network</span>
+                </a>
+                <a href="jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="header-nav-item" id="messagingLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                    </svg>
+                    <span>Messaging</span>
+                    <span class="notification-badge" id="messaging-notification-dot"></span>
+                </a>
+    
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                        style="display: none;">
+                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="page-main">
+        <div class="container page-container-profile-grid">
+            <!-- Main Content -->
+            <div class="profile-main-content">
+                <section class="profile-section-card">
+                    <h2>Your Job Postings</h2>
+                    <p>Select a job posting below to view its applicants.</p>
+                    <div id="my-jobs-list">
+                        <!-- List of company's jobs will be rendered here -->
+                    </div>
+                </section>
+
+                <section id="applicants-section" class="profile-section-card" style="display: none;">
+                    <h2 id="applicants-title">Applicants</h2>
+                    <div id="applicants-list">
+                        <!-- List of applicants for the selected job will be rendered here -->
+                    </div>
+                </section>
+            </div>
+            <!-- Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="sidebar-card">
+                    <h3>Dashboard</h3>
+                    <p>Manage your postings and connect with talent.</p>
+                    <a href="post-job.html" class="apply-button"
+                        style="width: 100%; text-align: center; box-sizing: border-box; margin-top: 1rem;">Post New
+                        Job</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- THE APPLICANT DETAIL MODAL (Initially Hidden) -->
+    <div class="modal-overlay" id="applicantModal">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            <div id="modal-body">
+                <!-- Applicant details will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer"></footer>
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        // Store a reference to the currently selected job's applications
+        let currentApplications = [];
+
+        // --- RENDER FUNCTIONS ---
+        const renderApplicants = (applications) => {
+            const applicantsList = document.getElementById('applicants-list');
+            if (applications.length > 0) {
+                applicantsList.innerHTML = applications.map(app => {
+                    const applicant = app.applicant;
+                    if (!applicant) return ''; // Safety check for deleted applicants
+                    return `
+                        <div class="experience-item">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <img src="${applicant.profilePicture ? `${API_URL}/api/users/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    <div>
+                                        <h3>${applicant.name}</h3>
+                                        <p class="company">${applicant.headline || 'No headline provided.'}</p>
+                                    </div>
+                                </div>
+                                <span class="status-tag status-${app.status}">${app.status}</span>
+                            </div>
+                            <button class="apply-button view-applicant-btn" data-appid="${app._id}" style="margin-top: 1rem;">View Application</button>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                applicantsList.innerHTML = '<p>There are no applicants for this job yet.</p>';
+            }
+        };
+
+        const renderModalContent = (app) => {
+            const modalBody = document.getElementById('modal-body');
+            const applicant = app.applicant;
+            if (!applicant) {
+                modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
+                return;
+            }
+            const documentsHtml = applicant.documents && applicant.documents.length > 0
+                ? applicant.documents.map(doc => `<a href="${API_URL}/api/users/${doc.filePath.replace(/\\/g, '/')}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
+                : 'No documents attached.';
+
+            modalBody.innerHTML = `
+                <h2>${applicant.name}</h2>
+                <p>${applicant.headline}</p>
+                <hr>
+                <div class="modal-section">
+                    <h4>Cover Letter</h4>
+                    <p>${app.coverLetter || 'No cover letter submitted.'}</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Attached Documents</h4>
+                    <div class="document-container">${documentsHtml}</div>
+                </div>
+                <div class="modal-section">
+                    <h4>Private Notes</h4>
+                    <textarea id="companyNotes" rows="4" style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">${app.companyNotes || ''}</textarea>
+                    <button class="apply-button save-notes-btn" data-appid="${app._id}" style="margin-top: 10px;">Save Notes</button>
+                </div>
+                <hr>
+                <div class="applicant-actions" data-appid="${app._id}">
+                    <h4>Actions</h4>
+                    <p>Update application status:</p>
+                    <button class="action-button" data-status="successful">Accept</button>
+                    <button class="action-button" data-status="unsuccessful">Reject</button>
+                </div>
+            `;
+        };
+
+        // --- MAIN SCRIPT ON PAGE LOAD ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) { window.location.href = 'login.html'; return; }
+
+            const myJobsList = document.getElementById('my-jobs-list');
+            const applicantsSection = document.getElementById('applicants-section');
+            const applicantsTitle = document.getElementById('applicants-title');
+            const applicantsList = document.getElementById('applicants-list');
+
+            // 1. Fetch and render the company's own jobs
+            try {
+                myJobsList.innerHTML = '<p>Loading your job postings...</p>';
+                const res = await fetch(`${API_URL}/api/users/jobs/myjobs`, { headers: { 'x-auth-token': token } });
+                if (!res.ok) throw new Error('Could not load jobs');
+                const jobs = await res.json();
+
+                if (jobs.length > 0) {
+                    myJobsList.innerHTML = jobs.map(job => `
+                        <div class="experience-item job-listing-item" data-id="${job._id}" data-title="${job.title}" style="cursor: pointer; transition: background-color 0.2s;">
+                            <h3>${job.title}</h3>
+                            <p class="company">${job.company} - ${job.location}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    myJobsList.innerHTML = '<p>You have not posted any jobs yet. <a href="post-job.html">Post one now</a>.</p>';
+                }
+            } catch (err) {
+                console.error("Error fetching company jobs:", err);
+                myJobsList.innerHTML = '<p style="color: red;">Could not load your job postings.</p>';
+            }
+
+            // --- EVENT LISTENERS ---
+
+            // 2. Listener to fetch applicants when a job is clicked
+            myJobsList.addEventListener('click', async (event) => {
+                const jobItem = event.target.closest('.job-listing-item');
+                if (jobItem) {
+                    document.querySelectorAll('.job-listing-item').forEach(el => el.style.backgroundColor = 'transparent');
+                    jobItem.style.backgroundColor = '#eef2f9';
+
+                    const jobId = jobItem.dataset.id;
+                    const jobTitle = jobItem.dataset.title;
+
+                    applicantsTitle.textContent = `Applicants for "${jobTitle}"`;
+                    applicantsList.innerHTML = '<p>Loading applicants...</p>';
+                    applicantsSection.style.display = 'block';
+
+                    try {
+                        const res = await fetch(`${API_URL}/api/users/applications/job/${jobId}`, { headers: { 'x-auth-token': token } });
+                        if (!res.ok) throw new Error('Could not fetch applicants');
+                        const applications = await res.json();
+                        currentApplications = applications;
+                        renderApplicants(applications);
+                    } catch (err) {
+                        console.error("Error fetching applicants:", err);
+                        applicantsList.innerHTML = '<p style="color: red;">Could not load applicants for this job.</p>';
+                    }
+                }
+            });
+
+            // 3. Listener to open the modal
+            applicantsList.addEventListener('click', async (event) => {
+                if (event.target.classList.contains('view-applicant-btn')) {
+                    const appId = event.target.dataset.appid;
+                    const application = currentApplications.find(a => a._id === appId);
+
+                    if (application) {
+                        renderModalContent(application);
+                        document.getElementById('applicantModal').classList.add('is-open');
+
+                        if (application.status === 'pending') {
+                            try {
+                                const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                                    body: JSON.stringify({ status: 'viewed' })
+                                });
+                                if (res.ok) {
+                                    application.status = 'viewed'; // Update local data
+                                    renderApplicants(currentApplications); // Re-render to show status change
+                                }
+                            } catch (err) { console.error('Failed to mark as viewed', err); }
+                        }
+                    }
+                }
+            });
+
+            // 4. Listener to close the modal
+            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                document.getElementById('applicantModal').classList.remove('is-open');
+            });
+
+            // 5. Listener for actions inside the modal (Notes, Accept, Reject)
+            document.getElementById('modal-body').addEventListener('click', async (event) => {
+                const target = event.target;
+                const appId = target.closest('[data-appid]').dataset.appid;
+                if (!appId) return;
+
+                if (target.classList.contains('save-notes-btn')) {
+                    target.textContent = 'Saving...';
+                    const notes = document.getElementById('companyNotes').value;
+                    try {
+                        const res = await fetch(`${API_URL}/api/users/applications/${appId}/notes`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                            body: JSON.stringify({ notes: notes })
+                        });
+                        if (res.ok) {
+                            alert('Notes saved!');
+                            const app = currentApplications.find(a => a._id === appId);
+                            if (app) app.companyNotes = notes; // Update local data
+                        }
+                    } catch (err) { alert('Failed to save notes.'); }
+                    target.textContent = 'Save Notes';
+                }
+
+                if (target.classList.contains('action-button')) {
+                    const status = target.dataset.status;
+                    if (confirm(`This will update the application status to "${status}". Are you sure?`)) {
+                        try {
+                            const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                                body: JSON.stringify({ status: status })
+                            });
+                            if (res.ok) {
+                                alert('Application status updated.');
+                                document.getElementById('applicantModal').classList.remove('is-open');
+                                const app = currentApplications.find(a => a._id === appId);
+                                if (app) app.status = status; // Update local data
+                                renderApplicants(currentApplications); // Re-render the list
+                            }
+                        } catch (err) { alert('Action failed.'); }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
