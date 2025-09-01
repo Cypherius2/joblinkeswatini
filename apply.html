@@ -10,7 +10,7 @@
 
 <body>
     <div id="notification-container"></div>
-   
+
     <header class="main-header">
         <div class="container">
             <!-- Header Left: Logo & Search -->
@@ -27,7 +27,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -58,7 +58,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -143,7 +143,7 @@
                 // Use Promise.all to fetch both sets of data concurrently for efficiency
                 const [userRes, jobRes] = await Promise.all([
                     fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } }),
-                    fetch(`${API_URL}/api/users/jobs/${jobId}`)
+                    fetch(`${API_URL}/api/jobs/${jobId}`)
                 ]);
 
                 if (!userRes.ok || !jobRes.ok) {
@@ -206,7 +206,7 @@
                 };
 
                 try {
-                    const response = await fetch(`${API_URL}/api/users/jobs/${jobId}/apply`, {
+                    const response = await fetch(`${API_URL}/api/jobs/${jobId}/apply`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

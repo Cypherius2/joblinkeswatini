@@ -130,7 +130,7 @@
             // --- Fetch and populate the master skills list ---
             const masterSkillsList = document.getElementById('master-skills-list');
             try {
-                const res = await fetch(`${API_URL}/api/users/skills`);
+                const res = await fetch(`${API_URL}/api/skills`);
                 if (!res.ok) throw new Error('Network error');
                 const skills = await res.json();
                 skills.forEach(skill => {

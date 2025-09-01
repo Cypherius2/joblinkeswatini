@@ -67,11 +67,11 @@ const headerModule = {
         this.loggedOutNav.style.display = 'none';
         this.loggedInNav.style.display = 'flex';
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
+            const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
             if (!response.ok) throw new Error('Token invalid');
             const user = await response.json();
             if (this.navProfilePic) {
-                const serverUrl = 'http://127.0.0.1:3000';
+                const serverUrl = fetch(`${API_URL}`);
                 const localPlaceholder = 'images/placeholder.svg';
                 this.navProfilePic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
             }
@@ -155,7 +155,7 @@ const chatModule = {
             const content = this.chatInput.value.trim();
             if (!content || !this.currentReceiverId) return;
             try {
-                await fetch(`http://127.0.0.1:3000/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
+                await fetch(`${API_URL}/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
                 this.chatInput.value = '';
                 this.openChat(this.currentReceiverId, this.currentReceiverName);
             } catch (err) { console.error("Failed to send message", err); }
@@ -163,7 +163,7 @@ const chatModule = {
     },
     async fetchLoggedInUserId() {
         try {
-            const res = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
             const me = await res.json();
             this.loggedInUserId = me._id;
         } catch (err) { console.error("Could not fetch user ID for chat", err); }
@@ -175,7 +175,7 @@ const chatModule = {
     async checkForNewMessages() {
         if (!this.token) return;
         try {
-            const res = await fetch('http://127.0.0.1:3000/api/messages/unread-count', { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/users/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
             if (res.ok) {
                 const data = await res.json();
                 this.updateTotalNotificationUI(data.unreadCount);
@@ -206,7 +206,7 @@ const chatModule = {
             this.conversationList.innerHTML = '<p>Loading conversations...</p>';
         }
         try {
-            const res = await fetch(`http://127.0.0.1:3000/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL} / api /messages/conversations`, { headers: { 'x-auth-token': this.token } });
             const conversations = await res.json();
             this.renderConversationList(conversations);
         } catch (err) { if (this.conversationList) this.conversationList.innerHTML = '<p>Could not load conversations.</p>'; }
@@ -222,7 +222,7 @@ const chatModule = {
         if (this.chatMessages) this.chatMessages.innerHTML = '<p>Loading messages...</p>';
         if (this.chatWindow) this.chatWindow.classList.add('is-open');
         try {
-            const res = await fetch(`http://127.0.0.1:3000/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/users/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
             const messages = await res.json();
             this.renderMessages(messages);
             this.checkForNewMessages();
@@ -238,7 +238,7 @@ const chatModule = {
             const unreadDot = convo.unreadCount > 0 ? `<span class="notification-badge" style="display:flex; position:static; margin-left:auto;">${convo.unreadCount}</span>` : '';
             return `
                 <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}">
-                    <img src="${convo.withUser.profilePicture ? `http://127.0.0.1:3000/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
+                    <img src="${convo.withUser.profilePicture ? `${API_URL} /api/users /${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
                     <div class="conversation-item-info"><h4>${convo.withUser.name}</h4><p>${convo.lastMessage}</p></div>
                     ${unreadDot}
                 </div>

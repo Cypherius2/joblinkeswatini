@@ -26,7 +26,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -57,7 +57,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -164,7 +164,7 @@
                         <div class="experience-item">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                    <img src="${applicant.profilePicture ? `http://127.0.0.1:3000/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    <img src="${applicant.profilePicture ? `${API_URL}/api/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
                                     <div>
                                         <h3>${applicant.name}</h3>
                                         <p class="company">${applicant.headline || 'No headline provided.'}</p>
@@ -232,7 +232,7 @@
             // 1. Fetch and render the company's own jobs
             try {
                 myJobsList.innerHTML = '<p>Loading your job postings...</p>';
-                const res = await fetch(`${API_URL}/api/users/jobs/myjobs`, { headers: { 'x-auth-token': token } });
+                const res = await fetch(`${API_URL}/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
                 if (!res.ok) throw new Error('Could not load jobs');
                 const jobs = await res.json();
 
@@ -268,7 +268,7 @@
                     applicantsSection.style.display = 'block';
 
                     try {
-                        const res = await fetch(`${API_URL}/api/users/applications/job/${jobId}`, { headers: { 'x-auth-token': token } });
+                        const res = await fetch(`${API_URL}/api/applications/job/${jobId}`, { headers: { 'x-auth-token': token } });
                         if (!res.ok) throw new Error('Could not fetch applicants');
                         const applications = await res.json();
                         currentApplications = applications;
@@ -292,7 +292,7 @@
 
                         if (application.status === 'pending') {
                             try {
-                                const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                                const res = await fetch(`${API_URL}/api/applications/${appId}`, {
                                     method: 'PUT',
                                     headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                                     body: JSON.stringify({ status: 'viewed' })
@@ -322,7 +322,7 @@
                     target.textContent = 'Saving...';
                     const notes = document.getElementById('companyNotes').value;
                     try {
-                        const res = await fetch(`${API_URL}/api/users/applications/${appId}/notes`, {
+                        const res = await fetch(`${API_URL}/api/applications/${appId}/notes`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                             body: JSON.stringify({ notes: notes })
@@ -340,7 +340,7 @@
                     const status = target.dataset.status;
                     if (confirm(`This will update the application status to "${status}". Are you sure?`)) {
                         try {
-                            const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                            const res = await fetch(`${API_URL}/api/applications/${appId}`, {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                                 body: JSON.stringify({ status: status })

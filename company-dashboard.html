@@ -26,7 +26,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -57,7 +57,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -77,7 +77,7 @@
             </nav>
         </div>
     </header>
-    
+
     <main class="page-main">
         <div class="container page-container-profile-grid">
             <!-- Main Content -->
@@ -206,7 +206,7 @@
             // 1. Fetch and render the company's own jobs
             try {
                 myJobsList.innerHTML = '<p>Loading your job postings...</p>';
-                const res = await fetch(`${API_URL}/api/users/jobs/myjobs`, { headers: { 'x-auth-token': token } });
+                const res = await fetch(`${API_URL}/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
                 if (!res.ok) throw new Error('Could not load jobs');
                 const jobs = await res.json();
 
@@ -242,7 +242,7 @@
                     applicantsSection.style.display = 'block';
 
                     try {
-                        const res = await fetch(`${API_URL}/api/users/applications/job/${jobId}`, { headers: { 'x-auth-token': token } });
+                        const res = await fetch(`${API_URL}/api/applications/job/${jobId}`, { headers: { 'x-auth-token': token } });
                         if (!res.ok) throw new Error('Could not fetch applicants');
                         const applications = await res.json();
                         currentApplications = applications;
@@ -266,7 +266,7 @@
 
                         if (application.status === 'pending') {
                             try {
-                                const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                                const res = await fetch(`${API_URL}/api/applications/${appId}`, {
                                     method: 'PUT',
                                     headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                                     body: JSON.stringify({ status: 'viewed' })

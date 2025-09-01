@@ -26,7 +26,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -57,7 +57,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -164,7 +164,7 @@
             }
 
             try {
-                const res = await fetch(`${API_URL}/api/users/experience`, {
+                const res = await fetch(`${API_URL}/api/experience`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                     body: JSON.stringify(experienceData)
