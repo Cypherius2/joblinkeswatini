@@ -4,28 +4,20 @@
         {
             "src": "backend/server.js",
             "use": "@vercel/node"
-        },
-        {
-            "src": "js/**/*.js",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "images/**/*",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "*.html",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "style.css",
-            "use": "@vercel/static"
         }
     ],
     "rewrites": [
         {
+            "source": "/uploads/(.*)",
+            "destination": "/backend/uploads/$1"
+        },
+        {
             "source": "/api/(.*)",
             "destination": "/backend/server.js"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/$1"
         }
     ]
 }
