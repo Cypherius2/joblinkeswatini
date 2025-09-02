@@ -173,7 +173,7 @@
 
             } catch (error) {
                 console.error('Failed to load profile for editing:', error);
-                alert('Could not load your profile data. Please try again.');
+                showNotification('Could not load your profile data. Please try again.');
                 window.location.href = 'profile.html'; // Go back if we can't load data
             }
 
@@ -201,15 +201,15 @@
                     });
 
                     if (response.ok) {
-                        alert('Profile updated successfully!');
+                        showNotification('Profile updated successfully!');
                         // This new URL with the timestamp forces the browser to reload the page completely
                         window.location.href = `profile.html?t=${new Date().getTime()}`;
                     } else {
-                        alert('Failed to update profile. Please try again.');
+                        showNotification('Failed to update profile. Please try again.');
                     }
                 } catch (error) {
                     console.error('Error updating profile:', error);
-                    alert('An error occurred while updating your profile. Please try again.');
+                    showNotification('An error occurred while updating your profile. Please try again.');
                 }
             });
         });

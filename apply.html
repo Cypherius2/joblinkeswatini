@@ -182,7 +182,7 @@
 
             } catch (error) {
                 console.error('Failed to load application page:', error);
-                alert('Failed to load application data. Returning to jobs list.');
+                showNotification('Failed to load application data. Returning to jobs list.');
                 window.location.href = 'jobs.html';
             }
 
@@ -196,7 +196,7 @@
                     .map(checkbox => checkbox.value);
 
                 if (attachedDocumentIds.length === 0) {
-                    alert('Please attach at least one document (like a CV) to your application.');
+                    showNotification('Please attach at least one document (like a CV) to your application.');
                     return;
                 }
 
@@ -218,14 +218,14 @@
                     const result = await response.json();
 
                     if (response.ok) {
-                        alert('Application submitted successfully!');
+                        showNotification('Application submitted successfully!');
                         window.location.href = 'jobs.html';
                     } else {
-                        alert('Failed to apply: ' + (result.msg || 'An unknown error occurred.'));
+                        showNotification('Failed to apply: ' + (result.msg || 'An unknown error occurred.'));
                     }
                 } catch (error) {
                     console.error('Error submitting application:', error);
-                    alert('A network error occurred while submitting. Please try again.');
+                    showNotification('A network error occurred while submitting. Please try again.');
                 }
             });
         });

@@ -261,7 +261,7 @@
                     localStorage.removeItem('startChatWithPic');
                 }
             } catch (error) {
-                console.error('Failed to load data for messaging center:', error);
+                showNotification('Failed to load data for messaging center:', error);
                 document.querySelector('.messaging-grid-container').innerHTML = '<h2>Error</h2><p>Could not load data. Please try again later.</p>';
             }
         });

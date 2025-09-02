@@ -138,7 +138,7 @@
 
             // Gatekeeper: If user is not logged in, redirect them.
             if (!token) {
-                alert('You must be logged in to post a job.');
+                showNotification('You must be logged in to post a job.');
                 window.location.href = 'login.html';
                 return;
             }
@@ -158,7 +158,7 @@
 
                 // Basic validation
                 if (!jobData.title || !jobData.company || !jobData.location || !jobData.description) {
-                    alert('Please fill out all fields.');
+                    showNotification('Please fill out all fields.');
                     return;
                 }
 
@@ -173,16 +173,16 @@
                     });
 
                     if (response.ok) {
-                        alert('Job posted successfully!');
+                        showNotification('Job posted successfully!');
                         // Redirect to the main jobs page to see the new post
                         window.location.href = 'jobs.html';
                     } else {
                         const errorData = await response.json();
-                        alert('Error posting job: ' + (errorData.msg || 'Please try again.'));
+                        showNotification('Error posting job: ' + (errorData.msg || 'Please try again.'));
                     }
                 } catch (error) {
                     console.error('Failed to post job:', error);
-                    alert('An error occurred while posting the job. Please check the console.');
+                    showNotification('An error occurred while posting the job. Please check the console.');
                 }
             });
         });

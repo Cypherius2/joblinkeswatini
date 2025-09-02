@@ -328,11 +328,11 @@
                             body: JSON.stringify({ notes: notes })
                         });
                         if (res.ok) {
-                            alert('Notes saved!');
+                            showNotification('Notes saved!');
                             const app = currentApplications.find(a => a._id === appId);
                             if (app) app.companyNotes = notes; // Update local data
                         }
-                    } catch (err) { alert('Failed to save notes.'); }
+                    } catch (err) { showNotification('Failed to save notes.'); }
                     target.textContent = 'Save Notes';
                 }
 
@@ -352,7 +352,7 @@
                                 if (app) app.status = status; // Update local data
                                 renderApplicants(currentApplications); // Re-render the list
                             }
-                        } catch (err) { alert('Action failed.'); }
+                        } catch (err) { showNotification('Action failed.'); }
                     }
                 }
             });

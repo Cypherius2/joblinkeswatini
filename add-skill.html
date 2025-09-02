@@ -25,7 +25,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -56,7 +56,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -148,14 +148,14 @@
             e.preventDefault();
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Authentication error. Please log in again.');
+                showNotification('Authentication error. Please log in again.');
                 window.location.href = 'login.html';
                 return;
             }
 
             const skillData = { name: document.getElementById('name').value.trim() };
             if (!skillData.name) {
-                alert('Skill name is required.');
+                showNotification('Skill name is required.');
                 return;
             }
 
@@ -172,15 +172,15 @@
                 // ------------------------------------------
 
                 if (res.ok) {
-                    alert('Skill added successfully!');
+                    showNotification('Skill added successfully!');
                     window.location.href = `profile.html?t=${new Date().getTime()}`; // Cache-bust redirect
                 } else {
                     const error = await res.json();
-                    alert('Failed to add skill: ' + (error.msg || 'Please try again.'));
+                    showNotification('Failed to add skill: ' + (error.msg || 'Please try again.'));
                 }
             } catch (err) {
                 console.error('Error adding skill:', err);
-                alert('An error occurred. Please check the console.');
+                showNotification('An error occurred. Please seek assistance');
             }
         });
     </script>

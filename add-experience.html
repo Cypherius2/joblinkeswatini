@@ -170,15 +170,15 @@
                     body: JSON.stringify(experienceData)
                 });
                 if (res.ok) {
-                    alert('Experience added successfully!');
+                    showNotification('Experience added successfully!');
                     window.location.href = `profile.html?t=${new Date().getTime()}`; // Cache-bust redirect
                 } else {
                     const error = await res.json();
-                    alert('Failed to add experience: ' + (error.msg || 'Please try again.'));
+                    showNotification('Failed to add experience: ' + (error.msg || 'Please try again.'));
                 }
             } catch (err) {
                 console.error('Error adding experience:', err);
-                alert('An error occurred. Please check the console.');
+                showNotification('An error occurred. Please seek assistance');
             }
         });
     </script>

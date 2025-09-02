@@ -283,9 +283,9 @@
                 const response = await fetch(`${API_URL}/api/users/picture`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
                 if (response.ok) {
                     currentUserData = await response.json();
-                    alert('Profile picture updated!');
+                    showNotification('Profile picture updated!');
                     renderProfileHeader(currentUserData);
-                } else { alert('Upload failed.'); }
+                } else { showNotification('Upload failed.'); }
             } catch (error) { console.error('Error uploading picture:', error); }
         });
 
@@ -300,9 +300,9 @@
                 const response = await fetch(`${API_URL}/api/users/cover`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
                 if (response.ok) {
                     currentUserData = await response.json();
-                    alert('Cover photo updated!');
+                    showNotification('Cover photo updated!');
                     renderProfileHeader(currentUserData);
-                } else { alert('Upload failed.'); }
+                } else { showNotification('Cover photo Upload failed.'); }
             } catch (error) { console.error('Error uploading cover photo:', error); }
         });
 
@@ -312,17 +312,17 @@
                 event.preventDefault();
                 const token = localStorage.getItem('token');
                 const file = document.getElementById('documentFile').files[0];
-                if (!file) { alert('Please select a file.'); return; }
+                if (!file) { showNotification('Please select a file.'); return; }
                 const formData = new FormData();
                 formData.append('document', file);
                 try {
                     const response = await fetch(`${API_URL}/api/document`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
                     if (response.ok) {
                         currentUserData = await response.json();
-                        alert('Document uploaded successfully!');
+                        showNotification('Document uploaded successfully!');
                         renderDocumentsSection(currentUserData.documents);
                         document.getElementById('documentForm').reset();
-                    } else { alert('File upload failed.'); }
+                    } else { showNotification('File upload failed.'); }
                 } catch (error) { console.error('Error uploading document:', error); }
             });
         }
@@ -339,7 +339,7 @@
                             if (response.ok) {
                                 currentUserData = await response.json();
                                 renderSkills(currentUserData.skills);
-                            } else { alert('Failed to delete skill.'); }
+                            } else { showNotification('Failed to delete skill.'); }
                         } catch (error) { console.error('Error deleting skill:', error); }
                     }
                 }
@@ -351,7 +351,7 @@
                             if (response.ok) {
                                 currentUserData = await response.json();
                                 renderDocumentsSection(currentUserData.documents);
-                            } else { alert('Failed to delete document.'); }
+                            } else { showNotification('Failed to delete document.'); }
                         } catch (error) { console.error('Error deleting document:', error); }
                     }
                 }
@@ -361,11 +361,11 @@
                         try {
                             const response = await fetch(`${API_URL}/api/jobs/${jobId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
                             if (response.ok) {
-                                alert('Job deleted successfully.');
+                                showNotification('Job deleted successfully.');
                                 fetchAndRenderMyJobs(token);
                             } else {
                                 const errorData = await response.json();
-                                alert('Failed to delete job: ' + errorData.msg);
+                                showNotification('Failed to delete job: ' + errorData.msg);
                             }
                         } catch (error) { console.error('Error deleting job:', error); }
                     }
