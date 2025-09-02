@@ -42,18 +42,16 @@ app.use(cors());
 // 2. Enable the express.json middleware to parse JSON bodies
 app.use(express.json());
 // 3. Make the 'uploads' folder public so files can be accessed
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-//app.use('/public', express.static(path.join(__dirname, 'public'))); // Optional: Serve static files from 'public' folder  
-// 4. application routes will be added here 
-app.use('/api/applications', require('./routes/applicationRoutes'));
-//message routes
-app.use('/api/messages', require('./routes/messageRoutes'));
-
+app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
+//app.use('/public', express.static(path.join(__dirname, 'public'))); // Optional: Serve static files from 'public' folder
+// 4. application routes will be added here
 
 // --- API Routes ---
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
+app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/skills', require('./routes/skillRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 
 
 

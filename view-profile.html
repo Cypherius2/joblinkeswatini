@@ -148,8 +148,14 @@
             const placeholderPic = 'images/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
-            pic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : placeholderPic;
-            if (user.coverPhoto) banner.style.backgroundImage = `url('${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}')`;
+            
+             // Correctly construct the full URL for the uploaded images
+            const picUrl = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : placeholderPic;
+            const coverUrl = user.coverPhoto ? `${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}` : '';
+
+            pic.src = picUrl;
+            if (coverUrl) { banner.style.backgroundImage = `url('${coverUrl}')`; }
+
             document.getElementById('profileName').textContent = user.name;
             document.getElementById('profileHeadline').textContent = user.headline;
             document.getElementById('profileLocation').textContent = user.location;
