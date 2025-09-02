@@ -1561,7 +1561,7 @@ body {
 
 /* --- Right Panel: Discovery --- */
 .discovery-panels {
-    
+
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -1819,64 +1819,58 @@ body {
     animation-fill-mode: both;
 }
 
-/* ==> ADD THESE STYLES TO THE END OF your style.css FILE <== */
-
-/* --- Modern Notification / Toast Styles --- */
-
-/* The container that holds all notifications */
+/* ==> Notification <== */
 #notification-container {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 9999;
-    width: 320px;
+    width: 320px
 }
 
-/* The style for each individual notification box */
 .notification {
     color: white;
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     font-weight: 500;
-    opacity: 0; /* Hidden by default for animation */
-    animation: slideInFromRight 0.5s forwards;
+    opacity: 0;
+    animation: slideInFromRight .5s forwards
 }
 
-/* Animation for the notification appearing */
 @keyframes slideInFromRight {
     from {
         transform: translateX(100%);
-        opacity: 0;
+        opacity: 0
     }
+
     to {
         transform: translateX(0);
-        opacity: 1;
+        opacity: 1
     }
 }
 
-/* Animation for the notification disappearing */
 .notification.fade-out {
-    animation: fadeOut 0.5s forwards;
+    animation: fadeOut .5s forwards
 }
+
 @keyframes fadeOut {
     from {
-        opacity: 1;
+        opacity: 1
     }
+
     to {
-        opacity: 0;
+        opacity: 0
     }
 }
 
-/* Color theme for SUCCESS notifications */
 .notification.success {
-    background-color: #16a34a; /* A nice green */
-    border-left: 5px solid #14532d; /* A darker green accent */
+    background-color: #16a34a;
+    border-left: 5px solid #14532d
 }
 
-/* Color theme for ERROR notifications */
 .notification.error {
-    background-color: #D21034; /* Our brand's accent red */
-    border-left: 5px solid #7f1d1d; /* A darker red accent */
+    background-color: #D21034;
+    border-left: 5px solid #7f1d1d
 }

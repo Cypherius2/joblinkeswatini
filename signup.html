@@ -106,7 +106,7 @@
                 if (role === 'company') {
                     const companyName = document.getElementById('companyName').value;
                     if (!companyName) {
-                        alert('Please enter a company name.');
+                        showNotification('Please enter a company name.');
                         return;
                     }
                     // signupData.companyName = companyName; // For future use
@@ -122,14 +122,14 @@
                     const result = await response.json();
 
                     if (response.ok) {
-                        alert('Registration successful! Please sign in.');
+                        showNotification('Registration successful! Please sign in.');
                         window.location.href = 'login.html';
                     } else {
-                        alert('Error: ' + result.msg);
+                        showNotification('Error: ' + result.msg);
                     }
                 } catch (error) {
                     console.error('Signup failed:', error);
-                    alert('Signup failed. Please try again later.');
+                    showNotification('Signup failed. Please try again later.');
                 }
             });
         });

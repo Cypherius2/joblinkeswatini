@@ -1,24 +1,23 @@
 // js/main.js -- FINAL, COMPLETE, AND CORRECTED VERSION
 
-// --- NEW GLOBAL NOTIFICATION FUNCTION ---
+// --- THIS IS THE BRAIN OF THE NOTIFICATION SYSTEM ---
 function showNotification(message, type = 'success') {
     const container = document.getElementById('notification-container');
-    if (!container) return; // Exit if the container isn't on the page
-
+    if (!container) {
+        // Fallback to alert if the container doesn't exist for some reason
+        alert(message);
+        return;
+    }
     const notification = document.createElement('div');
-    notification.className = `notification ${type}`; // e.g., 'notification success'
+    notification.className = `notification ${type}`;
     notification.textContent = message;
-
     container.appendChild(notification);
-
-    // Set a timeout to make the notification disappear
     setTimeout(() => {
         notification.classList.add('fade-out');
-        // Remove the element from the DOM after the fade-out animation completes
         setTimeout(() => {
             notification.remove();
-        }, 500); // This should match the animation duration in the CSS
-    }, 4000); // Notification will be visible for 4 seconds
+        }, 500);
+    }, 4000);
 }
 
 // --- MODULE FOR HEADER/NAVIGATION LOGIC ---
