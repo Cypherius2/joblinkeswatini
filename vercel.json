@@ -4,6 +4,10 @@
         {
             "src": "backend/server.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "uploads/**",
+            "use": "@vercel/static"
         }
     ],
     "rewrites": [
@@ -17,7 +21,7 @@
         },
         {
             "source": "/(.*)",
-            "destination": "/$1"
+            "destination": "/$1.html"
         }
     ]
 }
