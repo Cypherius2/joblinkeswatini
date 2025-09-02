@@ -280,7 +280,7 @@
             const formData = new FormData();
             formData.append('profilePicture', file);
             try {
-                const response = await fetch(`${API_URL}/api/users/picture`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                const response = await fetch(`${API_URL}/api/picture`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
                 if (response.ok) {
                     currentUserData = await response.json();
                     showNotification('Profile picture updated!');
@@ -297,7 +297,7 @@
             const formData = new FormData();
             formData.append('coverPhoto', file);
             try {
-                const response = await fetch(`${API_URL}/api/users/cover`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                const response = await fetch(`${API_URL}/api/cover`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
                 if (response.ok) {
                     currentUserData = await response.json();
                     showNotification('Cover photo updated!');
