@@ -48,7 +48,7 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
 app.use('/api/skills', require('./routes/skillRoutes'));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 
