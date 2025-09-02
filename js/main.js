@@ -155,7 +155,7 @@ const chatModule = {
             const content = this.chatInput.value.trim();
             if (!content || !this.currentReceiverId) return;
             try {
-                await fetch(`${API_URL}/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
+                await fetch(`${API_URL}/api/users/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
                 this.chatInput.value = '';
                 this.openChat(this.currentReceiverId, this.currentReceiverName);
             } catch (err) { console.error("Failed to send message", err); }
@@ -175,7 +175,7 @@ const chatModule = {
     async checkForNewMessages() {
         if (!this.token) return;
         try {
-            const res = await fetch(`${API_URL}/api/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/user/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
             if (res.ok) {
                 const data = await res.json();
                 this.updateTotalNotificationUI(data.unreadCount);
@@ -206,7 +206,7 @@ const chatModule = {
             this.conversationList.innerHTML = '<p>Loading conversations...</p>';
         }
         try {
-            const res = await fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/users/messages/conversations`, { headers: { 'x-auth-token': this.token } });
             const conversations = await res.json();
             this.renderConversationList(conversations);
         } catch (err) { if (this.conversationList) this.conversationList.innerHTML = '<p>Could not load conversations.</p>'; }
