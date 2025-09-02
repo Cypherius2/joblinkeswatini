@@ -175,7 +175,7 @@ const chatModule = {
     async checkForNewMessages() {
         if (!this.token) return;
         try {
-            const res = await fetch(`${API_URL}/api/users/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
             if (res.ok) {
                 const data = await res.json();
                 this.updateTotalNotificationUI(data.unreadCount);
@@ -206,7 +206,7 @@ const chatModule = {
             this.conversationList.innerHTML = '<p>Loading conversations...</p>';
         }
         try {
-            const res = await fetch(`${API_URL} / api /messages/conversations`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
             const conversations = await res.json();
             this.renderConversationList(conversations);
         } catch (err) { if (this.conversationList) this.conversationList.innerHTML = '<p>Could not load conversations.</p>'; }
@@ -222,7 +222,7 @@ const chatModule = {
         if (this.chatMessages) this.chatMessages.innerHTML = '<p>Loading messages...</p>';
         if (this.chatWindow) this.chatWindow.classList.add('is-open');
         try {
-            const res = await fetch(`${API_URL}/api/users/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
             const messages = await res.json();
             this.renderMessages(messages);
             this.checkForNewMessages();

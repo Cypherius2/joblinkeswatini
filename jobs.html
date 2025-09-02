@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<div id="notification-container"></div>
+    <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
             <!-- Header Left: Logo & Search -->
@@ -244,7 +244,7 @@
             };
 
             try {
-                const response = await fetch(`${API_URL}/api/users/jobs`);
+                const response = await fetch(`${API_URL}/api/jobs`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 allJobs = await response.json();
                 renderJobs();

@@ -78,194 +78,194 @@
         </div>
     </header>
 
-<main class="page-main">
-    <div class="container">
-        <div class="messaging-grid-container">
+    <main class="page-main">
+        <div class="container">
+            <div class="messaging-grid-container">
 
-            <!-- Left Panel: Conversation List -->
-            <aside class="conversations-panel">
-                <div class="conversations-panel-header">Your Conversations</div>
-                <div id="conversation-list"></div>
-            </aside>
+                <!-- Left Panel: Conversation List -->
+                <aside class="conversations-panel">
+                    <div class="conversations-panel-header">Your Conversations</div>
+                    <div id="conversation-list"></div>
+                </aside>
 
-            <!-- Middle Panel: Active Chat -->
-            <div class="chat-panel">
-                <div id="active-chat-header" class="conversations-panel-header"></div>
-                <div class="chat-messages" id="active-chat-messages">
-                    <p style="text-align: center; color: #777; margin: auto;">Select a conversation from the left to
-                        start messaging.</p>
+                <!-- Middle Panel: Active Chat -->
+                <div class="chat-panel">
+                    <div id="active-chat-header" class="conversations-panel-header"></div>
+                    <div class="chat-messages" id="active-chat-messages">
+                        <p style="text-align: center; color: #777; margin: auto;">Select a conversation from the left to
+                            start messaging.</p>
+                    </div>
+                    <form class="chat-form" id="active-chat-form">
+                        <button type="button" id="emoji-btn">&#128512;</button>
+                        <input type="text" id="active-chat-input" placeholder="Write a message..." autocomplete="off">
+                        <button type="submit" class="apply-button">Send</button>
+                    </form>
                 </div>
-                <form class="chat-form" id="active-chat-form">
-                    <button type="button" id="emoji-btn">&#128512;</button>
-                    <input type="text" id="active-chat-input" placeholder="Write a message..." autocomplete="off">
-                    <button type="submit" class="apply-button">Send</button>
-                </form>
+
+                <!-- Right Panel: Discovery -->
+                <aside class="discovery-panels">
+                    <div class="discovery-card">
+                        <h3>Discover People</h3>
+                        <div id="discover-people-list"></div>
+                    </div>
+
+                    <div class="discovery-card">
+                        <h3>Discover Jobs</h3>
+                        <div id="discover-jobs-list"></div>
+                    </div>
+                </aside>
             </div>
-
-            <!-- Right Panel: Discovery -->
-            <aside class="discovery-panels">
-                <div class="discovery-card">
-                    <h3>Discover People</h3>
-                    <div id="discover-people-list"></div>
-                </div>
-                
-                <div class="discovery-card">
-                    <h3>Discover Jobs</h3>
-                    <div id="discover-jobs-list"></div>
-                </div>
-            </aside>
         </div>
-    </div>
-</main>
+    </main>
 
-<footer class="main-footer"></footer>
+    <footer class="main-footer"></footer>
 
-<!-- The script for this page is now very long, it's better to keep it here -->
-<script src="js/main.js"></script>
-<script src="js/config.js"></script>
+    <!-- The script for this page is now very long, it's better to keep it here -->
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = 'login.html';
-            return;
-        }
-
-        // --- Cache all DOM Elements for this page ---
-        const conversationListEl = document.getElementById('conversation-list');
-        const activeChatHeaderEl = document.getElementById('active-chat-header');
-        const activeChatMessagesEl = document.getElementById('active-chat-messages');
-        const activeChatFormEl = document.getElementById('active-chat-form');
-        const activeChatInputEl = document.getElementById('active-chat-input');
-        const discoverPeopleListEl = document.getElementById('discover-people-list');
-        const discoverJobsListEl = document.getElementById('discover-jobs-list');
-        let loggedInUserId = null;
-        let currentReceiverId = null;
-
-        // --- Render Functions ---
-        const renderConversations = (conversations) => {
-            if (!conversations || conversations.length === 0) {
-                conversationListEl.innerHTML = '<p style="padding: 1rem; text-align: center;">No conversations yet.</p>';
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
                 return;
             }
-            conversationListEl.innerHTML = conversations.map(convo => `
+
+            // --- Cache all DOM Elements for this page ---
+            const conversationListEl = document.getElementById('conversation-list');
+            const activeChatHeaderEl = document.getElementById('active-chat-header');
+            const activeChatMessagesEl = document.getElementById('active-chat-messages');
+            const activeChatFormEl = document.getElementById('active-chat-form');
+            const activeChatInputEl = document.getElementById('active-chat-input');
+            const discoverPeopleListEl = document.getElementById('discover-people-list');
+            const discoverJobsListEl = document.getElementById('discover-jobs-list');
+            let loggedInUserId = null;
+            let currentReceiverId = null;
+
+            // --- Render Functions ---
+            const renderConversations = (conversations) => {
+                if (!conversations || conversations.length === 0) {
+                    conversationListEl.innerHTML = '<p style="padding: 1rem; text-align: center;">No conversations yet.</p>';
+                    return;
+                }
+                conversationListEl.innerHTML = conversations.map(convo => `
                 <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}" data-userpic="${convo.withUser.profilePicture ? `${API_URL}/api/users/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}">
-                    <img src="${convo.withUser.profilePicture ? `${API_URL}/api/users/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
+                    <img src="${convo.withUser.profilePicture ? `${API_URL}/api/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
                     <div class="conversation-item-info">
                         <h4>${convo.withUser.name}</h4>
                         <p>${convo.lastMessage}</p>
                     </div>
                 </div>
             `).join('');
-        };
+            };
 
-        const renderMessages = (messages) => {
-            if (!messages || messages.length === 0) {
-                activeChatMessagesEl.innerHTML = '<p style="text-align: center; color: #777; margin: auto;">No messages yet. Send one to start the conversation!</p>';
-                return;
-            }
-            activeChatMessagesEl.innerHTML = messages.map(msg => `
+            const renderMessages = (messages) => {
+                if (!messages || messages.length === 0) {
+                    activeChatMessagesEl.innerHTML = '<p style="text-align: center; color: #777; margin: auto;">No messages yet. Send one to start the conversation!</p>';
+                    return;
+                }
+                activeChatMessagesEl.innerHTML = messages.map(msg => `
                 <div class="message-bubble ${msg.sender === loggedInUserId ? 'sent' : 'received'}">
                     ${msg.content}
                 </div>
             `).join('');
-            activeChatMessagesEl.scrollTop = activeChatMessagesEl.scrollHeight;
-        };
+                activeChatMessagesEl.scrollTop = activeChatMessagesEl.scrollHeight;
+            };
 
-        const renderDiscoverPeople = (users) => {
-            discoverPeopleListEl.innerHTML = users.slice(0, 4).filter(user => user._id !== loggedInUserId).map(user => `
+            const renderDiscoverPeople = (users) => {
+                discoverPeopleListEl.innerHTML = users.slice(0, 4).filter(user => user._id !== loggedInUserId).map(user => `
                 <a href="view-profile.html?id=${user._id}" class="discovery-item">
-                    <img src="${user.profilePicture ? `${API_URL}/api/users/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${user.name}">
+                    <img src="${user.profilePicture ? `${API_URL}/api/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${user.name}">
                     <div><strong>${user.name}</strong><br><small>${user.headline || 'User'}</small></div>
                 </a>
             `).join('');
-        };
+            };
 
-        const renderDiscoverJobs = (jobs) => {
-            discoverJobsListEl.innerHTML = jobs.slice(0, 4).map(job => `
+            const renderDiscoverJobs = (jobs) => {
+                discoverJobsListEl.innerHTML = jobs.slice(0, 4).map(job => `
                 <a href="job-details.html?id=${job._id}" class="discovery-item">
                     <div><strong>${job.title}</strong><br><small>${job.company}</small></div>
                 </a>
             `).join('');
-        };
+            };
 
-        // --- Core Logic ---
-        const openChat = async (userId, userName, userPic) => {
-            currentReceiverId = userId;
-            activeChatHeaderEl.innerHTML = `<img src="${userPic}" alt="${userName}"> <strong>${userName}</strong>`;
-            activeChatHeaderEl.style.display = 'flex';
-            activeChatFormEl.style.display = 'flex';
-            activeChatMessagesEl.innerHTML = '<p>Loading messages...</p>';
+            // --- Core Logic ---
+            const openChat = async (userId, userName, userPic) => {
+                currentReceiverId = userId;
+                activeChatHeaderEl.innerHTML = `<img src="${userPic}" alt="${userName}"> <strong>${userName}</strong>`;
+                activeChatHeaderEl.style.display = 'flex';
+                activeChatFormEl.style.display = 'flex';
+                activeChatMessagesEl.innerHTML = '<p>Loading messages...</p>';
+                try {
+                    const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': token } });
+                    const messages = await res.json();
+                    renderMessages(messages);
+                } catch (err) {
+                    activeChatMessagesEl.innerHTML = '<p>Could not load messages.</p>';
+                }
+            };
+
+            // --- Event Listeners ---
+            conversationListEl.addEventListener('click', (event) => {
+                const item = event.target.closest('.conversation-item');
+                if (item) {
+                    openChat(item.dataset.userid, item.dataset.username, item.dataset.userpic);
+                }
+            });
+
+            activeChatFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const content = activeChatInputEl.value.trim();
+                if (!content || !currentReceiverId) return;
+                try {
+                    await fetch(`${API_URL}/api/messages/${currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify({ content }) });
+                    activeChatInputEl.value = '';
+                    const headerImg = activeChatHeaderEl.querySelector('img').src;
+                    const headerName = activeChatHeaderEl.querySelector('strong').textContent;
+                    openChat(currentReceiverId, headerName, headerImg);
+                    // Refresh conversation list in the background for latest message
+                    fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': token } }).then(res => res.json()).then(renderConversations);
+                } catch (err) { console.error("Failed to send message", err); }
+            });
+
+            // --- Initial Data Fetching on Page Load ---
             try {
-                const res = await fetch(`${API_URL}/api/users/messages/conversation/${userId}`, { headers: { 'x-auth-token': token } });
-                const messages = await res.json();
-                renderMessages(messages);
-            } catch (err) {
-                activeChatMessagesEl.innerHTML = '<p>Could not load messages.</p>';
-            }
-        };
+                const meRes = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } });
+                const me = await meRes.json();
+                loggedInUserId = me._id;
 
-        // --- Event Listeners ---
-        conversationListEl.addEventListener('click', (event) => {
-            const item = event.target.closest('.conversation-item');
-            if (item) {
-                openChat(item.dataset.userid, item.dataset.username, item.dataset.userpic);
+                const [convosRes, peopleRes, jobsRes] = await Promise.all([
+                    fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': token } }),
+                    fetch(`${API_URL}/api/users`),
+                    fetch(`${API_URL}/api/jobs`)
+                ]);
+
+                const conversations = await convosRes.json();
+                const people = await peopleRes.json();
+                const jobs = await jobsRes.json();
+
+                renderConversations(conversations);
+                renderDiscoverPeople(people);
+                renderDiscoverJobs(jobs);
+
+                // Check if we were redirected here to start a chat
+                const chatTargetId = localStorage.getItem('startChatWithId');
+                const chatTargetName = localStorage.getItem('startChatWithName');
+                const chatTargetPic = localStorage.getItem('startChatWithPic');
+
+                if (chatTargetId && chatTargetName && chatTargetPic) {
+                    openChat(chatTargetId, chatTargetName, chatTargetPic);
+                    localStorage.removeItem('startChatWithId');
+                    localStorage.removeItem('startChatWithName');
+                    localStorage.removeItem('startChatWithPic');
+                }
+            } catch (error) {
+                console.error('Failed to load data for messaging center:', error);
+                document.querySelector('.messaging-grid-container').innerHTML = '<h2>Error</h2><p>Could not load data. Please try again later.</p>';
             }
         });
-
-        activeChatFormEl.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const content = activeChatInputEl.value.trim();
-            if (!content || !currentReceiverId) return;
-            try {
-                await fetch(`${API_URL}/api/users/messages/${currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify({ content }) });
-                activeChatInputEl.value = '';
-                const headerImg = activeChatHeaderEl.querySelector('img').src;
-                const headerName = activeChatHeaderEl.querySelector('strong').textContent;
-                openChat(currentReceiverId, headerName, headerImg);
-                // Refresh conversation list in the background for latest message
-                fetch(`${API_URL}/api/users/messages/conversations`, { headers: { 'x-auth-token': token } }).then(res => res.json()).then(renderConversations);
-            } catch (err) { console.error("Failed to send message", err); }
-        });
-
-        // --- Initial Data Fetching on Page Load ---
-        try {
-            const meRes = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } });
-            const me = await meRes.json();
-            loggedInUserId = me._id;
-
-            const [convosRes, peopleRes, jobsRes] = await Promise.all([
-                fetch(`${API_URL}/api/users/messages/conversations`, { headers: { 'x-auth-token': token } }),
-                fetch(`${API_URL}/api/users`),
-                fetch(`${API_URL}/api/users/jobs`)
-            ]);
-
-            const conversations = await convosRes.json();
-            const people = await peopleRes.json();
-            const jobs = await jobsRes.json();
-
-            renderConversations(conversations);
-            renderDiscoverPeople(people);
-            renderDiscoverJobs(jobs);
-
-            // Check if we were redirected here to start a chat
-            const chatTargetId = localStorage.getItem('startChatWithId');
-            const chatTargetName = localStorage.getItem('startChatWithName');
-            const chatTargetPic = localStorage.getItem('startChatWithPic');
-
-            if (chatTargetId && chatTargetName && chatTargetPic) {
-                openChat(chatTargetId, chatTargetName, chatTargetPic);
-                localStorage.removeItem('startChatWithId');
-                localStorage.removeItem('startChatWithName');
-                localStorage.removeItem('startChatWithPic');
-            }
-        } catch (error) {
-            console.error('Failed to load data for messaging center:', error);
-            document.querySelector('.messaging-grid-container').innerHTML = '<h2>Error</h2><p>Could not load data. Please try again later.</p>';
-        }
-    });
-</script>
+    </script>
 
 </body>
 

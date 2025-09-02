@@ -138,7 +138,7 @@
                         <div class="experience-item">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                    <img src="${applicant.profilePicture ? `${API_URL}/api/users/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    <img src="${applicant.profilePicture ? `${API_URL}/api/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
                                     <div>
                                         <h3>${applicant.name}</h3>
                                         <p class="company">${applicant.headline || 'No headline provided.'}</p>
@@ -163,7 +163,7 @@
                 return;
             }
             const documentsHtml = applicant.documents && applicant.documents.length > 0
-                ? applicant.documents.map(doc => `<a href="${API_URL}/api/users/${doc.filePath.replace(/\\/g, '/')}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
+                ? applicant.documents.map(doc => `<a href="${API_URL}/api/${doc.filePath.replace(/\\/g, '/')}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
                 : 'No documents attached.';
 
             modalBody.innerHTML = `
@@ -296,7 +296,7 @@
                     target.textContent = 'Saving...';
                     const notes = document.getElementById('companyNotes').value;
                     try {
-                        const res = await fetch(`${API_URL}/api/users/applications/${appId}/notes`, {
+                        const res = await fetch(`${API_URL}/api/applications/${appId}/notes`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                             body: JSON.stringify({ notes: notes })
@@ -314,7 +314,7 @@
                     const status = target.dataset.status;
                     if (confirm(`This will update the application status to "${status}". Are you sure?`)) {
                         try {
-                            const res = await fetch(`${API_URL}/api/users/applications/${appId}`, {
+                            const res = await fetch(`${API_URL}/api/applications/${appId}`, {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                                 body: JSON.stringify({ status: status })

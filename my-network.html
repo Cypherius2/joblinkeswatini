@@ -142,7 +142,7 @@
                 userListContainer.innerHTML = users
                     .filter(user => user._id !== loggedInUserId)
                     .map(user => {
-                        const picUrl = user.profilePicture ? `${API_URL}/api/users/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg';
+                        const picUrl = user.profilePicture ? `${API_URL}/api/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg';
                         return `
                         <div class="user-card">
                             <img src="${picUrl}" alt="${user.name}">
@@ -186,7 +186,7 @@
 
                 const [usersRes, appsRes] = await Promise.all([
                     fetch(`${API_URL}/api/users`),
-                    fetch(`${API_URL}/api/users/applications/my-applications`, { headers: { 'x-auth-token': token } })
+                    fetch(`${API_URL}/api/applications/my-applications`, { headers: { 'x-auth-token': token } })
                 ]);
 
                 if (!usersRes.ok || !appsRes.ok) {

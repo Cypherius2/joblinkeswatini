@@ -26,7 +26,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -57,7 +57,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -191,7 +191,7 @@
 
                 try {
                     // Send the updated data to the server using a PUT request
-                    const response = await fetch(`${API_URL}/api/users/profile`, {
+                    const response = await fetch(`${API_URL}/api/profile`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',

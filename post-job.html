@@ -27,7 +27,7 @@
                     <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-    
+
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
@@ -58,7 +58,7 @@
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
-    
+
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
@@ -146,7 +146,7 @@
             const postJobForm = document.getElementById('postJobForm');
             postJobForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
-            
+
                 const jobData = {
                     title: document.getElementById('title').value,
                     company: document.getElementById('company').value,
@@ -163,7 +163,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://127.0.0.1:3000/api/jobs', {
+                    const response = await fetch(`${API_URL}/api/jobs`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

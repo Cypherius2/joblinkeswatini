@@ -142,7 +142,7 @@
             }
 
             try {
-                const response = await fetch(`${API_URL}/api/users/jobs/${jobId}`);
+                const response = await fetch(`${API_URL}/api/jobs/${jobId}`);
                 if (!response.ok) {
                     throw new Error('Job not found');
                 }
