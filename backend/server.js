@@ -3,6 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 // --- Environment Variable Validation ---
@@ -19,7 +20,7 @@ if (!process.env.JWT_SECRET) {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// --- Database Connection ---
+/* --- Database Connection ---
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
@@ -30,6 +31,10 @@ const connectDB = async () => {
   }
 };
 connectDB();
+*/
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected successfully.'))
+  .catch(err => console.error('MongoDB connection failed:', err));
 
 // --- Middlewares ---
 // 1. Enable Cross-Origin Resource Sharing
@@ -37,7 +42,8 @@ app.use(cors());
 // 2. Enable the express.json middleware to parse JSON bodies
 app.use(express.json());
 // 3. Make the 'uploads' folder public so files can be accessed
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+//app.use('/public', express.static(path.join(__dirname, 'public'))); // Optional: Serve static files from 'public' folder  
 // 4. application routes will be added here 
 app.use('/api/applications', require('./routes/applicationRoutes'));
 //message routes
@@ -59,6 +65,7 @@ app.get('/', (req, res) => {
 
 
 // --- Start The Server ---
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+//app.listen(PORT, () => {
+// console.log(`Server is running on http://localhost:${PORT}`);
+//});
+module.exports = app;
