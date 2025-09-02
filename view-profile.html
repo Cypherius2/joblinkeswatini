@@ -185,7 +185,7 @@
             }
 
             try {
-                const response = await fetch(`${API_URL}/api/${userId}`);
+                const response = await fetch(`${API_URL}/api/users/${userId}`);
                 if (!response.ok) throw new Error('Profile not found');
                 const user = await response.json();
 
