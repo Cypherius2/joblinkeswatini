@@ -1874,3 +1874,35 @@ body {
     background-color: #D21034;
     border-left: 5px solid #7f1d1d
 }
+
+/* ==========================================================================
+   google button
+   ========================================================================== */
+.google-btn {
+    background-color: #4285F4;
+    /* Google blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    /* Rounded corners */
+    font-family: 'Roboto', sans-serif;
+    /* Recommended Google font */
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.google-btn:hover {
+    background-color: #357ae8;
+    /* Darker blue on hover */
+}
+
+.google-btn:active {
+    background-color: #2b6cb0;
+    /* Even darker on click */
+}
