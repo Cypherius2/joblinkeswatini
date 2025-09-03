@@ -149,12 +149,15 @@
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
-            const serverUrl = '${API_URL}/api/users/';
+            const serverUrl = API_URL;
             const localPlaceholder = 'images/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
-            const picUrl = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
-            const coverUrl = user.coverPhoto ? `${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}` : '';
+
+
+            const picUrl = user.profilePicture ? `${serverUrl}/api/files/${user.profilePicture}` : placeholderPic;
+            const coverUrl = user.coverPhoto ? `${serverUrl}/api/files/${user.coverPhoto}` : '';
+
             pic.src = picUrl;
             if (coverUrl) {
                 banner.style.backgroundImage = `url('${coverUrl}')`;

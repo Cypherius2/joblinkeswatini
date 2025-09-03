@@ -12,16 +12,14 @@ const authMiddleware = require('../middleware/authMiddleware.js');
 require('dotenv').config();
 
 // --- Create GridFS Storage Engine ---
+
 const storage = new GridFsStorage({
   url: process.env.MONGO_URI,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       const filename = `user-${req.user.id}-${Date.now()}-${file.originalname}`;
-      const fileInfo = {
-        filename: filename,
-        bucketName: 'uploads' // This is the collection name in MongoDB for files
-      };
+      const fileInfo = { filename: filename, bucketName: 'uploads' };
       resolve(fileInfo);
     });
   }
@@ -96,12 +94,13 @@ router.put('/profile', authMiddleware, async (req, res) => {
   } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
+// @route   POST api/users/picture
 router.post('/picture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
   try {
     if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
     const user = await User.findByIdAndUpdate(req.user.id, { profilePicture: req.file.filename }, { new: true }).select('-password');
     res.json(user);
-  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
+  } catch (err) { res.status(500).send('Server Error'); }
 });
 
 router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
