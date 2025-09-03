@@ -141,25 +141,33 @@
     </div>
 
     <script src="js/main.js"></script>
+
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
-            const serverUrl = `${API_URL}`;
+            // Define a placeholder for images that might be missing
             const placeholderPic = 'images/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
-            
-             // Correctly construct the full URL for the uploaded images
-            const picUrl = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : placeholderPic;
-            const coverUrl = user.coverPhoto ? `${serverUrl}/${user.coverPhoto.replace(/\\/g, '/')}` : '';
+
+            // Construct full URLs using a dedicated endpoint for files, which is more secure and robust.
+            // This assumes user.profilePicture and user.coverPhoto now store just the filename.
+            const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : placeholderPic;
+            const coverUrl = user.coverPhoto ? `${API_URL}/api/files/${user.coverPhoto}` : '';
 
             pic.src = picUrl;
-            if (coverUrl) { banner.style.backgroundImage = `url('${coverUrl}')`; }
+            if (coverUrl) {
+                banner.style.backgroundImage = `url('${coverUrl}')`;
+            } else {
+                // Provide a default banner if none is set
+                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
+            }
 
-            document.getElementById('profileName').textContent = user.name;
-            document.getElementById('profileHeadline').textContent = user.headline;
-            document.getElementById('profileLocation').textContent = user.location;
+            document.getElementById('profileName').textContent = user.name || 'User Name';
+            document.getElementById('profileHeadline').textContent = user.headline || '';
+            document.getElementById('profileLocation').textContent = user.location || '';
         };
+
         const renderAbout = (user) => {
             const container = document.getElementById('about-section');
             if (user.about) {
@@ -167,12 +175,14 @@
                 container.innerHTML = `<h2>About</h2><p>${user.about.replace(/\n/g, '<br>')}</p>`;
             }
         };
+
         const renderExperience = (experience) => {
             const container = document.getElementById('experience-section');
             if (!experience || experience.length === 0) return;
             container.style.display = 'block';
             container.innerHTML = `<div class="section-header"><h2>Experience</h2></div><div id="experienceList">${experience.map(exp => `<div class="experience-item"><h3>${exp.title}</h3><p class="company">${exp.company}</p></div>`).join('')}</div>`;
         };
+
         const renderSkills = (skills) => {
             const container = document.getElementById('skills-section');
             if (!skills || skills.length === 0) return;
@@ -182,6 +192,13 @@
 
         // --- MAIN SCRIPT ON PAGE LOAD ---
         document.addEventListener('DOMContentLoaded', async () => {
+            // Early check to ensure the API_URL is configured. This is crucial for debugging on Vercel.
+            if (typeof API_URL === 'undefined' || !API_URL) {
+                console.error("CRITICAL: API_URL is not defined! The application cannot fetch data.");
+                document.querySelector('.profile-main-content').innerHTML = '<h1>Configuration Error</h1><p>The application is not configured correctly. Please contact support.</p>';
+                return;
+            }
+
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('id');
 
@@ -192,7 +209,11 @@
 
             try {
                 const response = await fetch(`${API_URL}/api/users/${userId}`);
-                if (!response.ok) throw new Error('Profile not found');
+
+                // Improved error handling: check the response status and provide more detail.
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch profile. Server responded with status: ${response.status}`);
+                }
                 const user = await response.json();
 
                 document.title = `${user.name} | JobLinkEswatini`;
@@ -204,19 +225,29 @@
                 const profileActionsContainer = document.querySelector('.profile-actions');
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const loggedInUserId = JSON.parse(atob(token.split('.')[1])).user.id;
-                    if (loggedInUserId !== user._id) {
-                        // THIS IS THE CORRECTED CODE
-                        // It simply creates the button. The global main.js script handles the click.
-                        profileActionsContainer.innerHTML = `<button class="apply-button message-user-btn" data-userid="${user._id}" data-username="${user.name}">Message</button>`;
+                    try {
+                        // Safely parse the token to get the logged-in user's ID
+                        const loggedInUserId = JSON.parse(atob(token.split('.')[1])).user.id;
+                        if (loggedInUserId !== user._id) {
+                            profileActionsContainer.innerHTML = `<button class="apply-button message-user-btn" data-userid="${user._id}" data-username="${user.name}">Message</button>`;
+                        }
+                    } catch (e) {
+                        console.error("Failed to parse auth token:", e);
+                        // Handle invalid token case, maybe clear it
+                        localStorage.removeItem('token');
                     }
                 }
             } catch (error) {
+                // This catch block will now receive the more detailed error message from the try block.
                 console.error('Failed to load profile:', error);
-                document.querySelector('.profile-main-content').innerHTML = `<h1>Profile Not Found</h1>`;
+                document.querySelector('.profile-main-content').innerHTML = `
+                    <h1>Oops! We couldn't load this profile.</h1>
+                    <p>The profile may not exist or there might be a network issue. Please try again later.</p>
+                `;
             }
         });
     </script>
+
 </body>
 
 </html>

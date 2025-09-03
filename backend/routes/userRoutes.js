@@ -1,25 +1,36 @@
+// backend/routes/userRoutes.js -- FINAL, COMPLETE VERSION WITH GRIDFS DATABASE STORAGE
+
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
+const { GridFsStorage } = require('multer-gridfs-storage');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware.js');
+require('dotenv').config();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const userUploadsPath = path.join('uploads', req.user.id);
-    fs.mkdirSync(userUploadsPath, { recursive: true });
-    cb(null, userUploadsPath);
-  },
-  filename: (req, file, cb) => {
-    const fileName = Date.now() + '-' + file.originalname;
-    cb(null, fileName);
+// --- Create GridFS Storage Engine ---
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URI,
+  options: { useNewUrlParser: true, useUnifiedTopology: true },
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      const filename = `user-${req.user.id}-${Date.now()}-${file.originalname}`;
+      const fileInfo = {
+        filename: filename,
+        bucketName: 'uploads' // This is the collection name in MongoDB for files
+      };
+      resolve(fileInfo);
+    });
   }
 });
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
+
+
+// --- USER PROFILE & NETWORKING ROUTES ---
+// (Correct Order: Specific before Dynamic)
 
 router.get('/me', authMiddleware, async (req, res) => {
   try {
@@ -43,6 +54,9 @@ router.get('/:id', async (req, res) => {
   } catch (err) { res.status(500).send('Server Error'); }
 });
 
+
+// --- USER AUTHENTICATION & CREATION ---
+
 router.post('/register', async (req, res) => {
   const { name, email, password, role } = req.body;
   try {
@@ -53,7 +67,7 @@ router.post('/register', async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
     await user.save();
     res.status(201).json({ msg: 'User registered' });
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
 router.post('/login', async (req, res) => {
@@ -68,44 +82,51 @@ router.post('/login', async (req, res) => {
       if (err) throw err;
       res.json({ token });
     });
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
+
+
+// --- PROFILE UPDATE & FILE UPLOAD ROUTES (USING GRIDFS) ---
 
 router.put('/profile', authMiddleware, async (req, res) => {
   const { name, headline, location, about } = req.body;
-  const profileFields = { name, headline, location, about };
   try {
-    const user = await User.findByIdAndUpdate(req.user.id, { $set: profileFields }, { new: true }).select('-password');
+    const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password');
     res.json(user);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
 router.post('/picture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
   try {
-    if (!req.file) { return res.status(400).json({ msg: 'No file' }); }
-    const user = await User.findByIdAndUpdate(req.user.id, { profilePicture: req.file.path }, { new: true }).select('-password');
+    if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
+    const user = await User.findByIdAndUpdate(req.user.id, { profilePicture: req.file.filename }, { new: true }).select('-password');
     res.json(user);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
 router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
   try {
-    if (!req.file) { return res.status(400).json({ msg: 'No file' }); }
-    const user = await User.findByIdAndUpdate(req.user.id, { coverPhoto: req.file.path }, { new: true }).select('-password');
+    if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
+    const user = await User.findByIdAndUpdate(req.user.id, { coverPhoto: req.file.filename }, { new: true }).select('-password');
     res.json(user);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
 router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
   try {
-    if (!req.file) { return res.status(400).json({ msg: 'No file' }); }
+    if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
     const user = await User.findById(req.user.id);
     if (!user.documents) user.documents = [];
-    user.documents.unshift({ originalName: req.file.originalname, filePath: req.file.path });
+    user.documents.unshift({
+      fileId: req.file.id,
+      filename: req.file.filename,
+      originalName: req.file.originalname,
+      contentType: req.file.mimetype
+    });
     await user.save();
     const updatedUser = await User.findById(req.user.id).select('-password');
     res.json(updatedUser);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
 router.delete('/document/:doc_id', authMiddleware, async (req, res) => {
@@ -113,14 +134,88 @@ router.delete('/document/:doc_id', authMiddleware, async (req, res) => {
     const user = await User.findById(req.user.id);
     const doc = user.documents.id(req.params.doc_id);
     if (!doc) return res.status(404).json({ msg: 'Document not found' });
-    if (fs.existsSync(doc.filePath)) fs.unlinkSync(doc.filePath);
+
+    // GridFS delete logic is different, we delete by file ID
+    const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'uploads'
+    });
+    gfs.delete(new mongoose.Types.ObjectId(doc.fileId), (err, data) => {
+      if (err) return res.status(404).json({ msg: 'Could not delete file from storage.' });
+    });
+
     user.documents.pull({ _id: req.params.doc_id });
     await user.save();
     const updatedUser = await User.findById(req.user.id).select('-password');
     res.json(updatedUser);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
-// ... (Experience and Skills routes are similar)
+
+// --- EXPERIENCE & SKILLS ROUTES ---
+router.post('/experience', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user.experience) { user.experience = []; }
+    user.experience.unshift({ ...req.body });
+    await user.save();
+    const updatedUser = await User.findById(req.user.id).select('-password');
+    res.json(updatedUser);
+  } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
+});
+// ... (Your other experience and skills delete routes are similar and correct)
+// --- DELETE EXPERIENCE ROUTE ---
+// @route   DELETE /api/users/experience/:exp_id
+// @desc    Delete an experience from a user's profile
+// @access  Private
+router.delete('/experience/:exp_id', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    // Check if the experience exists
+    const experience = user.experience.id(req.params.exp_id);
+    if (!experience) {
+      return res.status(404).json({ msg: 'Experience not found' });
+    }
+
+    // Use the pull method to remove the subdocument
+    user.experience.pull({ _id: req.params.exp_id });
+
+    await user.save();
+
+    const updatedUser = await User.findById(req.user.id).select('-password');
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// --- DELETE SKILL ROUTE ---
+// @route   DELETE /api/users/skills/:skill_id
+// @desc    Delete a skill from a user's profile
+// @access  Private
+router.delete('/skills/:skill_id', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    // Check if the skill exists
+    const skill = user.skills.id(req.params.skill_id);
+    if (!skill) {
+      return res.status(404).json({ msg: 'Skill not found' });
+    }
+
+    // Use the pull method to remove the subdocument
+    user.skills.pull({ _id: req.params.skill_id });
+
+    await user.save();
+
+    const updatedUser = await User.findById(req.user.id).select('-password');
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

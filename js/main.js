@@ -5,7 +5,7 @@ function showNotification(message, type = 'success') {
     const container = document.getElementById('notification-container');
     if (!container) {
         // Fallback to alert if the container doesn't exist for some reason
-        showNotification(message);
+        alert(message);
         return;
     }
     const notification = document.createElement('div');
@@ -70,14 +70,14 @@ const headerModule = {
             if (!response.ok) throw new Error('Token invalid');
             const user = await response.json();
             if (this.navProfilePic) {
-                const serverUrl = fetch(`${API_URL}`);
+                // --- FIX ---: Removed incorrect `fetch` call and updated the URL to the standard `/api/files/` endpoint.
                 const localPlaceholder = 'images/placeholder.svg';
-                this.navProfilePic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
+                this.navProfilePic.src = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : localPlaceholder;
             }
             if (this.connectLink) {
                 if (user.role === 'company') {
-                    this.connectLink.href = 'connect.html';
-                    this.connectLink.querySelector('span').textContent = 'Connect';
+                    this.connectLink.href = 'company-dashboard.html'; // Corrected link for company role
+                    this.connectLink.querySelector('span').textContent = 'Dashboard';
                 } else {
                     this.connectLink.href = 'my-network.html';
                     this.connectLink.querySelector('span').textContent = 'My Network';
@@ -235,16 +235,17 @@ const chatModule = {
         }
         this.conversationList.innerHTML = conversations.map(convo => {
             const unreadDot = convo.unreadCount > 0 ? `<span class="notification-badge" style="display:flex; position:static; margin-left:auto;">${convo.unreadCount}</span>` : '';
+            // --- FIX ---: Corrected the image URL to use the standard `/api/files/` endpoint and removed typos.
+            const picUrl = convo.withUser.profilePicture ? `${API_URL}/api/files/${convo.withUser.profilePicture}` : 'images/placeholder.svg';
             return `
                 <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}">
-                    <img src="${convo.withUser.profilePicture ? `${API_URL} /api/users /${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
+                    <img src="${picUrl}" alt="${convo.withUser.name}">
                     <div class="conversation-item-info"><h4>${convo.withUser.name}</h4><p>${convo.lastMessage}</p></div>
                     ${unreadDot}
                 </div>
             `;
         }).join('');
     },
-    // THIS IS THE CORRECTED RENDERMESSAGES FUNCTION
     renderMessages(messages) {
         if (!this.chatMessages) return;
         this.chatMessages.innerHTML = messages.map(msg => `
@@ -276,4 +277,4 @@ document.addEventListener('DOMContentLoaded', () => {
     headerModule.init();
     chatModule.init();
     mobileMenuModule.init();
-}); 
+});

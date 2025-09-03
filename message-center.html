@@ -12,9 +12,7 @@
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
@@ -27,7 +25,6 @@
                 </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -82,13 +79,11 @@
         <div class="container">
             <div class="messaging-grid-container">
 
-                <!-- Left Panel: Conversation List -->
                 <aside class="conversations-panel">
                     <div class="conversations-panel-header">Your Conversations</div>
                     <div id="conversation-list"></div>
                 </aside>
 
-                <!-- Middle Panel: Active Chat -->
                 <div class="chat-panel">
                     <div id="active-chat-header" class="conversations-panel-header"></div>
                     <div class="chat-messages" id="active-chat-messages">
@@ -102,7 +97,6 @@
                     </form>
                 </div>
 
-                <!-- Right Panel: Discovery -->
                 <aside class="discovery-panels">
                     <div class="discovery-card">
                         <h3>Discover People</h3>
@@ -120,7 +114,6 @@
 
     <footer class="main-footer"></footer>
 
-    <!-- The script for this page is now very long, it's better to keep it here -->
     <script src="js/main.js"></script>
     <script src="js/config.js"></script>
 
@@ -149,15 +142,18 @@
                     conversationListEl.innerHTML = '<p style="padding: 1rem; text-align: center;">No conversations yet.</p>';
                     return;
                 }
-                conversationListEl.innerHTML = conversations.map(convo => `
-                <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}" data-userpic="${convo.withUser.profilePicture ? `${API_URL}/api/users/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}">
-                    <img src="${convo.withUser.profilePicture ? `${API_URL}/api/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
-                    <div class="conversation-item-info">
-                        <h4>${convo.withUser.name}</h4>
-                        <p>${convo.lastMessage}</p>
-                    </div>
-                </div>
-            `).join('');
+                conversationListEl.innerHTML = conversations.map(convo => {
+                    const picUrl = convo.withUser.profilePicture ? `${API_URL}/api/files/${convo.withUser.profilePicture}` : 'images/placeholder.svg';
+                    return `
+                        <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}" data-userpic="${picUrl}">
+                            <img src="${picUrl}" alt="${convo.withUser.name}">
+                            <div class="conversation-item-info">
+                                <h4>${convo.withUser.name}</h4>
+                                <p>${convo.lastMessage}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
             };
 
             const renderMessages = (messages) => {
@@ -174,12 +170,15 @@
             };
 
             const renderDiscoverPeople = (users) => {
-                discoverPeopleListEl.innerHTML = users.slice(0, 4).filter(user => user._id !== loggedInUserId).map(user => `
-                <a href="view-profile.html?id=${user._id}" class="discovery-item">
-                    <img src="${user.profilePicture ? `${API_URL}/api/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${user.name}">
-                    <div><strong>${user.name}</strong><br><small>${user.headline || 'User'}</small></div>
-                </a>
-            `).join('');
+                discoverPeopleListEl.innerHTML = users.slice(0, 4).filter(user => user._id !== loggedInUserId).map(user => {
+                    const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : 'images/placeholder.svg';
+                    return `
+                        <a href="view-profile.html?id=${user._id}" class="discovery-item">
+                            <img src="${picUrl}" alt="${user.name}">
+                            <div><strong>${user.name}</strong><br><small>${user.headline || 'User'}</small></div>
+                        </a>
+                    `;
+                }).join('');
             };
 
             const renderDiscoverJobs = (jobs) => {

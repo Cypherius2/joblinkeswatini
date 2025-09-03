@@ -144,6 +144,8 @@
 
     <script src="js/main.js"></script>
     <script src="js/config.js"></script>
+
+
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
@@ -175,13 +177,13 @@
                 return;
             }
             expList.innerHTML = experience.map(exp => `
-                <div class="experience-item">
-                    <h3>${exp.title}</h3>
-                    <p class="company">${exp.company} | ${exp.location || ''}</p>
-                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
-                    <p>${exp.description || ''}</p>
-                </div>
-            `).join('');
+                    <div class="experience-item">
+                        <h3>${exp.title}</h3>
+                        <p class="company">${exp.company} | ${exp.location || ''}</p>
+                        <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
+                        <p>${exp.description || ''}</p>
+                    </div>
+                `).join('');
         };
         const renderSkills = (skills) => {
             const skillsList = document.getElementById('skillsList');
@@ -191,11 +193,11 @@
                 return;
             }
             skillsList.innerHTML = skills.map(skill => `
-                <span class="skill-tag">
-                    ${skill.name}
-                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
-                </span>
-            `).join('');
+                    <span class="skill-tag">
+                        ${skill.name}
+                        <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
+                    </span>
+                `).join('');
         };
         const renderDocumentsSection = (documents) => {
             const container = document.getElementById('documentList');
@@ -206,11 +208,11 @@
                 return;
             }
             container.innerHTML = documents.map(doc => `
-                <li class="document-item">
-                    <a href="${API_URL}/api/users/${doc.filePath.replace(/\\/g, '/')}" target="_blank">${doc.originalName}</a>
-                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
-                </li>
-            `).join('');
+                    <li class="document-item">
+                        <a href="${API_URL}/api/files/${doc.filename}" target="_blank">${doc.originalName}</a>
+                        <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
+                    </li>
+                `).join('');
         };
         const fetchAndRenderMyJobs = async (token) => {
             const myJobsList = document.getElementById('my-jobs-list');
@@ -224,12 +226,12 @@
                     myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
                 }
                 myJobsList.innerHTML = jobs.map(job => `
-                    <div class="experience-item">
-                        <h3>${job.title}</h3>
-                        <p class="company">${job.company} - ${job.location}</p>
-                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
-                    </div>
-                `).join('');
+                        <div class="experience-item">
+                            <h3>${job.title}</h3>
+                            <p class="company">${job.company} - ${job.location}</p>
+                            <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
+                        </div>
+                    `).join('');
             } catch (error) {
                 console.error('Failed to fetch user jobs:', error);
                 myJobsList.innerHTML = '<p>Could not load your jobs.</p>';
@@ -373,6 +375,7 @@
             });
         }
     </script>
+
 </body>
 
 </html>

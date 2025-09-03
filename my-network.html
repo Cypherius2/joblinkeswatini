@@ -12,9 +12,7 @@
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
@@ -27,7 +25,6 @@
                 </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -81,7 +78,6 @@
         <div class="container">
             <div class="network-grid-container">
 
-                <!-- Left Panel: Connect with Professionals -->
                 <div class="network-main">
                     <section class="profile-section-card">
                         <h2>Connect with Professionals</h2>
@@ -90,7 +86,6 @@
                     </section>
                 </div>
 
-                <!-- Right Panel: Application Status -->
                 <aside class="network-sidebar">
                     <section class="profile-section-card">
                         <h3>Your Application Status</h3>
@@ -102,7 +97,6 @@
         </div>
     </main>
 
-    <!-- The Global Chat Window HTML -->
     <div id="global-chat-container" style="display: none;">
         <div id="chat-window">
             <div id="chat-header"><button id="chat-back-btn">&larr;</button><span id="chat-header-title"></span></div>
@@ -142,7 +136,7 @@
                 userListContainer.innerHTML = users
                     .filter(user => user._id !== loggedInUserId)
                     .map(user => {
-                        const picUrl = user.profilePicture ? `${API_URL}/api/${user.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg';
+                        const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : 'images/placeholder.svg';
                         return `
                         <div class="user-card">
                             <img src="${picUrl}" alt="${user.name}">

@@ -12,9 +12,7 @@
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
@@ -27,7 +25,6 @@
                 </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -80,24 +77,20 @@
 
     <main class="page-main">
         <div class="container page-container-profile-grid">
-            <!-- Main Content -->
             <div class="profile-main-content">
                 <section class="profile-section-card">
                     <h2>Your Job Postings</h2>
                     <p>Select a job posting below to view its applicants.</p>
                     <div id="my-jobs-list">
-                        <!-- List of company's jobs will be rendered here -->
                     </div>
                 </section>
 
                 <section id="applicants-section" class="profile-section-card" style="display: none;">
                     <h2 id="applicants-title">Applicants</h2>
                     <div id="applicants-list">
-                        <!-- List of applicants for the selected job will be rendered here -->
                     </div>
                 </section>
             </div>
-            <!-- Sidebar -->
             <aside class="profile-sidebar">
                 <div class="sidebar-card">
                     <h3>Dashboard</h3>
@@ -110,12 +103,10 @@
         </div>
     </main>
 
-    <!-- THE APPLICANT DETAIL MODAL (Initially Hidden) -->
     <div class="modal-overlay" id="applicantModal">
         <div class="modal-content">
             <button class="close-modal-btn" id="closeModalBtn">&times;</button>
             <div id="modal-body">
-                <!-- Applicant details will be rendered here -->
             </div>
         </div>
     </div>
@@ -134,11 +125,12 @@
                 applicantsList.innerHTML = applications.map(app => {
                     const applicant = app.applicant;
                     if (!applicant) return ''; // Safety check for deleted applicants
+                    const picUrl = applicant.profilePicture ? `${API_URL}/api/files/${applicant.profilePicture}` : 'images/placeholder.svg';
                     return `
                         <div class="experience-item">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                    <img src="${applicant.profilePicture ? `${API_URL}/api/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    <img src="${picUrl}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
                                     <div>
                                         <h3>${applicant.name}</h3>
                                         <p class="company">${applicant.headline || 'No headline provided.'}</p>
@@ -162,8 +154,9 @@
                 modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
                 return;
             }
+            // Corrected document mapping to use /api/files/ and a proper href attribute
             const documentsHtml = applicant.documents && applicant.documents.length > 0
-                ? applicant.documents.map(doc => `<a href="${API_URL}/api/${doc.filePath.replace(/\\/g, '/')}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
+                ? applicant.documents.map(doc => `<a href="${API_URL}/api/files/${doc.filename}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
                 : 'No documents attached.';
 
             modalBody.innerHTML = `
@@ -275,7 +268,7 @@
                                     application.status = 'viewed'; // Update local data
                                     renderApplicants(currentApplications); // Re-render to show status change
                                 }
-                            } catch (err) { showNotification('Failed to mark as viewed', err); }
+                            } catch (err) { console.error('Failed to mark as viewed', err); }
                         }
                     }
                 }
