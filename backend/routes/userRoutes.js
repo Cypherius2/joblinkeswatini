@@ -86,7 +86,7 @@ router.post('/login', async (req, res) => {
 
 // --- PROFILE UPDATE & FILE UPLOAD ROUTES (USING GRIDFS) ---
 
-router.put('/profile', authMiddleware, async (req, res) => {
+router.put('/profilePicture', authMiddleware, async (req, res) => {
   const { name, headline, location, about } = req.body;
   try {
     const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password');
@@ -95,7 +95,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
 });
 
 // @route   POST api/users/picture
-router.post('/picture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
+router.post('/profilePicture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
   try {
     if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
     const user = await User.findByIdAndUpdate(req.user.id, { profilePicture: req.file.filename }, { new: true }).select('-password');
@@ -103,7 +103,7 @@ router.post('/picture', [authMiddleware, upload.single('profilePicture')], async
   } catch (err) { res.status(500).send('Server Error'); }
 });
 
-router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
+router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
   try {
     if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
     const user = await User.findByIdAndUpdate(req.user.id, { coverPhoto: req.file.filename }, { new: true }).select('-password');
@@ -111,7 +111,7 @@ router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req,
   } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
-router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
+router.post('/documents', [authMiddleware, upload.single('document')], async (req, res) => {
   try {
     if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
     const user = await User.findById(req.user.id);
@@ -128,7 +128,7 @@ router.post('/document', [authMiddleware, upload.single('document')], async (req
   } catch (err) { console.error(err.message); res.status(500).send('Server Error'); }
 });
 
-router.delete('/document/:doc_id', authMiddleware, async (req, res) => {
+router.delete('/documents/:doc_id', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     const doc = user.documents.id(req.params.doc_id);

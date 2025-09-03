@@ -154,9 +154,9 @@
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
 
-
-            const picUrl = user.profilePicture ? `${serverUrl}/api/users/profilePicture}` : placeholderPic;
-            const coverUrl = user.coverPhoto ? `${serverUrl}/api/users/coverPhoto}` : '';
+            // Corrected URLs to use the new file route
+            const picUrl = user.profilePicture ? `${serverUrl}/api/files/${user.profilePicture}` : localPlaceholder;
+            const coverUrl = user.coverPhoto ? `${serverUrl}/api/files/${user.coverPhoto}` : '';
 
             pic.src = picUrl;
             if (coverUrl) {
@@ -164,10 +164,12 @@
             } else {
                 banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
             }
+
             document.getElementById('profileName').textContent = user.name;
             document.getElementById('profileHeadline').textContent = user.headline;
             document.getElementById('profileLocation').textContent = user.location;
         };
+
         const renderAbout = (user) => {
             const aboutEl = document.getElementById('profileAbout');
             if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
@@ -277,6 +279,7 @@
         });
 
         // --- EVENT LISTENERS ---
+        // --- EVENT LISTENERS ---
         const pictureFile = document.getElementById('pictureFile');
         if (pictureFile) pictureFile.addEventListener('change', async (event) => {
             const token = localStorage.getItem('token');
@@ -285,7 +288,12 @@
             const formData = new FormData();
             formData.append('profilePicture', file);
             try {
-                const response = await fetch(`${API_URL}/api/users/profilePicture`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                // Corrected POST route
+                const response = await fetch(`${API_URL}/api/users/profile-picture`, {
+                    method: 'POST',
+                    headers: { 'x-auth-token': token },
+                    body: formData
+                });
                 if (response.ok) {
                     currentUserData = await response.json();
                     showNotification('Profile picture updated!');
@@ -302,7 +310,12 @@
             const formData = new FormData();
             formData.append('coverPhoto', file);
             try {
-                const response = await fetch(`${API_URL}/api/users/coverPhoto`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                // Corrected POST route
+                const response = await fetch(`${API_URL}/api/users/cover-photo`, {
+                    method: 'POST',
+                    headers: { 'x-auth-token': token },
+                    body: formData
+                });
                 if (response.ok) {
                     currentUserData = await response.json();
                     showNotification('Cover photo updated!');
@@ -310,6 +323,7 @@
                 } else { showNotification('Cover photo Upload failed.'); }
             } catch (error) { console.error('Error uploading cover photo:', error); }
         });
+
 
         const documentForm = document.getElementById('documentForm');
         if (documentForm) {
