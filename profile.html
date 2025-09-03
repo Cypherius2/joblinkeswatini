@@ -289,7 +289,7 @@
             formData.append('profilePicture', file);
             try {
                 // Corrected POST route
-                const response = await fetch(`${API_URL}/api/users/profile-picture`, {
+                const response = await fetch(`${API_URL}/api/users/profilePicture`, {
                     method: 'POST',
                     headers: { 'x-auth-token': token },
                     body: formData
@@ -311,7 +311,7 @@
             formData.append('coverPhoto', file);
             try {
                 // Corrected POST route
-                const response = await fetch(`${API_URL}/api/users/cover-photo`, {
+                const response = await fetch(`${API_URL}/api/users/coverPhoto`, {
                     method: 'POST',
                     headers: { 'x-auth-token': token },
                     body: formData
