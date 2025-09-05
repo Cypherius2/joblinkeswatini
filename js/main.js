@@ -1,5 +1,24 @@
 // js/main.js -- FINAL, COMPLETE, AND CORRECTED VERSION
-
+// --- THIS IS THE MISSING GLOBAL NOTIFICATION FUNCTION ---
+function showNotification(message, type = 'success') {
+    const container = document.getElementById('notification-container');
+    if (!container) {
+        // Fallback to alert if the container is missing for any reason
+        console.error('Notification container not found. Falling back to alert.');
+        alert(message);
+        return;
+    }
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    container.appendChild(notification);
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            notification.remove();
+        }, 500); // Animation duration
+    }, 4000); // Time visible
+}
 // --- MODULE FOR HEADER/NAVIGATION LOGIC (DESKTOP) ---
 const headerModule = {
     async init() {
@@ -102,11 +121,11 @@ const mobileNavModule = {
             const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
             if (!response.ok) throw new Error('Token invalid');
             const user = await response.json();
-            
+
             if (this.mobileProfilePic) {
                 this.mobileProfilePic.src = user.profilePicture || 'images/placeholder.svg';
             }
-            
+
             if (this.mobileConnectLink) {
                 if (user.role === 'company') {
                     this.mobileConnectLink.href = 'connect.html';
@@ -173,11 +192,11 @@ const messageTriggerModule = {
                 const userId = event.target.dataset.userid;
                 const userName = event.target.dataset.username;
                 const userPic = event.target.closest('.profile-info')?.querySelector('img')?.src || 'images/placeholder.svg';
-                
+
                 localStorage.setItem('startChatWithId', userId);
                 localStorage.setItem('startChatWithName', userName);
                 localStorage.setItem('startChatWithPic', userPic);
-                
+
                 window.location.href = 'message-center.html';
             }
         });
