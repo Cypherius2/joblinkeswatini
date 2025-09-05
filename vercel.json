@@ -1,27 +1,10 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "backend/server.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "uploads/**",
-            "use": "@vercel/static"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/uploads/(.*)",
-            "destination": "/backend/uploads/$1"
-        },
-        {
-            "source": "/api/(.*)",
-            "destination": "/backend/server.js"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/$1.html"
-        }
-    ]
+  "version": 2,
+  "builds": [
+    { "src": "backend/server.js", "use": "@vercel/node" }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/server.js" },
+    { "source": "/(.*)", "destination": "/$1.html" }
+  ]
 }

@@ -806,7 +806,7 @@ body {
 .main-header .container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 /* Left side of the header (Logo and Search) */
@@ -818,12 +818,12 @@ body {
 
 .header-search-container {
     position: relative;
-    width: 225px;
+    width: 250px;
     left: 25px;
 }
 
 .header-search-input {
-    
+    width: 100%;
     padding: 10px 10px 10px 40px;
     /* Add padding for the icon */
     border-radius: 20px;
@@ -1987,257 +1987,11 @@ body {
    Responsive Profile Page Layout
    ========================================================================== */
 
-/* =============================================== */
-/* 1. GLOBAL & DESKTOP-FIRST STYLES                */
-/* These styles apply to all screen sizes.       */
-/* =============================================== */
-:root {
-    --primary-color: #007bff;
-    --primary-dark: #0056b3;
-    --secondary-color: #6c757d;
-    --text-color: #333;
-    --bg-light: #f8f9fa;
-    --white: #ffffff;
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --border-color: #ddd;
-}
-
-/* Generic footer link styling (can be global) */
-.footer-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    transition: color 0.2s;
-}
-
-.footer-nav a:hover {
-    color: var(--primary-color);
-}
-
-/* Animations are defined globally so they can be used anywhere */
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes pulse3d {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* By default (on screens > 1024px), the mobile nav is hidden. */
-.mobile-nav {
-    display: none;
-}
-
-
-/* =============================================== */
-/* 2. MOBILE & TABLET STYLES (1024px and below)    */
-/* This is the main switch for your mobile view.   */
-/* =============================================== */
-@media (max-width: 1024px) {
-    /* Hide the desktop header and show the mobile navigation */
-    .main-header {
-        display: none;
-    }
-
-    .mobile-nav {
-        display: flex; /* This overrides the 'display: none' above */
-        justify-content: space-around;
-        align-items: center;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        padding: 10px 0;
-    }
-
-    .mobile-nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-decoration: none;
-        color: var(--secondary-color);
-        font-size: 0.7rem;
-        transition: color 0.2s, transform 0.2s;
-        padding: 5px;
-    }
-
-    .mobile-nav-item:hover,
-    .mobile-nav-item.active {
-        color: var(--primary-color);
-    }
-
-    /* 3D and animated icon styles */
-    .mobile-nav-item svg {
-        width: 24px;
-        height: 24px;
-        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
-        animation: pulse3d 2s infinite ease-in-out;
-    }
-
-    /* The bounce on hover/tap */
-    .mobile-nav-item:active svg,
-    .mobile-nav-item:focus svg {
-        animation: none; /* Add other tap effects here if desired */
-    }
-
-    .mobile-nav-profile-pic {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%; /* Makes the image circular */
-    object-fit: cover;    /* Prevents the image from being stretched */
-}
-}
-
-
-/* =============================================== */
-/* 3. SMALLER SCREEN ADJUSTMENTS                   */
-/* These apply additional changes for smaller      */
-/* mobile devices.                                 */
-/* =============================================== */
-
+/* ... (The complete, final CSS file from our previous step) ... */
+#mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background-color: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1500; }
+#mobile-bottom-nav .container { display: flex; justify-content: space-around; }
 @media (max-width: 768px) {
-    .hero-headline { font-size: 2.5rem; }
-    .hero-search-wrapper { flex-direction: column; }
-    .search-btn { width: 100%; }
+    body { padding-bottom: 70px; }
+    #mobile-bottom-nav { display: block; }
+    .main-header, #global-chat-container { display: none !important; } /* Hide desktop header and chat on mobile */
 }
-
-@media (max-width: 500px) {
-    .mobile-nav-item span { display: none; } /* Hide text, show only icon */
-    .mobile-nav { padding: 5px 0; }
-}
-
-@media (max-width: 400px) {
-    .mobile-nav { padding: 0; }
-    .mobile-nav-item { padding: 10px 5px; }
-}
-
-@media (max-width: 320px) {
-    .hero-headline { font-size: 2rem; }
-    .hero-subheadline { font-size: 1rem; }
-}
-
-/* =================================================== */
-/* MOBILE RESPONSIVE STYLES              */
-/* =================================================== */
-
-/* === 1. Tablet & Large Mobile (up to 1024px) === */
-@media (max-width: 1024px) {
-    /* Hide the desktop header */
-    .main-header {
-        display: none;
-    }
-
-    /* Show the mobile bottom navigation */
-    .mobile-nav {
-        display: flex;
-    }
-
-    /* Add padding to the bottom of the body so the fixed nav doesn't cover content */
-    body {
-        padding-bottom: 80px; 
-    }
-}
-
-/* === 2. General Mobile Layout (up to 768px) === */
-@media (max-width: 768px) {
-    /* --- General Container Padding --- */
-    .container {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    /* --- Hero Section --- */
-    .hero-container {
-        flex-direction: column; /* Stack text and image vertically */
-        text-align: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-
-    .hero-content {
-        order: 2; /* Show text below the image */
-        align-items: center;
-    }
-
-    .hero-image {
-        order: 1; /* Show image above the text */
-        margin-bottom: 30px;
-        max-width: 300px; /* Control image size */
-    }
-
-    /* --- Info Cards Section --- */
-    .info-section .container {
-        flex-direction: column; /* Stack info cards vertically */
-        align-items: center;
-        gap: 20px; /* Add space between cards */
-    }
-
-    .info-card {
-        width: 100%;
-        max-width: 400px; /* Give a max-width for better look on tablets */
-        margin-bottom: 0; /* Remove bottom margin as 'gap' handles it */
-    }
-
-    /* --- Footer Section --- */
-    .main-footer .container {
-        flex-direction: column; /* Stack footer content vertically */
-        text-align: center;
-        gap: 15px; /* Add space between text and nav links */
-    }
-    
-    .footer-nav {
-        justify-content: center;
-    }
-}
-
-
-/* === 3. Small Mobile Phones (up to 480px) === */
-@media (max-width: 480px) {
-    /* --- Hero Section Typography --- */
-    .hero-headline {
-        font-size: 2.2rem; /* Make headline smaller */
-        line-height: 1.2;
-    }
-
-    .hero-subheadline {
-        font-size: 1rem; /* Make subheadline smaller */
-    }
-
-    .cta-button {
-        width: 100%; /* Make button full-width for easy tapping */
-        padding: 14px;
-        font-size: 1rem;
-    }
-    
-    /* --- Info Cards --- */
-    .info-card h3 {
-        font-size: 1.1rem;
-    }
-    
-    .info-card p {
-        font-size: 0.9rem;
-    }
-
-    /* --- Footer Links --- */
-    .footer-nav {
-        flex-direction: column; /* Stack footer links on very small screens */
-        gap: 10px;
-    }
-}
-

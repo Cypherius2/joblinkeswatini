@@ -1,26 +1,22 @@
-// server.js -- FINAL, GRIDFS-READY VERSION
+// backend/server.js
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const userRoutes = require('./routes/userRoutes');
-const fileRoutes = require('./routes/fileRoutes');
-const connectDB = require('./config/db'); // <-- Import our new DB connection
-
-// Connect to the database BEFORE we do anything else
-connectDB();
+require('dotenv').config();
 
 const app = express();
+
+mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB Connected')).catch(err => console.error(err));
+
 app.use(cors());
 app.use(express.json());
 
-// --- API Routes ---
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/files', require('./routes/fileRoutes')); // <-- The route to view files
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/skills', require('./routes/skillRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
 
-app.get('/api', (req, res) => res.send('API is running.'));
+app.get('/api', (req, res) => res.send('JobLinkEswatini API is running.'));
 
 module.exports = app;

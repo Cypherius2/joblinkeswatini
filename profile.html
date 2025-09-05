@@ -12,41 +12,73 @@
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo-link">
-                <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
-            </a>
-            <nav class="main-nav" id="main-nav">
-                <a href="jobs.html" class="header-nav-item"><span>Jobs</span></a>
-                <a href="my-network.html" class="header-nav-item" id="connectLink"><span>My Network</span></a>
-                <a href="message-center.html" class="header-nav-item" id="messagingLink"><span>Messaging</span><span
-                        class="notification-badge" id="messaging-notification-dot"></span></a>
-            </nav>
-            <div class="auth-buttons">
-                <div id="loggedOutNav" style="display: flex;">
-                    <a href="login.html" class="header-nav-item">Sign In</a>
-                </div>
-                <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
-                    style="display: none;">
-                    <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
-                    <span>Me &#9662;</span>
-                    <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                        <a href="profile.html" class="dropdown-link">View Profile</a>
-                        <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
-                    </div>
+            <div class="header-left">
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+                <div class="header-search-container">
+                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <input type="text" class="header-search-input" placeholder="Search">
                 </div>
             </div>
-            <button class="mobile-menu-button" id="mobile-menu-button">&#9776;</button>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="my-network.html" class="header-nav-item" id="connectLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    <span>My Network</span>
+                </a>
+                <a href="jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="#" class="header-nav-item" id="messagingLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                    </svg>
+                    <span>Messaging</span>
+                    <span class="notification-badge" id="messaging-notification-dot"></span>
+                </a>
+
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
+                        style="display: none;">
+                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 
     <main class="page-main">
         <div class="container page-container-profile-grid">
 
-            <!-- == Main Content Column (Left) == -->
             <div class="profile-main-content">
-                <!-- 1. PROFILE HEADER -->
                 <section class="profile-header-card">
                     <div class="profile-banner" id="profileBanner">
                         <form id="coverPhotoForm"><label for="coverPhotoFile" id="coverPhotoLabel">&#128247; Change
@@ -70,7 +102,6 @@
                     </div>
                 </section>
 
-                <!-- 2. ABOUT SECTION -->
                 <section id="about-section" class="profile-section-card">
                     <div class="section-header">
                         <h2>About</h2><a href="edit-profile.html" class="edit-icon" id="editAboutBtn"
@@ -79,7 +110,6 @@
                     <p id="profileAbout"></p>
                 </section>
 
-                <!-- 3. EXPERIENCE SECTION -->
                 <section id="experience-section" class="profile-section-card">
                     <div class="section-header">
                         <h2>Experience</h2><a href="add-experience.html" class="add-button" id="addExperienceBtn"
@@ -88,7 +118,6 @@
                     <div id="experienceList"></div>
                 </section>
 
-                <!-- 4. SKILLS SECTION -->
                 <section id="skills-section" class="profile-section-card">
                     <div class="section-header">
                         <h2>Skills</h2><a href="add-skill.html" class="add-button" id="addSkillBtn"
@@ -97,7 +126,6 @@
                     <div id="skillsList" class="skills-container"></div>
                 </section>
 
-                <!-- 5. DOCUMENTS SECTION -->
                 <section id="documents-section" class="profile-section-card" style="display: none;">
                     <h2>My Documents</h2>
                     <ul id="documentList" class="document-list"></ul>
@@ -111,14 +139,12 @@
                     </form>
                 </section>
 
-                <!-- 6. COMPANY'S JOB POSTINGS -->
                 <section id="company-jobs-section" class="profile-section-card" style="display: none;">
                     <h2>Your Job Postings</h2>
                     <div id="my-jobs-list"></div>
                 </section>
             </div>
 
-            <!-- == Sidebar Column (Right) == -->
             <aside class="profile-sidebar">
                 <div class="sidebar-card">
                     <h3>Profile language</h3>
@@ -126,7 +152,7 @@
                 </div>
                 <div class="sidebar-card">
                     <h3>Public profile & URL</h3>
-                    <p class="profile-link" id="publicProfileUrl">www.joblinkeswatini.com/in/username</p>
+                    <a class="profile-link" id="publicProfileUrl" href="#">www.joblinkeswatini.com/in/username</a>
                 </div>
                 <div class="sidebar-card">
                     <h3>Who's viewed your profile</h3>
@@ -137,8 +163,7 @@
     </main>
 
     <div id="global-chat-container" style="display: none;">
-        <!-- ... Global Chat HTML ... -->
-    </div>
+        </div>
 
     <footer class="main-footer"></footer>
 
@@ -154,7 +179,6 @@
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
 
-            // Corrected URLs to use the new file route
             const picUrl = user.profilePicture ? `${serverUrl}/api/files/${user.profilePicture}` : localPlaceholder;
             const coverUrl = user.coverPhoto ? `${serverUrl}/api/files/${user.coverPhoto}` : '';
 
@@ -168,12 +192,20 @@
             document.getElementById('profileName').textContent = user.name;
             document.getElementById('profileHeadline').textContent = user.headline;
             document.getElementById('profileLocation').textContent = user.location;
+
+            // Set the public profile URL
+            const publicProfileUrlEl = document.getElementById('publicProfileUrl');
+            if (publicProfileUrlEl) {
+                publicProfileUrlEl.href = `view-profile.html?id=${user._id}`;
+                publicProfileUrlEl.textContent = `joblinkeswatini.com/in/${user.name.toLowerCase().replace(/\s/g, '-')}`;
+            }
         };
 
         const renderAbout = (user) => {
             const aboutEl = document.getElementById('profileAbout');
             if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
         };
+
         const renderExperience = (experience) => {
             const expList = document.getElementById('experienceList');
             if (!expList) return;
@@ -182,14 +214,15 @@
                 return;
             }
             expList.innerHTML = experience.map(exp => `
-                    <div class="experience-item">
-                        <h3>${exp.title}</h3>
-                        <p class="company">${exp.company} | ${exp.location || ''}</p>
-                        <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
-                        <p>${exp.description || ''}</p>
-                    </div>
-                `).join('');
+                <div class="experience-item">
+                    <h3>${exp.title}</h3>
+                    <p class="company">${exp.company} | ${exp.location || ''}</p>
+                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
+                    <p>${exp.description || ''}</p>
+                </div>
+            `).join('');
         };
+
         const renderSkills = (skills) => {
             const skillsList = document.getElementById('skillsList');
             if (!skillsList) return;
@@ -198,12 +231,13 @@
                 return;
             }
             skillsList.innerHTML = skills.map(skill => `
-                    <span class="skill-tag">
-                        ${skill.name}
-                        <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
-                    </span>
-                `).join('');
+                <span class="skill-tag">
+                    ${skill.name}
+                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
+                </span>
+            `).join('');
         };
+
         const renderDocumentsSection = (documents) => {
             const container = document.getElementById('documentList');
             if (!container) return;
@@ -213,12 +247,13 @@
                 return;
             }
             container.innerHTML = documents.map(doc => `
-                    <li class="document-item">
-                        <a href="${API_URL}/api/files/${doc.filename}" target="_blank">${doc.originalName}</a>
-                        <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
-                    </li>
-                `).join('');
+                <li class="document-item">
+                    <a href="${API_URL}/api/files/${doc.filename}" target="_blank">${doc.originalName}</a>
+                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
+                </li>
+            `).join('');
         };
+
         const fetchAndRenderMyJobs = async (token) => {
             const myJobsList = document.getElementById('my-jobs-list');
             if (!myJobsList) return;
@@ -231,12 +266,12 @@
                     myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
                 }
                 myJobsList.innerHTML = jobs.map(job => `
-                        <div class="experience-item">
-                            <h3>${job.title}</h3>
-                            <p class="company">${job.company} - ${job.location}</p>
-                            <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
-                        </div>
-                    `).join('');
+                    <div class="experience-item">
+                        <h3>${job.title}</h3>
+                        <p class="company">${job.company} - ${job.location}</p>
+                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
+                    </div>
+                `).join('');
             } catch (error) {
                 console.error('Failed to fetch user jobs:', error);
                 myJobsList.innerHTML = '<p>Could not load your jobs.</p>';
@@ -262,6 +297,10 @@
                 if (currentUserData.role === 'company') {
                     profileActions.innerHTML = `<a href="post-job.html" class="profile-button-primary">Post New Job</a>`;
                     document.getElementById('company-jobs-section').style.display = 'block';
+                    document.getElementById('documents-section').style.display = 'none';
+                    document.getElementById('addExperienceBtn').style.display = 'none';
+                    document.getElementById('addSkillBtn').style.display = 'none';
+                    document.getElementById('editAboutBtn').style.display = 'none';
                     fetchAndRenderMyJobs(token);
                 } else { // Seeker
                     profileActions.innerHTML = `<a href="edit-profile.html" class="profile-button-primary">Edit Profile</a>`;
@@ -269,6 +308,7 @@
                     document.getElementById('addSkillBtn').style.display = 'block';
                     document.getElementById('editAboutBtn').style.display = 'block';
                     document.getElementById('documents-section').style.display = 'block';
+                    document.getElementById('company-jobs-section').style.display = 'none';
                     renderDocumentsSection(currentUserData.documents);
                 }
             } catch (error) {
@@ -279,7 +319,6 @@
         });
 
         // --- EVENT LISTENERS ---
-        // --- EVENT LISTENERS ---
         const pictureFile = document.getElementById('pictureFile');
         if (pictureFile) pictureFile.addEventListener('change', async (event) => {
             const token = localStorage.getItem('token');
@@ -288,7 +327,6 @@
             const formData = new FormData();
             formData.append('profilePicture', file);
             try {
-                // Corrected POST route
                 const response = await fetch(`${API_URL}/api/users/profilePicture`, {
                     method: 'POST',
                     headers: { 'x-auth-token': token },
@@ -310,7 +348,6 @@
             const formData = new FormData();
             formData.append('coverPhoto', file);
             try {
-                // Corrected POST route
                 const response = await fetch(`${API_URL}/api/users/coverPhoto`, {
                     method: 'POST',
                     headers: { 'x-auth-token': token },
@@ -392,7 +429,6 @@
             });
         }
     </script>
-
 </body>
 
 </html>

@@ -12,9 +12,7 @@
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
@@ -27,7 +25,6 @@
                 </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
                 <a href="index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -80,15 +77,12 @@
 
     <main class="page-main">
         <div class="container page-container-profile-grid">
-            <!-- == Main Content Column (Left) == -->
             <div class="profile-main-content">
-                <!-- 1. PROFILE HEADER -->
                 <section class="profile-header-card">
                     <div class="profile-banner" id="profileBanner"></div>
                     <div class="profile-info">
                         <div class="profile-picture-container" style="top: -75px; left: 20px;">
-                            <img id="profilePicture" src="images/placeholder.svg" alt="User Profile Picture"
-                                class="profile-picture">
+                            <img id="profilePicture" src="images/placeholder.svg" alt="User Profile Picture" class="profile-picture">
                         </div>
                         <div class="profile-name-title">
                             <h1 id="profileName">Loading Profile...</h1>
@@ -96,25 +90,47 @@
                             <span id="profileLocation" class="profile-location"></span>
                         </div>
                         <div class="profile-actions">
-                            <!-- The "Message" button will be inserted here -->
-                        </div>
+                            </div>
                     </div>
                 </section>
 
-                <!-- 2. ABOUT, EXPERIENCE, SKILLS SECTIONS -->
-                <section id="about-section" class="profile-section-card" style="display: none;"></section>
-                <section id="experience-section" class="profile-section-card" style="display: none;"></section>
-                <section id="skills-section" class="profile-section-card" style="display: none;"></section>
+                <section id="about-section" class="profile-section-card" style="display: none;">
+                    <div class="section-header">
+                        <h2>About</h2>
+                    </div>
+                    <p id="profileAbout"></p>
+                </section>
+                <section id="experience-section" class="profile-section-card" style="display: none;">
+                    <div class="section-header">
+                        <h2>Experience</h2>
+                    </div>
+                    <div id="experienceList"></div>
+                </section>
+                <section id="skills-section" class="profile-section-card" style="display: none;">
+                    <div class="section-header">
+                        <h2>Skills</h2>
+                    </div>
+                    <div id="skillsList" class="skills-container"></div>
+                </section>
             </div>
-            <!-- == Sidebar Column (Right) == -->
             <aside class="profile-sidebar">
-                <!-- Sidebar content -->
+                <div class="sidebar-card">
+                    <h3>Profile language</h3>
+                    <p>English</p>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Public profile & URL</h3>
+                    <a class="profile-link" id="publicProfileUrl" href="#"></a>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Who's viewed your profile</h3>
+                    <p style="color: #777;">Feature coming soon!</p>
+                </div>
             </aside>
         </div>
     </main>
 
     <footer class="main-footer"></footer>
-    <!-- The Global Chat Window HTML -->
     <div id="global-chat-container" style="display: none;">
         <div id="chat-window">
             <div id="chat-header">
@@ -122,11 +138,9 @@
                 <span id="chat-header-title">Messages</span>
             </div>
             <div id="chat-conversation-list">
-                <!-- List of conversations will be rendered here -->
-            </div>
+                </div>
             <div id="chat-messages" style="display: none;">
-                <!-- Messages for a specific conversation will be rendered here -->
-            </div>
+                </div>
             <form id="chat-form" style="display: none;">
                 <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
                 <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
@@ -141,17 +155,15 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/config.js"></script> 
 
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
-            // Define a placeholder for images that might be missing
             const placeholderPic = 'images/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
 
-            // Construct full URLs using a dedicated endpoint for files, which is more secure and robust.
-            // This assumes user.profilePicture and user.coverPhoto now store just the filename.
             const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : placeholderPic;
             const coverUrl = user.coverPhoto ? `${API_URL}/api/files/${user.coverPhoto}` : '';
 
@@ -159,43 +171,93 @@
             if (coverUrl) {
                 banner.style.backgroundImage = `url('${coverUrl}')`;
             } else {
-                // Provide a default banner if none is set
-                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
+                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)'; // Default gradient
             }
 
             document.getElementById('profileName').textContent = user.name || 'User Name';
             document.getElementById('profileHeadline').textContent = user.headline || '';
             document.getElementById('profileLocation').textContent = user.location || '';
+
+            // Update the public profile URL in the sidebar
+            const publicProfileUrlEl = document.getElementById('publicProfileUrl');
+            if (publicProfileUrlEl) {
+                // Create a clickable link to the user's profile page (assuming view-profile.html handles this)
+                publicProfileUrlEl.href = `view-profile.html?id=${user._id}`;
+                publicProfileUrlEl.textContent = `joblinkeswatini.com/in/${user.name.toLowerCase().replace(/\s/g, '-')}`;
+            }
         };
 
         const renderAbout = (user) => {
             const container = document.getElementById('about-section');
             if (user.about) {
                 container.style.display = 'block';
-                container.innerHTML = `<h2>About</h2><p>${user.about.replace(/\n/g, '<br>')}</p>`;
+                // Render the about text, replacing newlines with <br> for proper display
+                document.getElementById('profileAbout').innerHTML = user.about.replace(/\n/g, '<br>');
+            } else {
+                container.innerHTML = `<h2>About</h2><p>This user has not provided any information about themselves.</p>`;
+                container.style.display = 'block'; // Still show the section, but with a message
             }
         };
 
         const renderExperience = (experience) => {
             const container = document.getElementById('experience-section');
-            if (!experience || experience.length === 0) return;
+            if (!experience || experience.length === 0) {
+                container.innerHTML = `<h2>Experience</h2><p>No experience listed for this user.</p>`;
+                container.style.display = 'block';
+                return;
+            }
             container.style.display = 'block';
-            container.innerHTML = `<div class="section-header"><h2>Experience</h2></div><div id="experienceList">${experience.map(exp => `<div class="experience-item"><h3>${exp.title}</h3><p class="company">${exp.company}</p></div>`).join('')}</div>`;
+            const experienceListHtml = experience.map(exp => `
+                <div class="experience-item">
+                    <h3>${exp.title}</h3>
+                    <p class="company">${exp.company} | ${exp.location || ''}</p>
+                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
+                    <p>${exp.description || ''}</p>
+                </div>
+            `).join('');
+            container.innerHTML = `
+                <div class="section-header">
+                    <h2>Experience</h2>
+                </div>
+                <div id="experienceList">${experienceListHtml}</div>
+            `;
         };
 
         const renderSkills = (skills) => {
             const container = document.getElementById('skills-section');
-            if (!skills || skills.length === 0) return;
+            if (!skills || skills.length === 0) {
+                container.innerHTML = `<h2>Skills</h2><p>No skills listed for this user.</p>`;
+                container.style.display = 'block';
+                return;
+            }
             container.style.display = 'block';
-            container.innerHTML = `<div class="section-header"><h2>Skills</h2></div><div id="skillsList" class="skills-container">${skills.map(skill => `<span class="skill-tag">${skill.name}</span>`).join('')}</div>`;
+            const skillsHtml = skills.map(skill => `<span class="skill-tag">${skill.name}</span>`).join('');
+            container.innerHTML = `
+                <div class="section-header">
+                    <h2>Skills</h2>
+                </div>
+                <div id="skillsList" class="skills-container">${skillsHtml}</div>
+            `;
         };
+
+        // Function to show notifications (assuming showNotification is defined in main.js)
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`; // Add 'notification' and type class
+            notification.textContent = message;
+            container.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000); // Remove after 3 seconds
+        }
 
         // --- MAIN SCRIPT ON PAGE LOAD ---
         document.addEventListener('DOMContentLoaded', async () => {
-            // Early check to ensure the API_URL is configured. This is crucial for debugging on Vercel.
+            // Ensure API_URL is defined before proceeding
             if (typeof API_URL === 'undefined' || !API_URL) {
                 console.error("CRITICAL: API_URL is not defined! The application cannot fetch data.");
-                document.querySelector('.profile-main-content').innerHTML = '<h1>Configuration Error</h1><p>The application is not configured correctly. Please contact support.</p>';
+                document.querySelector('.profile-main-content').innerHTML = '<h1 style="color: red;">Configuration Error</h1><p>The application is not configured correctly. Please contact support.</p>';
                 return;
             }
 
@@ -203,20 +265,25 @@
             const userId = urlParams.get('id');
 
             if (!userId) {
-                document.querySelector('.profile-main-content').innerHTML = '<h1>Error: No user specified.</h1>';
+                document.querySelector('.profile-main-content').innerHTML = '<h1>Error: No user specified.</h1><p>Please provide a user ID in the URL.</p>';
                 return;
             }
 
             try {
                 const response = await fetch(`${API_URL}/api/users/${userId}`);
 
-                // Improved error handling: check the response status and provide more detail.
                 if (!response.ok) {
+                    // Handle specific HTTP errors for better user feedback
+                    if (response.status === 404) {
+                        throw new Error('Profile not found.');
+                    }
                     throw new Error(`Failed to fetch profile. Server responded with status: ${response.status}`);
                 }
                 const user = await response.json();
 
+                // Set the page title dynamically
                 document.title = `${user.name} | JobLinkEswatini`;
+
                 renderProfileHeader(user);
                 renderAbout(user);
                 renderExperience(user.experience);
@@ -224,28 +291,50 @@
 
                 const profileActionsContainer = document.querySelector('.profile-actions');
                 const token = localStorage.getItem('token');
+
+                // Add "Message" button only if the viewer is not the profile owner
                 if (token) {
                     try {
-                        // Safely parse the token to get the logged-in user's ID
-                        const loggedInUserId = JSON.parse(atob(token.split('.')[1])).user.id;
+                        // Decode the token to get the logged-in user's ID
+                        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                        const loggedInUserId = tokenPayload.user.id; // Assuming token structure
+                        
                         if (loggedInUserId !== user._id) {
                             profileActionsContainer.innerHTML = `<button class="apply-button message-user-btn" data-userid="${user._id}" data-username="${user.name}">Message</button>`;
+                            
+                            // Add event listener for the message button
+                            document.querySelector('.message-user-btn').addEventListener('click', () => {
+                                // This function would need to be defined elsewhere or implemented here
+                                // It should open the chat window for the specified user.
+                                openChatWithUser(user._id, user.name); 
+                            });
                         }
                     } catch (e) {
-                        console.error("Failed to parse auth token:", e);
-                        // Handle invalid token case, maybe clear it
-                        localStorage.removeItem('token');
+                        console.error("Failed to parse auth token or check user ID:", e);
+                        // If token is invalid or can't be parsed, treat as logged out for this check
+                        localStorage.removeItem('token'); // Clean up invalid token
+                        // Optionally redirect to login or show a message
                     }
                 }
+
             } catch (error) {
-                // This catch block will now receive the more detailed error message from the try block.
                 console.error('Failed to load profile:', error);
                 document.querySelector('.profile-main-content').innerHTML = `
                     <h1>Oops! We couldn't load this profile.</h1>
-                    <p>The profile may not exist or there might be a network issue. Please try again later.</p>
+                    <p>${error.message}. Please try again later.</p>
                 `;
             }
         });
+
+        // Placeholder for the chat functionality initiation.
+        // This function would typically be defined in main.js or another relevant script.
+        function openChatWithUser(userId, userName) {
+            console.log(`Initiating chat with ${userName} (ID: ${userId})`);
+            // Implement logic to open the chat window and start a conversation here.
+            // This might involve setting a global variable, triggering an event, 
+            // or directly manipulating the chat UI elements.
+            alert(`Chat functionality to ${userName} is not fully implemented yet.`); 
+        }
     </script>
 
 </body>

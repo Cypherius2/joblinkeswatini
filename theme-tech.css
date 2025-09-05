@@ -1,0 +1,2352 @@
+/* =================================================== */
+/* 3D & TECHNOLOGY THEME                         */
+/* =================================================== */
+
+/* --- 1. New Color Palette & Dark Theme --- */
+:root {
+    --tech-bg: #0a0a1a; /* Dark navy blue background */
+    --tech-surface: #1a1a3a; /* Slightly lighter surface for cards */
+
+    --tech-primary: #00f2ff; /* Vibrant cyan for accents and glows */
+    --tech-primary-dark: #00aacc;
+    --tech-text-primary: #e0e0ff; /* Light lavender-white for text */
+    --tech-text-secondary: #a0a0c0; /* Dimmer secondary text */
+    --tech-glow-color: rgba(0, 242, 255, 0.5);
+}
+
+body {
+   /* background-color: var(--tech-bg);*/
+    background-color: var(--tech-surface);
+    background-image: radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.1), transparent 30%),
+                        radial-gradient(circle at 80% 90%, rgba(100, 100, 255, 0.1), transparent 40%);
+    color: var(--tech-text-primary);
+}
+
+/* --- 2. Hero Section: Floating & Glowing --- */
+.hero {
+    border-bottom: 1px solid var(--tech-surface);
+}
+
+.hero-headline {
+     color: var(--tech-surface);
+   /* color: rgba(26, 26, 58, 0.7); */
+    
+}
+
+.hero-subheadline {
+    color: var(--tech-text-secondary);
+}
+
+.cta-button {
+    background-color: transparent;
+    border: 2px solid var(--tech-surface);
+    color: var(--tech-surface);
+    box-shadow: 0 0 15px var(--tech-glow-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+    background-color: var(--tech-surface);
+    color: #fff;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 25px var(--tech-glow-color), 0 0 40px var(--tech-glow-color);
+}
+
+/* 3D Wrapper for the Hero Image */
+.hero-image-wrapper {
+    perspective: 1000px; /* Establishes the 3D space */
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-image-wrapper img {
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: rotateX(10deg) rotateY(-15deg) rotateZ(5deg);
+    transition: transform 0.5s ease;
+}
+
+.hero-image-wrapper:hover img {
+    transform: rotateX(0) rotateY(0) rotateZ(0) scale(1.05); /* Flatten and grow on hover */
+}
+
+
+/* --- 3. Info Section: 3D Tilting Cards --- */
+.info-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.info-section .container {
+    perspective: 2000px; /* The "camera" distance for all cards in the container */
+}
+
+.info-card {
+    background-color: rgba(26, 26, 58, 0.7); /* Semi-transparent surface */
+    border: 1px solid var(--tech-surface);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-out;
+    transform-style: preserve-3d; /* This is key for the 3D effect */
+}
+
+.info-card:hover {
+    transform: translateY(-10px) scale(1.03) rotateX(5deg) rotateY(10deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 
+                0 0 20px var(--tech-glow-color); /* Add glow on hover */
+    border-color: var(--tech-primary);
+}
+
+.info-card h3 {
+    color: var(--tech-primary);
+}
+
+.info-card p {
+    color: var(--tech-text-secondary);
+}
+
+
+/* --- 4. Animations --- */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* --- 5. Header: Frosted Glass & Glowing --- */
+
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(10, 10, 26, 0.7); /* Semi-transparent dark background */
+    backdrop-filter: blur(12px); /* The frosted glass effect */
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    border-bottom: 1px solid var(--tech-surface);
+    transition: background-color 0.3s ease;
+}
+
+/* --- Logo --- */
+.logo {
+    color: var(--tech-text-primary);
+}
+
+.logo-eswatini {
+    color: var(--tech-primary);
+    text-shadow: 0 0 8px var(--tech-glow-color);
+}
+
+/* --- Search Bar --- */
+.header-search-container {
+    background-color: #fff;
+    
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.header-search-container:focus-within {
+    border-color: var(--tech-primary);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+
+}
+
+.header-search-input {
+    
+    background-color: transparent;
+    color: black;
+}
+
+.header-search-input::placeholder {
+    color: var(--tech-text-secondary);
+}
+
+.header-search-icon {
+    fill: var(--tech-text-secondary);
+}
+
+
+/* --- Navigation Items --- */
+.header-nav-item {
+    color: var(--tech-text-secondary);
+    position: relative; /* Needed for the ::after pseudo-element */
+    transition: color 0.3s ease;
+}
+
+.header-nav-item svg {
+    fill: var(--tech-text-secondary);
+    transition: fill 0.3s ease;
+}
+
+/* Hover effect for nav items */
+.header-nav-item:hover,
+.header-nav-item:hover svg {
+    color: var(--tech-primary);
+    fill: var(--tech-primary);
+}
+
+/* Active page indicator */
+.header-nav-item.active {
+    color: var(--tech-primary);
+}
+
+.header-nav-item.active svg {
+    fill: var(--tech-primary);
+}
+
+.header-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Position it below the item */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background-color: var(--tech-primary);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--tech-glow-color);
+}
+
+
+/* --- Profile Dropdown --- */
+.nav-profile-pic {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.profile-dropdown-container:hover .nav-profile-pic {
+    border-color: var(--tech-primary);
+}
+
+.profile-dropdown-menu {
+    background-color: rgba(26, 26, 58, 0.9); /* Darker, more opaque dropdown */
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--tech-surface);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-radius: 8px;
+    margin-top: 15px; /* More spacing */
+}
+
+.dropdown-link {
+    color: var(--tech-text-secondary);
+}
+
+.dropdown-link:hover {
+    background-color: rgba(0, 242, 255, 0.1);
+    color: var(--tech-primary);
+}
+
+.dropdown-divider {
+    background-color: var(--tech-surface);
+}
+
+/* --- Additional styles for the "Add Experience" page --- */
+/* This section handles the form and card on the specific page. */
+
+.profile-section-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    margin-top: 2rem;
+    color: var(--tech-text-primary);
+}
+
+.profile-section-card h2 {
+    color: var(--tech-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.4);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: var(--tech-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    background-color: rgba(26, 26, 58, 0.5); /* Semi-transparent input fields */
+    border: 1px solid var(--tech-surface);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--tech-text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--tech-primary);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--tech-text-secondary);
+}
+
+.auth-button {
+    background-color: transparent;
+    border: 2px solid var(--tech-primary);
+    color: var(--tech-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none; /* For the cancel button link */
+}
+
+.auth-button:hover {
+    background-color: var(--tech-primary);
+    color: var(--tech-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--tech-glow-color);
+}
+
+.auth-button[href] {
+    background-color: #555; /* A separate color for the cancel link */
+    border: 2px solid #555;
+    color: #fff;
+}
+
+.auth-button[href]:hover {
+    background-color: #777;
+    border-color: #777;
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+/* --- Global Elements & Utility Classes --- */
+.page-container-profile {
+    max-width: 800px;
+}
+
+/* Styles for the Chat Bubble and Notification */
+#global-chat-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+}
+
+#chat-bubble {
+    background-color: var(--tech-primary);
+    color: var(--tech-bg);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--tech-glow-color);
+    transition: all 0.3s ease-in-out;
+}
+
+#chat-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px var(--tech-glow-color);
+}
+
+#chat-bubble svg {
+    fill: var(--tech-bg);
+    width: 30px;
+    height: 30px;
+}
+
+#chat-notification-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid var(--tech-bg);
+}
+
+#chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 2rem;
+    width: 350px;
+    height: 500px;
+    background-color: rgba(26, 26, 58, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--tech-surface);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--tech-surface);
+    display: flex;
+    align-items: center;
+    color: var(--tech-primary);
+}
+
+#chat-header-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+#chat-back-btn {
+    background: none;
+    border: none;
+    color: var(--tech-text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#chat-form {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--tech-surface);
+}
+
+#chat-input {
+    flex-grow: 1;
+    border: none;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    color: var(--tech-text-primary);
+}
+
+.apply-button {
+    /* Style for the Send button in the chat window */
+    background-color: var(--tech-primary);
+    color: var(--tech-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+/* =================================================== */
+/* Job Application Page Specific Styles                */
+/* =================================================== */
+
+.profile-section-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    margin-top: 2rem;
+    color: var(--tech-text-primary);
+}
+
+#application-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#application-header h2 {
+    color: var(--tech-text-primary);
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.4);
+}
+
+#application-header h2 #jobTitle {
+    color: var(--tech-primary);
+}
+
+#application-header p {
+    color: var(--tech-text-secondary);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+#application-header #companyName {
+    color: var(--tech-primary);
+}
+
+.profile-section-card hr {
+    border-color: var(--tech-surface);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-form h4 {
+    color: var(--tech-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--tech-surface);
+    padding-bottom: 0.5rem;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: var(--tech-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    background-color: rgba(26, 26, 58, 0.5);
+    border: 1px solid var(--tech-surface);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--tech-text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+    background-color: rgba(26, 26, 58, 0.2);
+    cursor: not-allowed;
+    color: var(--tech-text-secondary);
+}
+
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--tech-primary);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+.auth-button {
+    background-color: transparent;
+    border: 2px solid var(--tech-primary);
+    color: var(--tech-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 1.5rem;
+}
+
+.auth-button:hover {
+    background-color: var(--tech-primary);
+    color: var(--tech-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--tech-glow-color);
+}
+
+.auth-button[href] {
+    background-color: #555;
+    border: 2px solid #555;
+    color: #fff;
+    margin-top: 0.5rem;
+}
+
+.auth-button[href]:hover {
+    background-color: #777;
+    border-color: #777;
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+/* Specific styles for the "You have no documents" message */
+.profile-section-card p[style="color: #D21034;"] {
+    color: #ff6666 !important;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ff6666;
+    background-color: rgba(255, 102, 102, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+
+/* =================================================== */
+/* Company Dashboard Specific Styles                   */
+/* =================================================== */
+
+.page-container-profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+    .page-container-profile-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-sidebar {
+        order: -1; /* Move sidebar to the top on small screens */
+    }
+}
+
+.profile-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    color: var(--tech-text-primary);
+    text-align: center;
+}
+
+.sidebar-card h3 {
+    color: var(--tech-primary);
+    margin-bottom: 0.5rem;
+}
+
+.job-listing-item {
+    background-color: rgba(26, 26, 58, 0.5);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--tech-surface);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 0.5rem;
+}
+
+.job-listing-item:hover {
+    background-color: var(--tech-surface);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+.job-listing-item h3 {
+    margin: 0;
+    color: var(--tech-text-primary);
+}
+
+.job-listing-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--tech-text-secondary);
+}
+
+/* Applicant List Styles */
+.experience-item {
+    /* Reusing a similar card style for consistency */
+    background-color: rgba(26, 26, 58, 0.5);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--tech-surface);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.experience-item:hover {
+    background-color: var(--tech-surface);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+.status-tag {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #555;
+    color: #fff;
+}
+
+.status-viewed {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.status-successful {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-unsuccessful {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.is-open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+    padding: 2.5rem;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: var(--tech-text-primary);
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    color: var(--tech-primary);
+}
+
+#modal-body hr {
+    border-color: var(--tech-primary-dark);
+}
+
+.modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.modal-section h4 {
+    color: var(--tech-primary);
+    margin-bottom: 0.5rem;
+}
+
+.document-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.document-link {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.document-link:hover {
+    background-color: #555;
+}
+
+.applicant-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.action-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.action-button[data-status="successful"] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.action-button[data-status="unsuccessful"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.action-button[data-status="successful"]:hover {
+    background-color: #218838;
+}
+
+.action-button[data-status="unsuccessful"]:hover {
+    background-color: #c82333;
+}
+
+/* =================================================== */
+/* Company Dashboard Specific Styles                   */
+/* =================================================== */
+
+.page-container-profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+    .page-container-profile-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-sidebar {
+        order: -1; /* Moves the sidebar to the top on smaller screens */
+    }
+}
+
+.profile-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    color: var(--tech-text-primary);
+    text-align: center;
+}
+
+.sidebar-card h3 {
+    color: var(--tech-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Job Listing & Applicant Card Styles */
+.job-listing-item {
+    background-color: rgba(26, 26, 58, 0.5);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--tech-surface);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 0.5rem;
+}
+
+.job-listing-item:hover {
+    background-color: var(--tech-surface);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+.job-listing-item h3 {
+    margin: 0;
+    color: var(--tech-text-primary);
+}
+
+.job-listing-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--tech-text-secondary);
+}
+
+.experience-item {
+    /* Reusing for applicants list, similar to job items but with flex layout */
+    background-color: rgba(26, 26, 58, 0.5);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--tech-surface);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.experience-item:hover {
+    background-color: var(--tech-surface);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--tech-glow-color);
+}
+
+/* Application Status Tags */
+.status-tag {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #555;
+    color: #fff;
+}
+
+.status-viewed {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.status-successful {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-unsuccessful {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Applicant Details Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.is-open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+    padding: 2.5rem;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: var(--tech-text-primary);
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    color: var(--tech-primary);
+}
+
+#modal-body hr {
+    border-color: var(--tech-primary-dark);
+}
+
+.modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.modal-section h4 {
+    color: var(--tech-primary);
+    margin-bottom: 0.5rem;
+}
+
+.document-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.document-link {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.document-link:hover {
+    background-color: #555;
+}
+
+.applicant-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.action-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.action-button[data-status="successful"] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.action-button[data-status="unsuccessful"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.action-button[data-status="successful"]:hover {
+    background-color: #218838;
+}
+
+.action-button[data-status="unsuccessful"]:hover {
+    background-color: #c82333;
+}
+
+/* =================================================== */
+/* Job Details Page Specific Styles                    */
+/* =================================================== */
+
+.page-container-profile {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.profile-section-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    color: var(--tech-text-primary);
+    max-width: 900px;
+    width: 90%;
+}
+
+.profile-section-card h1,
+.profile-section-card h2 {
+    color: var(--tech-primary);
+    margin-bottom: 1rem;
+}
+
+.profile-section-card h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.profile-section-card h2 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--tech-primary-dark);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.profile-section-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.profile-section-card strong {
+    color: var(--tech-glow-color);
+}
+
+.profile-section-card hr {
+    border-color: var(--tech-primary-dark);
+    margin: 2rem 0;
+}
+
+/* Specific styling for the job description */
+#jobDescription {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Apply button styling */
+.apply-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--tech-primary);
+    color: var(--tech-dark-bg);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+}
+
+.apply-button:hover {
+    background-color: var(--tech-glow-color);
+    transform: translateY(-2px);
+}
+
+/* =================================================== */
+/* Login/Auth Page Specific Styles                     */
+/* =================================================== */
+
+/* Main container for the auth page */
+.auth-body {
+    background-color: var(--tech-dark-bg);
+    color: var(--tech-text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Auth card container */
+.auth-container {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Auth header and logo */
+.auth-header {
+    margin-bottom: 2rem;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--tech-text-primary);
+}
+
+.logo-eswatini {
+    color: var(--tech-primary);
+}
+
+/* Google Sign-in Button */
+.google-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #747775;
+    border-radius: 50px;
+    background-color: #fff;
+    color: var(--tech-surface);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.google-btn:hover {
+    background-color: #fff;
+    border-color: var(--tech-primary);
+    transform: translateY(-2px);
+}
+
+.google-icon-wrapper {
+    background-color: #fff;
+    border-radius: 100%;
+    padding: 0.25rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-icon {
+    width: 200px;
+    height: 190px;
+}
+
+/* Auth form and inputs */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--tech-text-secondary);
+    font-weight: 500;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    border: 1px solid #555;
+    border-radius: 8px;
+    color: #333;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--tech-primary);
+    box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.3);
+}
+
+/* Main action button */
+.auth-button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--tech-primary);
+    color: var(--tech-dark-bg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+}
+
+.auth-button:hover {
+    background-color: var(--tech-glow-color);
+    transform: translateY(-2px);
+}
+
+/* Footer link */
+.auth-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--tech-text-secondary);
+}
+
+.auth-footer a {
+    color: var(--tech-primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Navigation adjustments for auth pages */
+.auth-body .mobile-nav {
+    display: none;
+}
+
+
+/* =================================================== */
+/* Messaging Page Specific Styles                      */
+/* =================================================== */
+
+.messaging-grid-container {
+    display: grid;
+    grid-template-columns: 320px 1fr 280px;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+@media (max-width: 1200px) {
+    .messaging-grid-container {
+        grid-template-columns: 280px 1fr;
+    }
+    .discovery-panels {
+        display: none; /* Hide side discovery panel on smaller desktops */
+    }
+}
+
+@media (max-width: 768px) {
+    .messaging-grid-container {
+        grid-template-columns: 1fr;
+    }
+    .conversations-panel {
+        display: none; /* Hide conversation list by default on mobile */
+    }
+    .chat-panel {
+        border-radius: 15px; /* Full card on mobile */
+    }
+    .conversations-panel.is-visible {
+        display: block; /* Show conversation list when needed */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--tech-dark-bg);
+        z-index: 500;
+        padding-top: 5rem; /* Space for header */
+        box-shadow: none;
+    }
+}
+
+/* Base Card Styling for all panels */
+.conversations-panel,
+.chat-panel,
+.discovery-card {
+    background-color: var(--tech-surface);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 1.5rem;
+    color: var(--tech-text-primary);
+}
+
+.conversations-panel {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(100vh - 12rem);
+}
+
+.conversations-panel-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-bottom: 2px solid var(--tech-primary-dark);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Conversation List */
+.conversation-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.conversation-item:last-child {
+    border-bottom: none;
+}
+
+.conversation-item:hover {
+    background-color: rgba(26, 26, 58, 0.5);
+}
+
+.conversation-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--tech-primary-dark);
+}
+
+.conversation-item-info {
+    flex-grow: 1;
+}
+
+.conversation-item-info h4 {
+    margin: 0;
+    color: var(--tech-primary);
+}
+
+.conversation-item-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--tech-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Chat Panel */
+.chat-panel {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 12rem);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.message-bubble {
+    padding: 0.75rem 1.25rem;
+    border-radius: 20px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+.message-bubble.sent {
+    background-color: var(--tech-primary);
+    color: var(--tech-dark-bg);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.message-bubble.received {
+    background-color: #555;
+    color: #fff;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.chat-form {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--tech-primary-dark);
+}
+
+.chat-form input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+}
+
+.chat-form .apply-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem;
+}
+
+/* Discovery Panels */
+.discovery-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.discovery-card {
+    padding: 1.5rem;
+}
+
+.discovery-card h3 {
+    color: var(--tech-primary);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.discovery-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #333;
+    text-decoration: none;
+    color: var(--tech-text-primary);
+    transition: background-color 0.2s ease;
+}
+
+.discovery-item:hover {
+    background-color: rgba(26, 26, 58, 0.5);
+    padding-left: 0.5rem;
+}
+
+.discovery-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.discovery-item small {
+    color: var(--tech-text-secondary);
+}
+
+
+/* =================================================== */
+/* My Network Page Specific Styles                     */
+/* =================================================== */
+
+.network-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 300px; /* Main content column and sidebar */
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+@media (max-width: 992px) {
+    .network-grid-container {
+        grid-template-columns: 1fr; /* Stack columns on tablets and smaller screens */
+    }
+}
+
+.network-main,
+.network-sidebar {
+    /* Base styling for the main and sidebar sections */
+}
+
+/* User Card Grid */
+.user-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.user-card {
+    background-color: var(--tech-dark-bg);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 242, 255, 0.2);
+}
+
+.user-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--tech-primary);
+    margin-bottom: 1rem;
+}
+
+.user-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--tech-primary);
+}
+
+.user-card p {
+    margin: 0.25rem 0 1rem;
+    font-size: 0.9rem;
+    color: var(--tech-text-secondary);
+}
+
+.user-card .apply-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem;
+}
+
+/* Application Status Sidebar */
+.application-status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--tech-dark-bg);
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.application-status-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--tech-text-primary);
+}
+
+.application-status-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--tech-text-secondary);
+}
+
+.status-tag {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+}
+
+.status-Pending {
+    background-color: #ffa50033; /* Orange with transparency */
+    color: #FFA500;
+}
+
+.status-Reviewed {
+    background-color: #007bff33; /* Blue with transparency */
+    color: #007BFF;
+}
+
+.status-Interview {
+    background-color: #ff00ff33; /* Purple/Magenta with transparency */
+    color: #FF00FF;
+}
+
+.status-Hired {
+    background-color: #28a74533; /* Green with transparency */
+    color: #28A745;
+}
+
+.status-Rejected {
+    background-color: #dc354533; /* Red with transparency */
+    color: #DC3545;
+}
+
+/* =================================================== */
+/* Post Job Page Specific Styles                       */
+/* =================================================== */
+
+/* The .page-container-profile class is already defined in your main style.css
+   for general profile pages, which this form page also uses. */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Space between form groups */
+}
+
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between label and input */
+}
+
+.auth-form label {
+    font-weight: bold;
+    color: var(--tech-text-primary);
+    font-size: 0.95rem;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="datetime-local"],
+.auth-form select,
+.auth-form textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--tech-primary-dark);
+    border-radius: 8px;
+    background-color: var(--tech-surface);
+    color: var(--tech-text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="datetime-local"]:focus,
+.auth-form select:focus,
+.auth-form textarea:focus {
+    border-color: var(--tech-primary);
+    box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.2); /* Highlight focus */
+    outline: none;
+}
+
+.auth-form textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Button styling is inherited from .auth-button in your main CSS */
+/* Ensure your .auth-button has appropriate styling for primary actions. */
+
+/* Styling for the submit button on this specific page */
+.auth-form .auth-button {
+    margin-top: 1rem; /* Add some space above the button */
+}
+
+/* Media query for smaller screens if needed, to adjust padding or font sizes */
+@media (max-width: 768px) {
+    .page-container-profile {
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
+    .auth-form input,
+    .auth-form select,
+    .auth-form textarea {
+        font-size: 0.95rem;
+    }
+}
+
+
+/* Importing the Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ==================================== */
+/*              GLOBAL STYLES            */
+ ==================================== */
+/*
+:root {
+    --primary-color: #00205B;
+    --secondary-color: #003380;
+    --accent-color: #1a73e8; /* A bright, professional blue for accents 
+    --light-bg-color: #f4f5f9;
+    --card-bg-color: #ffffff;
+    --border-color: #e0e0e0;
+    --text-color-dark: #333333;
+    --text-color-light: #777777;
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg-color); 
+    color: var(--text-color-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ==================================== */
+/*            HEADER STYLES             */
+/* ==================================== 
+.main-header {
+    background-color: var(--card-bg-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.logo-eswatini {
+    color: var(--secondary-color);
+}
+
+.header-search-container {
+    position: relative;
+    display: none; /* Hide for smaller screens, show on larger 
+}
+
+@media (min-width: 768px) {
+    .header-search-container {
+        display: block;
+    }
+}
+
+.header-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: var(--text-color-light);
+}
+
+.header-search-input {
+    width: 250px;
+    padding: 8px 10px 8px 35px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 14px;
+    background-color: var(--light-bg-color);
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-light);
+    font-size: 12px;
+    transition: color 0.2s ease-in-out;
+    position: relative;
+}
+
+.header-nav-item:hover {
+    color: var(--text-color-dark);
+}
+
+.header-nav-item svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-color-light);
+    transition: fill 0.2s ease-in-out;
+}
+
+.header-nav-item:hover svg {
+    fill: var(--text-color-dark);
+}
+
+.header-nav-item--me {
+    cursor: pointer;
+}
+
+.nav-profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+*/
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-dropdown-container {
+    position: relative;
+}
+
+.profile-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    width: 150px;
+    background-color: var(--card-bg-color);
+    border-radius: 5px;
+    box-shadow: var(--shadow-light);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.profile-dropdown-menu.active {
+    display: flex;
+}
+
+.dropdown-link {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-link:hover {
+    background-color: var(--light-bg-color);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 5px 0;
+}
+
+/* Notification badge */
+.notification-badge {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background-color: var(--accent-color);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--card-bg-color);
+}
+
+/* ==================================== */
+/*              MAIN LAYOUT             */
+/* ==================================== */
+.page-main {
+    padding: 20px 0;
+}
+
+.page-container-profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .page-container-profile-grid {
+        grid-template-columns: 3fr 1fr;
+    }
+}
+
+/* ==================================== */
+/*              CARD STYLES             */
+/* ==================================== */
+.profile-section-card,
+.sidebar-card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-section-card h2,
+.sidebar-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* ==================================== */
+/*           PROFILE HEADER            */
+/* ==================================== */
+.profile-header-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.profile-banner {
+    height: 150px;
+    width: 100%;
+    background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#coverPhotoForm {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#coverPhotoLabel {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+#coverPhotoLabel:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#coverPhotoFile {
+    display: none;
+}
+
+.profile-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.profile-picture-container {
+    margin-top: -60px;
+    position: relative;
+    z-index: 10;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--card-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+#pictureForm {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#uploadIconLabel {
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#uploadIconLabel:hover {
+    background-color: #1257b4;
+}
+
+#pictureFile {
+    display: none;
+}
+
+.profile-name-title h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.profile-name-title p {
+    color: var(--text-color-light);
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.profile-location {
+    font-size: 14px;
+    color: var(--text-color-light);
+}
+
+.profile-actions {
+    margin-top: 10px;
+}
+
+.profile-button-primary {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.profile-button-primary:hover {
+    background-color: #1257b4;
+}
+
+/* ==================================== */
+/*            SECTION STYLES            */
+/* ==================================== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.add-button, .edit-icon {
+    font-size: 24px;
+    font-weight: 300;
+    text-decoration: none;
+    color: var(--text-color-light);
+    transition: color 0.2s ease-in-out;
+}
+
+.add-button:hover, .edit-icon:hover {
+    color: var(--accent-color);
+}
+
+/* Experience Section */
+.experience-item {
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.experience-item:last-child {
+    border-bottom: none;
+}
+
+.experience-item h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.experience-item .company,
+.experience-item .date {
+    font-size: 14px;
+    color: var(--text-color-light);
+    margin-bottom: 5px;
+}
+
+.experience-item p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Skills Section */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background-color: var(--light-bg-color);
+    color: var(--text-color-dark);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-skill-btn {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.delete-skill-btn:hover {
+    color: red;
+}
+
+/* Documents Section */
+.document-list {
+    list-style: none;
+    padding: 0;
+}
+
+.document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.document-item:last-child {
+    border-bottom: none;
+}
+
+.document-item a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: color 0.2s;
+}
+
+.document-item a:hover {
+    text-decoration: underline;
+}
+
+.delete-doc-btn {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.delete-doc-btn:hover {
+    color: red;
+}
+
+/* ==================================== */
+/*             SIDEBAR STYLES           */
+/* ==================================== */
+.profile-link {
+    font-size: 14px;
+    color: var(--accent-color);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+/* ==================================== */
+/*         GENERAL FORM STYLES         */
+/* ==================================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.auth-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.auth-button:hover {
+    background-color: #1257b4;
+}
+
+/* ==================================== */
+/*             FOOTER STYLES            */
+/* ==================================== */
+.main-footer {
+    background-color: var(--card-bg-color);
+    border-top: 1px solid var(--border-color);
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-color-light);
+}
+
+/* Add this to your existing style.css */
+
+/* Notification container */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual notification styles */
+.notification {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 3s forwards; /* Fade in and out */
+}
+
+.notification.info {
+    background-color: var(--accent-color); /* Use your accent color */
+}
+
+.notification.success {
+    background-color: #4CAF50; /* Green for success */
+}
+
+.notification.error {
+    background-color: #f44336; /* Red for error */
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(20px); }
+    10% { opacity: 1; transform: translateX(0); }
+    90% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(20px); }
+}
+

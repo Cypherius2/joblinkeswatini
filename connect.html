@@ -182,42 +182,43 @@
         };
 
         const renderModalContent = (app) => {
-            const modalBody = document.getElementById('modal-body');
-            const applicant = app.applicant;
-            if (!applicant) {
-                modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
-                return;
-            }
-            const documentsHtml = applicant.documents && applicant.documents.length > 0
-                ? applicant.documents.map(doc => `<a ${API_URL}/api/users/${doc.filePath.replace(/\\/g, '/')}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
-                : 'No documents attached.';
+    const modalBody = document.getElementById('modal-body');
+    const applicant = app.applicant;
+    if (!applicant) {
+        modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
+        return;
+    }
+    // Corrected document mapping to use /api/files/ and a proper href attribute
+    const documentsHtml = applicant.documents && applicant.documents.length > 0
+        ? applicant.documents.map(doc => `<a href="${API_URL}/api/files/${doc.filename}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
+        : 'No documents attached.';
 
-            modalBody.innerHTML = `
-                <h2>${applicant.name}</h2>
-                <p>${applicant.headline}</p>
-                <hr>
-                <div class="modal-section">
-                    <h4>Cover Letter</h4>
-                    <p>${app.coverLetter || 'No cover letter submitted.'}</p>
-                </div>
-                <div class="modal-section">
-                    <h4>Attached Documents</h4>
-                    <div class="document-container">${documentsHtml}</div>
-                </div>
-                <div class="modal-section">
-                    <h4>Private Notes</h4>
-                    <textarea id="companyNotes" rows="4" style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">${app.companyNotes || ''}</textarea>
-                    <button class="apply-button save-notes-btn" data-appid="${app._id}" style="margin-top: 10px;">Save Notes</button>
-                </div>
-                <hr>
-                <div class="applicant-actions" data-appid="${app._id}">
-                    <h4>Actions</h4>
-                    <p>Update application status:</p>
-                    <button class="action-button" data-status="successful">Accept</button>
-                    <button class="action-button" data-status="unsuccessful">Reject</button>
-                </div>
-            `;
-        };
+    modalBody.innerHTML = `
+        <h2>${applicant.name}</h2>
+        <p>${applicant.headline}</p>
+        <hr>
+        <div class="modal-section">
+            <h4>Cover Letter</h4>
+            <p>${app.coverLetter || 'No cover letter submitted.'}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Attached Documents</h4>
+            <div class="document-container">${documentsHtml}</div>
+        </div>
+        <div class="modal-section">
+            <h4>Private Notes</h4>
+            <textarea id="companyNotes" rows="4" style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">${app.companyNotes || ''}</textarea>
+            <button class="apply-button save-notes-btn" data-appid="${app._id}" style="margin-top: 10px;">Save Notes</button>
+        </div>
+        <hr>
+        <div class="applicant-actions" data-appid="${app._id}">
+            <h4>Actions</h4>
+            <p>Update application status:</p>
+            <button class="action-button" data-status="successful">Accept</button>
+            <button class="action-button" data-status="unsuccessful">Reject</button>
+        </div>
+    `;
+};
 
         // --- MAIN SCRIPT ON PAGE LOAD ---
         document.addEventListener('DOMContentLoaded', async () => {
