@@ -6,8 +6,11 @@
       "use": "@vercel/node"
     },
     {
-      "src": "/(.*)",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "."
+      }
     }
   ],
   "rewrites": [
@@ -18,6 +21,10 @@
     {
       "source": "/uploads/(.*)",
       "destination": "/tmp/uploads/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ]
 }
