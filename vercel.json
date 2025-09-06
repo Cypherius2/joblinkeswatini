@@ -6,14 +6,25 @@
       "use": "@vercel/node"
     },
     {
-      "src": "/(.*)",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "."
+      }
     }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/backend/server.js"
+    },
+    {
+      "source": "/(.*)\\.html",
+      "destination": "/$1.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ]
 }
