@@ -1,5 +1,26 @@
 // js/main.js -- FINAL, COMPLETE, AND CORRECTED VERSION
 
+// --- THIS IS THE MISSING GLOBAL NOTIFICATION FUNCTION ---
+function showNotification(message, type = 'success') {
+    const container = document.getElementById('notification-container');
+    if (!container) {
+        // Fallback to alert if the container is missing for any reason
+        console.error('Notification container not found. Falling back to alert.');
+        alert(message);
+        return;
+    }
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    container.appendChild(notification);
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            notification.remove();
+        }, 500); // Animation duration
+    }, 4000); // Time visible
+}
+
 // --- MODULE FOR HEADER/NAVIGATION LOGIC ---
 const headerModule = {
     async init() {
