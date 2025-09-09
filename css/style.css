@@ -1,20 +1,11 @@
 /* ==========================================================================
    1. General & Core Styles
    ========================================================================== */
-:root {
-    --primary-color: #00205B;
-    --secondary-color: #D21034;
-    --background-color: #f8f9fa;
-    --text-color: #333;
-    --card-background: #FFFFFF;
-    --border-color: #e0e0e0;
-}
-
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: #f8f9fa;
+    color: #333;
     overflow-x: hidden;
 }
 
@@ -36,9 +27,9 @@ body {
    2. Header & Footer
    ========================================================================== */
 .main-header {
-    background-color: var(--card-background);
+background-color: #FFFFFF;
     padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
+border-bottom: 1px solid #e0e0e0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -94,50 +85,101 @@ body {
 /* ==========================================================================
    3. Buttons & Common Components
    ========================================================================== */
+.nav-button-outline,
 .nav-button,
 .cta-button,
 .apply-button,
 .auth-button,
 .filter-button,
 .profile-button-primary,
-.profile-button-secondary {
+.profile-button-secondary,
+.document-link {
     display: inline-block;
-    padding: 12px 28px;
+    padding: 10px 22px;
     text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transform-style: preserve-3d;
-    transform: translateZ(0);
+    transition: all 0.2s ease-in-out;
 }
 
-.nav-button:hover,
-.cta-button:hover,
-.apply-button:hover,
-.auth-button:hover,
-.filter-button:hover,
-.profile-button-primary:hover,
+.nav-button-outline:hover,
 .profile-button-secondary:hover {
-    transform: translateY(-3px) translateZ(10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-
-.nav-button,
-.cta-button,
-.apply-button,
-.auth-button,
-.filter-button,
-.profile-button-primary {
-    background: linear-gradient(145deg, var(--secondary-color), #a80c29);
+    background-color: #00205B;
     color: #FFFFFF;
 }
 
+.nav-button:hover,
+.auth-button:hover,
+.filter-button:hover,
+.profile-button-primary:hover,
+.document-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #a80c29;
+    /* Darker Red */
+}
+
+.nav-button-outline {
+    color: #00205B;
+    border-color: #00205B;
+    margin-right: 10px;
+}
+
+.nav-button {
+    background-color: #D21034;
+    color: #FFFFFF;
+    border: none;
+}
+
+.cta-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 15px 35px;
+    border-radius: 30px;
+}
+
+.apply-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 8px 18px;
+}
+
+.filter-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 25px;
+    font-size: 1.1rem;
+}
+
+.profile-button-primary {
+    background-color: #D21034;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
 .profile-button-secondary {
-    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
-    color: var(--primary-color);
+    color: #00205B;
+    border-color: #00205B;
+    margin-left: 10px;
+}
+
+.document-link {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 25px;
 }
 
 /* ==========================================================================
@@ -854,40 +896,22 @@ body {
 }
 
 @media (max-width: 768px) {
-    .main-nav {
+    .desktop-only {
         display: none;
     }
 
-    .mobile-menu-button {
+    .mobile-only {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .desktop-only {
         display: block;
     }
 
-    .main-nav.is-open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--card-background);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero-container {
-        flex-direction: column;
-    }
-
-    .hero-content {
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .info-section .container {
-        flex-direction: column;
-    }
-
-    .info-card {
-        width: 100%;
+    .mobile-only {
+        display: none;
     }
 }
 

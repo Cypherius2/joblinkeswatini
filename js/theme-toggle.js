@@ -1,7 +1,19 @@
 // Theme Toggle Functionality for JobLinkEswatini
 // This script manages switching between light and dark themes
 
+// Dark theme removed per user request. This script is now a no-op that hides any leftover toggle button.
+(function(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.style.display = 'none';
+    document.body.classList.remove('dark-theme');
+  });
+})();
+
+// Legacy exports kept to avoid runtime errors on pages that reference ThemeController
 const ThemeController = {
+  init() {},
+};
     // Initialize theme controller
     init() {
         this.applyStoredTheme();

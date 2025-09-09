@@ -36,7 +36,7 @@ const headerModule = {
             signOutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('token');
-                alert('You have been signed out.');
+                showNotification('You have been signed out.', 'success');
                 const currentPath = window.location.pathname;
                 if (currentPath.includes('/pages/')) {
                     window.location.href = 'login.html';
@@ -431,8 +431,8 @@ const notificationModule = {
             
         } catch (error) {
             console.error('Error showing notification:', error);
-            // Fallback to alert if notification system fails
-            alert(message);
+            // Fallback to console if notification system fails
+            console.error('Notification system failed:', message);
         }
     }
 };

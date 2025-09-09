@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile | JobLinkEswatini</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
@@ -47,7 +46,7 @@
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
+                <a href="message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
@@ -67,13 +66,6 @@
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
                     </div>
                 </div>
@@ -173,7 +165,6 @@
 
     <footer class="main-footer"></footer>
 
-    <script src="../js/theme-toggle.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/config.js"></script>
 
@@ -181,7 +172,7 @@
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
-            const localPlaceholder = 'images/placeholder.svg';
+            const localPlaceholder = '../assets/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
 
@@ -193,9 +184,9 @@
                 ? `${API_URL}/api/files/${user.coverPhoto.filename}` 
                 : '';
 
-            pic.src = picUrl;
+pic.src = `${picUrl}?t=${new Date().getTime()}`
             if (coverUrl) {
-                banner.style.backgroundImage = `url('${coverUrl}')`;
+banner.style.backgroundImage = `url('${coverUrl}?t=${new Date().getTime()}')`;
             } else {
                 banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
             }
@@ -259,7 +250,7 @@
             }
             container.innerHTML = documents.map(doc => `
                 <li class="document-item">
-                    <a href="${API_URL}/api/files/${doc.filename}" target="_blank" rel="noopener noreferrer">${doc.originalName}</a>
+                    <a href="#" onclick="window.open('${API_URL}/api/files/${doc.filename}', '_blank')" rel="noopener noreferrer">${doc.originalName}</a>
                     <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
                 </li>
             `).join('');

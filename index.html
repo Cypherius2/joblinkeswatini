@@ -8,9 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/theme-tech.css">
-    <link rel="stylesheet" href="css/animations.css">
+
 
 
 </head>
@@ -42,7 +40,7 @@
                     </svg>
                     <span>Home</span>
                 </a>
-                <a href="#" class="header-nav-item" id="connectLink">
+                <a href="pages/message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -56,7 +54,7 @@
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
+                <a href="pages/message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
@@ -75,13 +73,7 @@
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="pages/profile.html" class="dropdown-link">View Profile</a>
-                            <a href="pages/edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
+<a href="pages/edit-profile.html" class="dropdown-link">Edit Profile</a>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
                     </div>
@@ -90,18 +82,50 @@
         </div>
     </header>
 
-<main>
-        <div class="button-container">
-            <a href="pages/jobs.html" class="button-3d">
-                <span class="button-3d-text">Jobs</span>
-            </a>
-            <a href="pages/companies.html" class="button-3d">
-                <span class="button-3d-text">Companies</span>
-            </a>
-            <a href="pages/about.html" class="button-3d">
-                <span class="button-3d-text">About</span>
-            </a>
+    <main>
+        <div class="mobile-only">
+            <div class="button-container">
+                <a href="pages/jobs.html" class="button-3d">
+                    <span class="button-3d-text">Jobs</span>
+                </a>
+                <a href="pages/companies.html" class="button-3d">
+                    <span class="button-3d-text">Companies</span>
+                </a>
+                <a href="pages/about.html" class="button-3d">
+                    <span class="button-3d-text">About</span>
+                </a>
+            </div>
         </div>
+        <section class="hero desktop-only">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h2 class="hero-headline">Find Your Future in the Kingdom of Eswatini</h2>
+                    <p class="hero-subheadline">Connect, learn, and grow with the largest professional network in the
+                        nation.</p>
+                    <a href="pages/jobs.html" class="cta-button">Explore Jobs</a>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/index.png" alt="Professional Networking Graphic">
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section desktop-only">
+            <div class="container">
+                <div class="info-card">
+                    <h3>Explore Job Opportunities</h3>
+                    <p>Search and apply for roles at top companies in Eswatini that match your skills and passion.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Build Your Network</h3>
+                    <p>Connect with industry leaders, colleagues, and mentors to unlock new professional doors.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Develop In-Demand Skills</h3>
+                    <p>Access expert-led courses and articles to stay competitive in today's job market.</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- The Global Chat Window HTML -->
@@ -166,7 +190,6 @@
     <script src="js/config.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/animations.js"></script>
 
     <nav class="mobile-nav">
         <a href="pages/connect.html" class="mobile-nav-item">

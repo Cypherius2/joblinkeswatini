@@ -140,7 +140,7 @@
 
             // --- Gatekeeper: Ensure user is logged in and a job ID is present ---
             if (!token || !jobId) {
-                alert('An error occurred. You must be logged in and applying for a specific job.');
+                showNotification('An error occurred. You must be logged in and applying for a specific job.', 'error');
                 window.location.href = 'jobs.html';
                 return;
             }

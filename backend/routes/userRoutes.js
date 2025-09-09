@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const authMiddleware = require('../middleware/authMiddleware.js');
+const path = require('path');
 
 // Debug middleware for document uploads
 const debugUploadMiddleware = (req, res, next) => {
@@ -51,7 +51,7 @@ const upload = multer({
 const uploadToGridFS = async (file, userId, fieldName) => {
   const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
   
-  const filename = `${fieldName}-${userId}-${Date.now()}-${file.originalname}`;
+const filename = `${fieldName}-${userId}-${Date.now()}${path.extname(file.originalname)}`;
   
   const uploadStream = gfs.openUploadStream(filename, {
     metadata: {
@@ -116,41 +116,6 @@ router.put('/profile', authMiddleware, async (req, res) => {
     const { name, headline, location, about } = req.body;
     try { const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password'); res.json(user); } catch (err) { res.status(500).send('Server Error'); }
 });
-router.post('/picture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
-    try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Delete old profile picture if it exists
-        const currentUser = await User.findById(req.user.id);
-        if (currentUser.profilePicture) {
-            const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
-            try {
-                // Find the file by filename and delete it
-                const files = await gfs.find({ filename: currentUser.profilePicture }).toArray();
-                if (files.length > 0) {
-                    await gfs.delete(files[0]._id);
-                }
-            } catch (deleteError) {
-                console.log('Error deleting old profile picture:', deleteError.message);
-            }
-        }
-        
-        // Upload new file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'profilePicture');
-        
-        const user = await User.findByIdAndUpdate(
-            req.user.id, 
-            { 
-                profilePicture: fileData.filename
-            }, 
-            { new: true }
-        ).select('-password');
-        
-        res.json(user);
-    } catch (err) { 
-        console.error('Profile picture upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message }); 
-    }
 });
 
 router.post('/profilePicture', [debugUploadMiddleware, authMiddleware, upload.single('profilePicture')], async (req, res) => {
@@ -246,41 +211,6 @@ router.post('/profilePicture', [debugUploadMiddleware, authMiddleware, upload.si
         res.status(500).json({ msg: 'Server Error', error: err.message, errorType: err.name }); 
     }
 });
-router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
-    try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Delete old cover photo if it exists
-        const currentUser = await User.findById(req.user.id);
-        if (currentUser.coverPhoto) {
-            const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
-            try {
-                // Find the file by filename and delete it
-                const files = await gfs.find({ filename: currentUser.coverPhoto }).toArray();
-                if (files.length > 0) {
-                    await gfs.delete(files[0]._id);
-                }
-            } catch (deleteError) {
-                console.log('Error deleting old cover photo:', deleteError.message);
-            }
-        }
-        
-        // Upload new file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'coverPhoto');
-        
-        const user = await User.findByIdAndUpdate(
-            req.user.id, 
-            { 
-                coverPhoto: fileData.filename
-            }, 
-            { new: true }
-        ).select('-password');
-        
-        res.json(user);
-    } catch (err) { 
-        console.error('Cover photo upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message }); 
-    }
 });
 
 router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
@@ -319,31 +249,6 @@ router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async 
         res.status(500).json({ msg: 'Server Error', error: err.message }); 
     }
 });
-router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
-    try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Upload file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'document');
-        
-        const user = await User.findById(req.user.id);
-        if (!user.documents) user.documents = [];
-        
-        user.documents.unshift({ 
-            filePath: fileData.filename,
-            originalName: fileData.originalname
-        });
-        
-        await user.save();
-        res.json(await User.findById(req.user.id).select('-password'));
-    } catch (err) { 
-        console.error('Document upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message });
-    }
-});
-
-router.post('/documents', [debugUploadMiddleware, authMiddleware, upload.single('document')], async (req, res) => {
-    try {
         console.log('Document upload request received');
         console.log('File:', req.file);
         console.log('Body:', req.body);

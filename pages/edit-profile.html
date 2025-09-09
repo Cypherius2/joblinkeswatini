@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile | JobLinkEswatini</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
@@ -36,7 +35,7 @@
                     </svg>
                     <span>Home</span>
                 </a>
-                <a href="#" class="header-nav-item" id="connectLink">
+                <a href="message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -50,7 +49,7 @@
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
+                <a href="message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
@@ -70,12 +69,6 @@
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
                     </div>
@@ -166,7 +159,6 @@
 
     <footer class="main-footer"></footer>
 
-    <script src="../js/theme-toggle.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/config.js"></script>
     <script>
@@ -203,7 +195,7 @@
                 if (user.profilePicture && user.profilePicture.filename) {
                     currentProfilePicture.src = `${API_URL}/api/files/${user.profilePicture.filename}`;
                 } else {
-                    currentProfilePicture.src = 'images/placeholder.svg';
+                    currentProfilePicture.src = '../assets/placeholder.svg';
                 }
 
             } catch (error) {
@@ -281,7 +273,7 @@
                         // Update the preview image
                         const currentProfilePicture = document.getElementById('currentProfilePicture');
                         if (updatedUser.profilePicture && updatedUser.profilePicture.filename) {
-                            currentProfilePicture.src = `${API_URL}/api/files/${updatedUser.profilePicture.filename}`;
+currentProfilePicture.src = `${API_URL}/api/files/${updatedUser.profilePicture.filename}?t=${new Date().getTime()}`;
                         }
                         showNotification('Profile picture updated successfully!');
                     } else {
