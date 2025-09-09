@@ -44,7 +44,7 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
 };
-app.use(cors(corsOptions));
+app.use(cors());
 // 2. Enable the express.json middleware to parse JSON bodies
 app.use(express.json());
 // 3. Add request logging middleware

@@ -142,6 +142,7 @@
             const discoverJobsListEl = document.getElementById('discover-jobs-list');
             let loggedInUserId = null;
             let currentReceiverId = null;
+            let pollingInterval = null;
 
             // --- Render Functions ---
             const renderConversations = (conversations) => {
@@ -198,8 +199,10 @@
 
             // --- Core Logic ---
             const openChat = async (userId, userName, userPic) => {
+                if (pollingInterval) clearInterval(pollingInterval);
+
                 currentReceiverId = userId;
-                activeChatHeaderEl.innerHTML = `<img src="${userPic}" alt="${userName}"> <strong>${userName}</strong>`;
+                activeChatHeaderEl.innerHTML = `<img src=\"${userPic}\" alt=\"${userName}\"> <strong>${userName}</strong>`;
                 activeChatHeaderEl.style.display = 'flex';
                 activeChatFormEl.style.display = 'flex';
                 activeChatMessagesEl.innerHTML = '<p>Loading messages...</p>';
@@ -207,6 +210,13 @@
                     const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': token } });
                     const messages = await res.json();
                     renderMessages(messages);
+
+                    pollingInterval = setInterval(() => {
+                        fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': token } })
+                            .then(res => res.json())
+                            .then(renderMessages)
+                            .catch(err => console.error('Polling error:', err));
+                    }, 5000);
                 } catch (err) {
                     activeChatMessagesEl.innerHTML = '<p>Could not load messages.</p>';
                 }
