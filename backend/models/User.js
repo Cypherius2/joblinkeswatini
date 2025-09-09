@@ -3,12 +3,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// NEW Sub-document Schema for documents stored in GridFS
+// Document Schema for files stored in GridFS
 const DocumentSchema = new Schema({
     fileId: { type: Schema.Types.ObjectId, required: true },
     filename: { type: String, required: true },
     originalName: { type: String, required: true },
     contentType: { type: String, required: true },
+    fileSize: { type: Number, required: true },
     dateUploaded: { type: Date, default: Date.now }
 });
 
@@ -50,8 +51,14 @@ const UserSchema = new Schema({
     // Profile Fields
     headline: { type: String, default: 'Job Seeker' || 'Company' },
     location: { type: String, default: 'Eswatini' },
-    profilePicture: { type: String},
-    coverPhoto: { type: String},
+    profilePicture: {
+        fileId: { type: Schema.Types.ObjectId },
+        filename: { type: String }
+    },
+    coverPhoto: {
+        fileId: { type: Schema.Types.ObjectId },
+        filename: { type: String }
+    },
     about: { type: String },
     // Array fields
     experience: {

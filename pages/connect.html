@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Dashboard | JobLinkEswatini</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
+            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <a href="index.html" class="logo-link">
+                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
+                <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
                 <div class="header-search-container">
@@ -25,8 +28,9 @@
                 </div>
             </div>
 
+            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
-                <a href="index.html" class="header-nav-item">
+                <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
@@ -61,11 +65,16 @@
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
                         style="display: none;">
-                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="themeToggle">
+                                <span id="themeToggleIcon">🌙</span>
+                                <span id="themeToggleText">Dark Theme</span>
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
@@ -77,20 +86,24 @@
 
     <main class="page-main">
         <div class="container page-container-profile-grid">
+            <!-- Main Content -->
             <div class="profile-main-content">
                 <section class="profile-section-card">
                     <h2>Your Job Postings</h2>
                     <p>Select a job posting below to view its applicants.</p>
                     <div id="my-jobs-list">
+                        <!-- List of company's jobs will be rendered here -->
                     </div>
                 </section>
 
                 <section id="applicants-section" class="profile-section-card" style="display: none;">
                     <h2 id="applicants-title">Applicants</h2>
                     <div id="applicants-list">
+                        <!-- List of applicants for the selected job will be rendered here -->
                     </div>
                 </section>
             </div>
+            <!-- Sidebar -->
             <aside class="profile-sidebar">
                 <div class="sidebar-card">
                     <h3>Dashboard</h3>
@@ -103,17 +116,46 @@
         </div>
     </main>
 
+    <!-- THE APPLICANT DETAIL MODAL (Initially Hidden) -->
     <div class="modal-overlay" id="applicantModal">
         <div class="modal-content">
             <button class="close-modal-btn" id="closeModalBtn">&times;</button>
             <div id="modal-body">
+                <!-- Applicant details will be rendered here -->
             </div>
         </div>
     </div>
 
+    <!-- The Global Chat Window HTML -->
+    <div id="global-chat-container" style="display: none;">
+        <div id="chat-window">
+            <div id="chat-header">
+                <button id="chat-back-btn">&larr;</button>
+                <span id="chat-header-title">Messages</span>
+            </div>
+            <div id="chat-conversation-list">
+                <!-- List of conversations will be rendered here -->
+            </div>
+            <div id="chat-messages" style="display: none;">
+                <!-- Messages for a specific conversation will be rendered here -->
+            </div>
+            <form id="chat-form" style="display: none;">
+                <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
+            </form>
+        </div>
+        <div id="chat-bubble">
+            <div id="chat-notification-dot"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+        </div>
+    </div>
+
     <footer class="main-footer"></footer>
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
     <script>
         // Store a reference to the currently selected job's applications
         let currentApplications = [];
@@ -125,12 +167,11 @@
                 applicantsList.innerHTML = applications.map(app => {
                     const applicant = app.applicant;
                     if (!applicant) return ''; // Safety check for deleted applicants
-                    const picUrl = applicant.profilePicture ? `${API_URL}/api/files/${applicant.profilePicture}` : 'images/placeholder.svg';
                     return `
                         <div class="experience-item">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                    <img src="${picUrl}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    <img src="${applicant.profilePicture ? `${API_URL}/api/${applicant.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
                                     <div>
                                         <h3>${applicant.name}</h3>
                                         <p class="company">${applicant.headline || 'No headline provided.'}</p>
@@ -148,43 +189,43 @@
         };
 
         const renderModalContent = (app) => {
-            const modalBody = document.getElementById('modal-body');
-            const applicant = app.applicant;
-            if (!applicant) {
-                modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
-                return;
-            }
-            // Corrected document mapping to use /api/files/ and a proper href attribute
-            const documentsHtml = applicant.documents && applicant.documents.length > 0
-                ? applicant.documents.map(doc => `<a href="${API_URL}/api/files/${doc.filename}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
-                : 'No documents attached.';
+    const modalBody = document.getElementById('modal-body');
+    const applicant = app.applicant;
+    if (!applicant) {
+        modalBody.innerHTML = '<h2>Error</h2><p>This applicant could not be found. They may have deleted their profile.</p>';
+        return;
+    }
+    // Corrected document mapping to use /api/files/ and a proper href attribute
+    const documentsHtml = applicant.documents && applicant.documents.length > 0
+        ? applicant.documents.map(doc => `<a href="${API_URL}/api/files/${doc.filename}" target="_blank" class="document-link">${doc.originalName}</a>`).join('')
+        : 'No documents attached.';
 
-            modalBody.innerHTML = `
-                <h2>${applicant.name}</h2>
-                <p>${applicant.headline}</p>
-                <hr>
-                <div class="modal-section">
-                    <h4>Cover Letter</h4>
-                    <p>${app.coverLetter || 'No cover letter submitted.'}</p>
-                </div>
-                <div class="modal-section">
-                    <h4>Attached Documents</h4>
-                    <div class="document-container">${documentsHtml}</div>
-                </div>
-                <div class="modal-section">
-                    <h4>Private Notes</h4>
-                    <textarea id="companyNotes" rows="4" style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">${app.companyNotes || ''}</textarea>
-                    <button class="apply-button save-notes-btn" data-appid="${app._id}" style="margin-top: 10px;">Save Notes</button>
-                </div>
-                <hr>
-                <div class="applicant-actions" data-appid="${app._id}">
-                    <h4>Actions</h4>
-                    <p>Update application status:</p>
-                    <button class="action-button" data-status="successful">Accept</button>
-                    <button class="action-button" data-status="unsuccessful">Reject</button>
-                </div>
-            `;
-        };
+    modalBody.innerHTML = `
+        <h2>${applicant.name}</h2>
+        <p>${applicant.headline}</p>
+        <hr>
+        <div class="modal-section">
+            <h4>Cover Letter</h4>
+            <p>${app.coverLetter || 'No cover letter submitted.'}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Attached Documents</h4>
+            <div class="document-container">${documentsHtml}</div>
+        </div>
+        <div class="modal-section">
+            <h4>Private Notes</h4>
+            <textarea id="companyNotes" rows="4" style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">${app.companyNotes || ''}</textarea>
+            <button class="apply-button save-notes-btn" data-appid="${app._id}" style="margin-top: 10px;">Save Notes</button>
+        </div>
+        <hr>
+        <div class="applicant-actions" data-appid="${app._id}">
+            <h4>Actions</h4>
+            <p>Update application status:</p>
+            <button class="action-button" data-status="successful">Accept</button>
+            <button class="action-button" data-status="unsuccessful">Reject</button>
+        </div>
+    `;
+};
 
         // --- MAIN SCRIPT ON PAGE LOAD ---
         document.addEventListener('DOMContentLoaded', async () => {

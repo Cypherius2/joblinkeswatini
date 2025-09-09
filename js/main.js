@@ -37,7 +37,12 @@ const headerModule = {
                 e.preventDefault();
                 localStorage.removeItem('token');
                 alert('You have been signed out.');
-                window.location.href = 'login.html';
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('/pages/')) {
+                    window.location.href = 'login.html';
+                } else {
+                    window.location.href = 'pages/login.html';
+                }
             });
         }
     },
@@ -48,22 +53,26 @@ const headerModule = {
         this.loggedInNav.style.display = 'flex';
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
+            const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
             if (!response.ok) throw new Error('Token invalid');
             const user = await response.json();
 
             if (this.navProfilePic) {
-                const serverUrl = 'http://127.0.0.1:3000';
-                const localPlaceholder = 'images/placeholder.svg';
-                this.navProfilePic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
+                const currentPath = window.location.pathname;
+                const localPlaceholder = currentPath.includes('/pages/') ? '../assets/placeholder.svg' : 'assets/placeholder.svg';
+                this.navProfilePic.src = (user.profilePicture && user.profilePicture.filename) 
+                    ? `${API_URL}/api/files/${user.profilePicture.filename}` 
+                    : localPlaceholder;
             }
 
             if (this.connectLink) {
+                const currentPath = window.location.pathname;
+                const isInPages = currentPath.includes('/pages/');
                 if (user.role === 'company') {
-                    this.connectLink.href = 'connect.html';
+                    this.connectLink.href = isInPages ? 'connect.html' : 'pages/connect.html';
                     this.connectLink.querySelector('span').textContent = 'Connect';
                 } else {
-                    this.connectLink.href = 'my-network.html';
+                    this.connectLink.href = isInPages ? 'my-network.html' : 'pages/my-network.html';
                     this.connectLink.querySelector('span').textContent = 'My Network';
                 }
             }
@@ -142,7 +151,7 @@ const chatModule = {
                 const content = this.chatInput.value.trim();
                 if (!content || !this.currentReceiverId) return;
                 try {
-                    await fetch(`http://127.0.0.1:3000/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
+                    await fetch(`${API_URL}/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
                     this.chatInput.value = '';
                     this.openChat(this.currentReceiverId, this.currentReceiverName);
                 } catch (err) { console.error("Failed to send message", err); }
@@ -152,7 +161,7 @@ const chatModule = {
 
     async fetchLoggedInUserId() {
         try {
-            const res = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
             const me = await res.json();
             this.loggedInUserId = me._id;
         } catch (err) { console.error("Could not fetch user ID for chat", err); }
@@ -166,7 +175,7 @@ const chatModule = {
     async checkForNewMessages() {
         if (!this.token) return;
         try {
-            const res = await fetch('http://127.0.0.1:3000/api/messages/unread-count', { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
             if (res.ok) {
                 const data = await res.json();
                 this.updateTotalNotificationUI(data.unreadCount);
@@ -199,7 +208,7 @@ const chatModule = {
             this.conversationList.innerHTML = '<p>Loading conversations...</p>';
         }
         try {
-            const res = await fetch(`http://127.0.0.1:3000/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
             const conversations = await res.json();
             this.renderConversationList(conversations);
         } catch (err) { if (this.conversationList) this.conversationList.innerHTML = '<p>Could not load conversations.</p>'; }
@@ -216,7 +225,7 @@ const chatModule = {
         if (this.chatMessages) this.chatMessages.innerHTML = '<p>Loading messages...</p>';
         if (this.chatWindow) this.chatWindow.classList.add('is-open');
         try {
-            const res = await fetch(`http://127.0.0.1:3000/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
+            const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
             const messages = await res.json();
             this.renderMessages(messages);
             this.checkForNewMessages();
@@ -233,7 +242,7 @@ const chatModule = {
             const unreadDot = convo.unreadCount > 0 ? `<span class.notification-badge" style="display:flex; position:static; margin-left:auto;">${convo.unreadCount}</span>` : '';
             return `
                 <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}">
-                    <img src="${convo.withUser.profilePicture ? `http://127.0.0.1:3000/${convo.withUser.profilePicture.replace(/\\/g, '/')}` : 'images/placeholder.svg'}" alt="${convo.withUser.name}">
+                    <img src="${(convo.withUser.profilePicture && convo.withUser.profilePicture.filename) ? `${API_URL}/api/files/${convo.withUser.profilePicture.filename}` : (window.location.pathname.includes('/pages/') ? '../assets/placeholder.svg' : 'assets/placeholder.svg')}" alt="${convo.withUser.name}">
                     <div class="conversation-item-info"><h4>${convo.withUser.name}</h4><p>${convo.lastMessage}</p></div>
                     ${unreadDot}
                 </div>
@@ -262,6 +271,174 @@ const mobileMenuModule = {
         }
     }
 };
+
+// --- NOTIFICATION MODULE ---
+const notificationModule = {
+    showNotification(message, type = 'success') {
+        try {
+            // Remove any existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notif => notif.remove());
+
+            // Check if we have a notification container
+            let container = document.getElementById('notification-container');
+            if (!container) {
+                // Create container if it doesn't exist
+                container = document.createElement('div');
+                container.id = 'notification-container';
+                container.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 10000;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                `;
+                document.body.appendChild(container);
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            // Determine colors based on theme and type
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            let bgColor, textColor, borderColor;
+            
+            if (type === 'error') {
+                if (isDarkTheme) {
+                    bgColor = '#dc3545';
+                    textColor = '#ffffff';
+                    borderColor = '#c82333';
+                } else {
+                    bgColor = '#f8d7da';
+                    textColor = '#721c24';
+                    borderColor = '#f5c6cb';
+                }
+            } else { // success
+                if (isDarkTheme) {
+                    bgColor = '#28a745';
+                    textColor = '#ffffff';
+                    borderColor = '#1e7e34';
+                } else {
+                    bgColor = '#d4edda';
+                    textColor = '#155724';
+                    borderColor = '#c3e6cb';
+                }
+            }
+
+            // Set notification content and styles
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" type="button">&times;</button>
+                </div>
+            `;
+
+            notification.style.cssText = `
+                background-color: ${bgColor};
+                color: ${textColor};
+                border: 1px solid ${borderColor};
+                border-left: 5px solid ${borderColor};
+                padding: 12px 16px;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                min-width: 300px;
+                max-width: 400px;
+                animation: slideInFromRight 0.3s ease-out;
+                opacity: 0;
+            `;
+
+            // Style the content
+            const content = notification.querySelector('.notification-content');
+            content.style.cssText = `
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            `;
+
+            // Style and setup the close button
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.style.cssText = `
+                background: none;
+                border: none;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                color: inherit;
+                opacity: 0.8;
+                padding: 0;
+                margin: 0;
+                line-height: 1;
+            `;
+            
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideOutToRight 0.3s ease-in';
+                setTimeout(() => notification.remove(), 300);
+            });
+            closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
+            closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.8');
+
+            // Add animation styles if not already present
+            if (!document.querySelector('style[data-notification-animations]')) {
+                const style = document.createElement('style');
+                style.setAttribute('data-notification-animations', 'true');
+                style.textContent = `
+                    @keyframes slideInFromRight {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                    @keyframes slideOutToRight {
+                        from {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                        to {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Add to container
+            container.appendChild(notification);
+            
+            // Trigger animation
+            setTimeout(() => {
+                notification.style.opacity = '1';
+            }, 10);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutToRight 0.3s ease-in';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 4000);
+            
+        } catch (error) {
+            console.error('Error showing notification:', error);
+            // Fallback to alert if notification system fails
+            alert(message);
+        }
+    }
+};
+
+// Make showNotification globally available
+window.showNotification = notificationModule.showNotification;
 
 // --- INITIALIZE EVERYTHING WHEN THE PAGE LOADS ---
 document.addEventListener('DOMContentLoaded', () => {

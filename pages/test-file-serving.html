@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test File Serving - JobLinkEswatini</title>
+</head>
+<body>
+    <h1>Test File Serving</h1>
+    <p>This page can be used to test if the GridFS file serving endpoints are working correctly.</p>
+    
+    <h2>Test Profile Picture Display</h2>
+    <div>
+        <p>Test profile picture URL: <code>http://localhost:3000/api/files/[filename]</code></p>
+        <p>Example: <code>http://localhost:3000/api/files/profilePicture-user123-1234567890-profile.jpg</code></p>
+    </div>
+
+    <h2>Test Document Display</h2>
+    <div>
+        <p>Test document URL: <code>http://localhost:3000/api/files/[filename]</code></p>
+        <p>Example: <code>http://localhost:3000/api/files/document-user123-1234567890-resume.pdf</code></p>
+    </div>
+
+    <h2>What was fixed:</h2>
+    <ul>
+        <li>✅ Added file serving routes to server.js</li>
+        <li>✅ Fixed profile picture URLs in edit-profile.html</li>
+        <li>✅ Fixed profile picture URLs in main.js navigation</li>
+        <li>✅ Fixed document serving URLs in profile.html</li>
+        <li>✅ Replaced multer-gridfs-storage with native GridFS implementation</li>
+        <li>✅ Updated all upload routes to use new GridFS upload function</li>
+        <li>✅ Added proper error handling for file operations</li>
+    </ul>
+
+    <h2>Frontend URL Updates:</h2>
+    <ul>
+        <li>Profile pictures now use: <code>${API_URL}/api/files/${user.profilePicture.filename}</code></li>
+        <li>Cover photos now use: <code>${API_URL}/api/files/${user.coverPhoto.filename}</code></li>
+        <li>Documents now use: <code>${API_URL}/api/files/${doc.filename}</code></li>
+    </ul>
+
+    <h2>Testing Instructions:</h2>
+    <ol>
+        <li>Start the backend server: <code>cd backend && npm start</code></li>
+        <li>Open the application in a browser</li>
+        <li>Login as a user</li>
+        <li>Go to Edit Profile and upload a profile picture</li>
+        <li>Go to Profile page and upload a document</li>
+        <li>Verify that files are displayed correctly and can be downloaded</li>
+    </ol>
+</body>
+</html>

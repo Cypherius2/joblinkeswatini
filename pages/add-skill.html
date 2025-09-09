@@ -2,20 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details | JobLinkEswatini</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Add Skill | JobLinkEswatini</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
+
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
             <!-- Header Left: Logo & Search -->
             <div class="header-left">
                 <!-- THIS IS THE CORRECT, RESTORED LOGO -->
-                <a href="index.html" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
                 <div class="header-search-container">
@@ -29,7 +29,7 @@
 
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
-                <a href="index.html" class="header-nav-item">
+                <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
@@ -64,11 +64,16 @@
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
                         style="display: none;">
-                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="themeToggle">
+                                <span id="themeToggleIcon">🌙</span>
+                                <span id="themeToggleText">Dark Theme</span>
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
@@ -80,16 +85,19 @@
 
     <main class="page-main">
         <div class="container page-container-profile">
-            <section class="profile-section-card" id="job-detail-content">
-                <h1 id="jobTitle">Loading Job Details...</h1>
-                <p><strong>Company:</strong> <span id="jobCompany"></span></p>
-                <p><strong>Deadline:</strong> <span id="jobDeadline"></span></p>
-                <p><strong>Location:</strong> <span id="jobLocation"></span></p>
-                <p><strong>Job Type:</strong> <span id="jobType"></span></p>
-                <hr>
-                <h2>Job Description</h2>
-                <div id="jobDescription"></div>
-                <a href="#" id="applyLink" class="apply-button" style="margin-top: 2rem;">Apply Now</a>
+            <section class="profile-section-card">
+                <h2>Add a New Skill</h2>
+                <form id="skillForm" class="auth-form" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="name">Skill Name*</label>
+                        <input type="text" id="name" list="master-skills-list"
+                            placeholder="Start typing to see suggestions..." required>
+                        <datalist id="master-skills-list"></datalist>
+                    </div>
+                    <button type="submit" class="auth-button">Save Skill</button>
+                    <a href="profile.html" class="auth-button"
+                        style="background-color: #777; text-align: center; display: block; box-sizing: border-box; margin-top: 0.5rem;">Cancel</a>
+                </form>
             </section>
         </div>
     </main>
@@ -120,63 +128,66 @@
         </div>
     </div>
 
-
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2025 JobLinkEswatini.</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
+    <footer class="main-footer"></footer>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
     <script>
-        // --- THIS IS THE FINAL, CORRECTED SCRIPT ---
         document.addEventListener('DOMContentLoaded', async () => {
-            const jobDetailContent = document.getElementById('job-detail-content');
-            const urlParams = new URLSearchParams(window.location.search);
-            const jobId = urlParams.get('id');
+            // --- Fetch and populate the master skills list ---
+            const masterSkillsList = document.getElementById('master-skills-list');
+            try {
+                const res = await fetch(`${API_URL}/api/skills`);
+                if (!res.ok) throw new Error('Network error');
+                const skills = await res.json();
+                skills.forEach(skill => {
+                    const option = document.createElement('option');
+                    option.value = skill.name;
+                    masterSkillsList.appendChild(option);
+                });
+            } catch (err) {
+                console.error('Could not load master skills list', err);
+            }
+        });
 
-            if (!jobId) {
-                jobDetailContent.innerHTML = '<h1>Error: No job ID provided.</h1>';
+        // --- Handle the form submission ---
+        document.getElementById('skillForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showNotification('Authentication error. Please log in again.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const skillData = { name: document.getElementById('name').value.trim() };
+            if (!skillData.name) {
+                showNotification('Skill name is required.');
                 return;
             }
 
             try {
-                const response = await fetch(`${API_URL}/api/jobs/${jobId}`);
-                if (!response.ok) {
-                    throw new Error('Job not found');
-                }
-                const job = await response.json();
+                // --- THIS IS THE CORRECTED FETCH CALL ---
+                const res = await fetch(`${API_URL}/api/users/skills`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': token // <-- Added the auth token
+                    },
+                    body: JSON.stringify(skillData)
+                });
+                // ------------------------------------------
 
-                // --- THIS IS THE CORRECTED LOGIC ---
-                // 1. Create the deadline variable from the job object
-                const deadline = new Date(job.deadline);
-
-                // Populate the page with all the fetched data
-                document.title = `${job.title} | JobLinkEswatini`;
-                document.getElementById('jobTitle').textContent = job.title;
-                document.getElementById('jobCompany').textContent = job.company;
-                document.getElementById('jobLocation').textContent = job.location;
-                document.getElementById('jobType').textContent = job.jobType.charAt(0).toUpperCase() + job.jobType.slice(1);
-                document.getElementById('jobDescription').innerHTML = job.description.replace(/\n/g, '<br>');
-                // Use toLocaleString for a more readable date and time
-                document.getElementById('jobDeadline').textContent = deadline.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' });
-
-                // 2. Check the deadline and update the apply button accordingly
-                const applyLink = document.getElementById('applyLink');
-                if (new Date() > deadline) {
-                    applyLink.textContent = 'Application Closed';
-                    applyLink.style.backgroundColor = '#777';
-                    applyLink.style.pointerEvents = 'none';
-                    applyLink.href = '#'; // Prevent clicking
+                if (res.ok) {
+                    showNotification('Skill added successfully!');
+                    window.location.href = `profile.html?t=${new Date().getTime()}`; // Cache-bust redirect
                 } else {
-                    applyLink.href = `apply.html?jobId=${job._id}`;
+                    const error = await res.json();
+                    showNotification('Failed to add skill: ' + (error.msg || 'Please try again.'));
                 }
-                // ------------------------------------
-
-            } catch (error) {
-                console.error('Failed to fetch job details:', error);
-                jobDetailContent.innerHTML = '<h1>Error: Job Could Not Be Found</h1><p>The job you are looking for may have expired or been removed.</p>';
+            } catch (err) {
+                console.error('Error adding skill:', err);
+                showNotification('An error occurred. Please seek assistance');
             }
         });
     </script>

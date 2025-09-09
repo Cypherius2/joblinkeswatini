@@ -5,17 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | JobLinkEswatini</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="theme-tech.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body class="auth-body">
     <div id="notification-container"></div>
     <div class="auth-container">
         <div class="auth-header">
-            <a href="index.html" class="logo-link">
+            <a href="../index.html" class="logo-link">
                 <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
             </a>
+            
+            <div style="position: absolute; top: 10px; right: 10px;">
+                <a href="#" class="dropdown-link" id="themeToggle" style="font-size: 1.2rem; text-decoration: none;">
+                    <span id="themeToggleIcon">🌙</span>
+                    <span id="themeToggleText" style="margin-left: 5px; font-size: 0.9rem;">Dark</span>
+                </a>
+            </div>
 
             <br>
             <button class="google-btn">
@@ -83,8 +90,11 @@
             <span>Me</span>
         </a>
     </nav>
-    <script src="js/config.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/emergency-notifications.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/google-auth.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

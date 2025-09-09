@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Add Skill | JobLinkEswatini</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Add Experience | JobLinkEswatini</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
@@ -14,7 +16,7 @@
             <!-- Header Left: Logo & Search -->
             <div class="header-left">
                 <!-- THIS IS THE CORRECT, RESTORED LOGO -->
-                <a href="index.html" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
                 <div class="header-search-container">
@@ -28,7 +30,7 @@
 
             <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
-                <a href="index.html" class="header-nav-item">
+                <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
@@ -63,11 +65,16 @@
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
                         style="display: none;">
-                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="themeToggle">
+                                <span id="themeToggleIcon">🌙</span>
+                                <span id="themeToggleText">Dark Theme</span>
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
@@ -80,22 +87,40 @@
     <main class="page-main">
         <div class="container page-container-profile">
             <section class="profile-section-card">
-                <h2>Add a New Skill</h2>
-                <form id="skillForm" class="auth-form" style="text-align: left;">
+                <h2>Add New Experience</h2>
+                <form id="experienceForm" class="auth-form" style="text-align: left;">
                     <div class="form-group">
-                        <label for="name">Skill Name*</label>
-                        <input type="text" id="name" list="master-skills-list"
-                            placeholder="Start typing to see suggestions..." required>
-                        <datalist id="master-skills-list"></datalist>
+                        <label for="title">Title*</label>
+                        <input type="text" id="title" placeholder="e.g., Software Engineer" required>
                     </div>
-                    <button type="submit" class="auth-button">Save Skill</button>
+                    <div class="form-group">
+                        <label for="company">Company*</label>
+                        <input type="text" id="company" placeholder="e.g., Eswatini Tech Innovators" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g., Mbabane, Eswatini">
+                    </div>
+                    <div class="form-group">
+                        <label for="from">From Date*</label>
+                        <input type="date" id="from" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="to">To Date (leave blank if current)</label>
+                        <input type="date" id="to">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="5"
+                            placeholder="Describe your responsibilities and achievements..."></textarea>
+                    </div>
+                    <button type="submit" class="auth-button">Save Experience</button>
                     <a href="profile.html" class="auth-button"
                         style="background-color: #777; text-align: center; display: block; box-sizing: border-box; margin-top: 0.5rem;">Cancel</a>
                 </form>
             </section>
         </div>
     </main>
-
     <!-- The Global Chat Window HTML -->
     <div id="global-chat-container" style="display: none;">
         <div id="chat-window">
@@ -121,65 +146,45 @@
             </svg>
         </div>
     </div>
-
     <footer class="main-footer"></footer>
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            // --- Fetch and populate the master skills list ---
-            const masterSkillsList = document.getElementById('master-skills-list');
-            try {
-                const res = await fetch(`${API_URL}/api/skills`);
-                if (!res.ok) throw new Error('Network error');
-                const skills = await res.json();
-                skills.forEach(skill => {
-                    const option = document.createElement('option');
-                    option.value = skill.name;
-                    masterSkillsList.appendChild(option);
-                });
-            } catch (err) {
-                console.error('Could not load master skills list', err);
-            }
-        });
-
-        // --- Handle the form submission ---
-        document.getElementById('skillForm').addEventListener('submit', async (e) => {
+        document.getElementById('experienceForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const token = localStorage.getItem('token');
-            if (!token) {
-                showNotification('Authentication error. Please log in again.');
-                window.location.href = 'login.html';
-                return;
-            }
+            if (!token) { window.location.href = 'login.html'; return; }
 
-            const skillData = { name: document.getElementById('name').value.trim() };
-            if (!skillData.name) {
-                showNotification('Skill name is required.');
+            const experienceData = {
+                title: document.getElementById('title').value,
+                company: document.getElementById('company').value,
+                location: document.getElementById('location').value,
+                from: document.getElementById('from').value,
+                to: document.getElementById('to').value || null, // Send null if empty
+                description: document.getElementById('description').value
+            };
+
+            if (!experienceData.title || !experienceData.company || !experienceData.from) {
+                alert('Title, Company, and From Date are required fields.');
                 return;
             }
 
             try {
-                // --- THIS IS THE CORRECTED FETCH CALL ---
-                const res = await fetch(`${API_URL}/api/users/skills`, {
+                const res = await fetch(`${API_URL}/api/experience`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-auth-token': token // <-- Added the auth token
-                    },
-                    body: JSON.stringify(skillData)
+                    headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                    body: JSON.stringify(experienceData)
                 });
-                // ------------------------------------------
-
                 if (res.ok) {
-                    showNotification('Skill added successfully!');
+                    showNotification('Experience added successfully!');
                     window.location.href = `profile.html?t=${new Date().getTime()}`; // Cache-bust redirect
                 } else {
                     const error = await res.json();
-                    showNotification('Failed to add skill: ' + (error.msg || 'Please try again.'));
+                    showNotification('Failed to add experience: ' + (error.msg || 'Please try again.'));
                 }
             } catch (err) {
-                console.error('Error adding skill:', err);
+                console.error('Error adding experience:', err);
                 showNotification('An error occurred. Please seek assistance');
             }
         });

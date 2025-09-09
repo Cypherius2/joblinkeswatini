@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Test | JobLinkEswatini</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
+</head>
+<body>
+    <div id="notification-container"></div>
+    
+    <header class="main-header">
+        <div class="container">
+            <div class="header-left">
+                <a href="../index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <div class="profile-dropdown-container header-nav-item header-nav-item--me">
+                    <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic">
+                    <span>Me &#9662;</span>
+                    <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                        <a href="profile.html" class="dropdown-link">View Profile</a>
+                        <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-link" id="themeToggle">
+                            <span id="themeToggleIcon">🌙</span>
+                            <span id="themeToggleText">Dark Theme</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-link">Sign Out</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+                <h1>Notification System Test</h1>
+                <p>Use the buttons below to test the notification system:</p>
+                
+                <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+                    <button onclick="testSuccessNotification()" class="auth-button" style="width: auto;">Test Success</button>
+                    <button onclick="testErrorNotification()" class="auth-button" style="width: auto; background-color: #dc3545;">Test Error</button>
+                    <button onclick="testThemeToggle()" class="auth-button" style="width: auto; background-color: #6f42c1;">Test Theme Toggle</button>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                    <h3>Instructions:</h3>
+                    <ol>
+                        <li>Click the buttons above to test different notification types</li>
+                        <li>Use the theme toggle in the profile dropdown to test theme-aware notifications</li>
+                        <li>Notifications should appear in the top-right corner</li>
+                        <li>Notifications should automatically disappear after 4 seconds</li>
+                        <li>You can manually close notifications by clicking the X button</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="debug-notifications.js"></script>
+
+    <script>
+        // Test functions
+        function testSuccessNotification() {
+            if (typeof showNotification === 'function') {
+                showNotification('✅ This is a success notification!', 'success');
+            } else {
+                alert('showNotification function not available');
+            }
+        }
+
+        function testErrorNotification() {
+            if (typeof showNotification === 'function') {
+                showNotification('❌ This is an error notification!', 'error');
+            } else {
+                alert('showNotification function not available');
+            }
+        }
+
+        function testThemeToggle() {
+            // Toggle theme and show notification
+            const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+            
+            if (typeof showNotification === 'function') {
+                const message = newTheme === 'dark' ? '🌙 Switched to Dark Theme' : '☀️ Switched to Light Theme';
+                showNotification(message, 'success');
+            } else {
+                alert('showNotification function not available');
+            }
+        }
+
+        // Setup profile dropdown toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdown = document.querySelector('.profile-dropdown-container');
+            const menu = document.getElementById('profileDropdownMenu');
+            
+            if (dropdown && menu) {
+                dropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.classList.toggle('is-open');
+                });
+                
+                document.addEventListener('click', function() {
+                    menu.classList.remove('is-open');
+                });
+                
+                menu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="theme-tech.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-tech.css">
 
 
 </head>
@@ -48,7 +48,7 @@
                     </svg>
                     <span>My Network</span>
                 </a>
-                <a href="jobs.html" class="header-nav-item">
+                <a href="pages/jobs.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
@@ -66,15 +66,20 @@
 
                 <div class="auth-buttons">
                     <div id="loggedOutNav" style="display: flex;">
-                        <a href="login.html" class="header-nav-item">Sign In</a>
+                        <a href="pages/login.html" class="header-nav-item">Sign In</a>
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
                         style="display: none;">
-                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <img src="assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                            <a href="profile.html" class="dropdown-link">View Profile</a>
-                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <a href="pages/profile.html" class="dropdown-link">View Profile</a>
+                            <a href="pages/edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="themeToggle">
+                                <span id="themeToggleIcon">🌙</span>
+                                <span id="themeToggleText">Dark Theme</span>
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
@@ -91,10 +96,10 @@
                     <h2 class="hero-headline">Find Your Future in the Kingdom of Eswatini</h2>
                     <p class="hero-subheadline">Connect, learn, and grow with the largest professional network in the
                         nation.</p>
-                    <a href="jobs.html" class="cta-button">Explore Jobs</a>
+                    <a href="pages/jobs.html" class="cta-button">Explore Jobs</a>
                 </div>
                 <div class="hero-image">
-                    <img src="images/index.png" alt="Professional Networking Graphic">
+                    <img src="assets/index.png" alt="Professional Networking Graphic">
                 </div>
             </div>
         </section>
@@ -147,21 +152,21 @@
     <!-- The new Mobile Bottom Navigation -->
     <nav id="mobile-bottom-nav" style="display: none;">
         <div class="container">
-            <a href="my-network.html" id="mobileConnectLink" class="header-nav-item">
+            <a href="pages/my-network.html" id="mobileConnectLink" class="header-nav-item">
                 <svg><!-- Network Icon --></svg>
                 <span id="mobileConnectText">My Network</span>
             </a>
-            <a href="jobs.html" class="header-nav-item">
+            <a href="pages/jobs.html" class="header-nav-item">
                 <svg><!-- Jobs Icon --></svg>
                 <span>Jobs</span>
             </a>
-            <a href="message-center.html" class="header-nav-item">
+            <a href="pages/message-center.html" class="header-nav-item">
                 <svg><!-- Message Icon --></svg>
                 <span>Messaging</span>
                 <span class="notification-badge" id="mobile-messaging-dot"></span>
             </a>
-            <a href="profile.html" class="header-nav-item">
-                <img src="images/placeholder.svg" id="mobileProfilePic" class="nav-profile-pic">
+            <a href="pages/profile.html" class="header-nav-item">
+                <img src="assets/placeholder.svg" id="mobileProfilePic" class="nav-profile-pic">
                 <span>Me</span>
             </a>
         </div>
@@ -177,95 +182,18 @@
         </div>
     </footer>
     <script src="js/config.js"></script>
+    <script src="js/theme-toggle.js"></script>
     <script src="js/main.js"></script>
 
-    <script>
-
-        // js/main.js -- FINAL, DEPLOYMENT-READY VERSION
-
-        // --- MODULE FOR HEADER/NAVIGATION LOGIC ---
-        const headerModule = {
-            async init() {
-                this.token = localStorage.getItem('token');
-                this.cacheDOMElements();
-                this.setupEventListeners();
-                if (this.token) {
-                    await this.renderLoggedInState();
-                } else {
-                    this.renderLoggedOutState();
-                }
-            },
-
-            // ... (cacheDOMElements and setupEventListeners are the same)
-
-            async renderLoggedInState() {
-                if (!this.loggedOutNav || !this.loggedInNav) return;
-                this.loggedOutNav.style.display = 'none';
-                this.loggedInNav.style.display = 'flex';
-
-                try {
-                    // ==========================================================
-                    // THIS IS THE EXAMPLE OF THE CHANGE YOU NEED TO MAKE
-                    // ==========================================================
-                    // BEFORE: const response = await fetch('http://127.0.0.1:3000/api/users/me', { headers: { 'x-auth-token': this.token } });
-                    //
-                    // AFTER (using the variable from config.js):
-                    const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
-                    // ==========================================================
-
-                    if (!response.ok) throw new Error('Token invalid');
-                    const user = await response.json();
-
-                    if (this.navProfilePic) {
-                        const serverUrl = API_URL; // Use the variable here too
-                        const localPlaceholder = 'images/placeholder.svg';
-                        this.navProfilePic.src = user.profilePicture ? `${serverUrl}/${user.profilePicture.replace(/\\/g, '/')}` : localPlaceholder;
-                    }
-                    // ... (the rest of the function is the same)
-                } catch (error) {
-                    // ... (error handling)
-                }
-            },
-            // ... (renderLoggedOutState is the same)
-        };
-
-        // --- MODULE FOR GLOBAL CHAT LOGIC ---
-        const chatModule = {
-            // You must apply the same change to all fetch calls inside this module. For example:
-            async fetchLoggedInUserId() {
-                try {
-                    const res = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': this.token } });
-                    // ...
-                } catch (err) { /* ... */ }
-            },
-            async checkForNewMessages() {
-                try {
-                    const res = await fetch(`${API_URL}/api/messages/unread-count`, { headers: { 'x-auth-token': this.token } });
-                    // ...
-                } catch (err) { /* ... */ }
-            },
-            // ... and so on for every fetch() in this module.
-        };
-
-        // --- MODULE FOR MOBILE MENU LOGIC ---
-        // (This module has no fetch calls, so no changes are needed)
-
-        // --- INITIALIZE EVERYTHING WHEN THE PAGE LOADS ---
-        document.addEventListener('DOMContentLoaded', () => {
-            headerModule.init();
-            chatModule.init();
-            mobileMenuModule.init();
-        });
-    </script>
     <nav class="mobile-nav">
-        <a href="connect.html" class="mobile-nav-item">
+        <a href="pages/connect.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path
                     d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.998 3.998 0 0118 14v4h-2zM2 15a4 4 0 004 3v-3h-4z" />
             </svg>
             <span>Network</span>
         </a>
-        <a href="jobs.html" class="mobile-nav-item">
+        <a href="pages/jobs.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                     d="M6 6a2 2 0 00-2 2v3.586l1.293-1.293a1 1 0 011.414 0L9 10.586V12a1 1 0 102 0v-1.414l2.293-2.293a1 1 0 011.414 0L16 11.586V8a2 2 0 00-2-2H6z"
@@ -281,7 +209,7 @@
             </svg>
             <span>Messages</span>
         </a>
-        <a href="edit-profile.html" class="mobile-nav-item">
+        <a href="pages/edit-profile.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 10-4 0 2 2 0 004 0zm-2 4a5 5 0 00-5 5h10a5 5 0 00-5-5z"

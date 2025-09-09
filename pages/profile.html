@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile | JobLinkEswatini</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/theme-tech.css">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     <header class="main-header">
         <div class="container">
             <div class="header-left">
-                <a href="index.html" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
                 <div class="header-search-container">
@@ -26,7 +27,7 @@
             </div>
 
             <nav class="main-nav" id="main-nav">
-                <a href="index.html" class="header-nav-item">
+                <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
@@ -61,11 +62,16 @@
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
                         style="display: none;">
-                        <img src="images/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
                             <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="themeToggle">
+                                <span id="themeToggleIcon">🌙</span>
+                                <span id="themeToggleText">Dark Theme</span>
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
@@ -83,14 +89,14 @@
                     <div class="profile-banner" id="profileBanner">
                         <form id="coverPhotoForm"><label for="coverPhotoFile" id="coverPhotoLabel">&#128247; Change
                                 Cover</label><input type="file" id="coverPhotoFile" name="coverPhoto"
-                                accept="image/png, image/jpeg"></form>
+                                accept="image/png,image/jpeg,image/jpg"></form>
                     </div>
                     <div class="profile-info">
                         <div class="profile-picture-container">
-                            <img id="profilePicture" src="images/placeholder.svg" alt="User Profile Picture"
+                            <img id="profilePicture" src="../assets/placeholder.svg" alt="User Profile Picture"
                                 class="profile-picture">
                             <form id="pictureForm"><label for="pictureFile" id="uploadIconLabel">+</label><input
-                                    type="file" id="pictureFile" name="profilePicture" accept="image/png, image/jpeg">
+                                    type="file" id="pictureFile" name="profilePicture" accept="image/png,image/jpeg,image/jpg">
                             </form>
                         </div>
                         <div class="profile-name-title">
@@ -167,20 +173,25 @@
 
     <footer class="main-footer"></footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
 
 
     <script>
         // --- Reusable Render Functions ---
         const renderProfileHeader = (user) => {
-            const serverUrl = API_URL;
             const localPlaceholder = 'images/placeholder.svg';
             const pic = document.getElementById('profilePicture');
             const banner = document.getElementById('profileBanner');
 
-            const picUrl = user.profilePicture ? `${serverUrl}/api/files/${user.profilePicture}` : localPlaceholder;
-            const coverUrl = user.coverPhoto ? `${serverUrl}/api/files/${user.coverPhoto}` : '';
+            // Use GridFS file serving endpoints
+            const picUrl = user.profilePicture && user.profilePicture.filename 
+                ? `${API_URL}/api/files/${user.profilePicture.filename}` 
+                : localPlaceholder;
+            const coverUrl = user.coverPhoto && user.coverPhoto.filename 
+                ? `${API_URL}/api/files/${user.coverPhoto.filename}` 
+                : '';
 
             pic.src = picUrl;
             if (coverUrl) {
@@ -243,12 +254,12 @@
             if (!container) return;
             container.innerHTML = '';
             if (!documents || documents.length === 0) {
-                container.innerHTML = '<li><p>You have not uploaded any documents yet.</p></li>';
+                container.innerHTML = '<li class="document-item"><p>You have not uploaded any documents yet. Click "Upload Document" to get started.</p></li>';
                 return;
             }
             container.innerHTML = documents.map(doc => `
                 <li class="document-item">
-                    <a href="${API_URL}/api/files/${doc.filename}" target="_blank">${doc.originalName}</a>
+                    <a href="${API_URL}/api/files/${doc.filename}" target="_blank" rel="noopener noreferrer">${doc.originalName}</a>
                     <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
                 </li>
             `).join('');
