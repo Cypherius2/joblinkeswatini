@@ -6,10 +6,6 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const User = require('../models/User');
-<<<<<<< HEAD
-const authMiddleware = require('../middleware/authMiddleware');
-=======
->>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 const path = require('path');
 
 // Debug middleware for document uploads

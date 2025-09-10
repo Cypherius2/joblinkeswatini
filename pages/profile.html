@@ -56,7 +56,6 @@
                         <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
                     <input type="text" class="header-search-input" placeholder="Search professionals, jobs, companies...">
-                </div>
             </div>
 
             <!-- Header Right: Navigation -->
@@ -495,152 +494,14 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
                         </svg>
-=======
-    <div id="global-chat-container" style="display: none;">
-        </div>
-
-    <footer class="main-footer"></footer>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/config.js"></script>
-
-
-    <script>
-        // --- Reusable Render Functions ---
-        const renderProfileHeader = (user) => {
-            const localPlaceholder = '../assets/placeholder.svg';
-            const pic = document.getElementById('profilePicture');
-            const banner = document.getElementById('profileBanner');
-
-            // Use GridFS file serving endpoints
-            const picUrl = user.profilePicture && user.profilePicture.filename 
-                ? `${API_URL}/api/files/${user.profilePicture.filename}` 
-                : localPlaceholder;
-            const coverUrl = user.coverPhoto && user.coverPhoto.filename 
-                ? `${API_URL}/api/files/${user.coverPhoto.filename}` 
-                : '';
-
-pic.src = `${picUrl}?t=${new Date().getTime()}`
-            if (coverUrl) {
-banner.style.backgroundImage = `url('${coverUrl}?t=${new Date().getTime()}')`;
-            } else {
-                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
-            }
-
-            document.getElementById('profileName').textContent = user.name;
-            document.getElementById('profileHeadline').textContent = user.headline;
-            document.getElementById('profileLocation').textContent = user.location;
-
-            // Set the public profile URL
-            const publicProfileUrlEl = document.getElementById('publicProfileUrl');
-            if (publicProfileUrlEl) {
-                publicProfileUrlEl.href = `view-profile.html?id=${user._id}`;
-                publicProfileUrlEl.textContent = `joblinkeswatini.com/in/${user.name.toLowerCase().replace(/\s/g, '-')}`;
-            }
-        };
-
-        const renderAbout = (user) => {
-            const aboutEl = document.getElementById('profileAbout');
-            if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
-        };
-
-        const renderExperience = (experience) => {
-            const expList = document.getElementById('experienceList');
-            if (!expList) return;
-            if (!experience || experience.length === 0) {
-                expList.innerHTML = '<p>No experience added yet. Click the + button to add your work history.</p>';
-                return;
-            }
-            expList.innerHTML = experience.map(exp => `
-                <div class="experience-item">
-                    <h3>${exp.title}</h3>
-                    <p class="company">${exp.company} | ${exp.location || ''}</p>
-                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
-                    <p>${exp.description || ''}</p>
-                </div>
-            `).join('');
-        };
-
-        const renderSkills = (skills) => {
-            const skillsList = document.getElementById('skillsList');
-            if (!skillsList) return;
-            if (!skills || skills.length === 0) {
-                skillsList.innerHTML = '<p>No skills added yet. Click the + button to showcase your talents.</p>';
-                return;
-            }
-            skillsList.innerHTML = skills.map(skill => `
-                <span class="skill-tag">
-                    ${skill.name}
-                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
-                </span>
-            `).join('');
-        };
-
-        const renderDocumentsSection = (documents) => {
-            const container = document.getElementById('documentList');
-            if (!container) return;
-            container.innerHTML = '';
-            if (!documents || documents.length === 0) {
-                container.innerHTML = '<li class="document-item"><p>You have not uploaded any documents yet. Click "Upload Document" to get started.</p></li>';
-                return;
-            }
-            container.innerHTML = documents.map(doc => `
-                <li class="document-item">
-                    <a href="#" onclick="window.open('${API_URL}/api/files/${doc.filename}', '_blank')" rel="noopener noreferrer">${doc.originalName}</a>
-                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
-                </li>
-            `).join('');
-        };
-
-        const fetchAndRenderMyJobs = async (token) => {
-            const myJobsList = document.getElementById('my-jobs-list');
-            if (!myJobsList) return;
-            myJobsList.innerHTML = '<p>Loading your jobs...</p>';
-            try {
-                const response = await fetch(`${API_URL}/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
-                if (!response.ok) throw new Error('Could not fetch jobs');
-                const jobs = await response.json();
-                if (jobs.length === 0) {
-                    myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
-                }
-                myJobsList.innerHTML = jobs.map(job => `
-                    <div class="experience-item">
-                        <h3>${job.title}</h3>
-                        <p class="company">${job.company} - ${job.location}</p>
-                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
->>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
                     </div>
-                    <p>No messages yet. Start the conversation!</p>
+                    <div id="chat-bubble">
+                        <div id="chat-notification-dot" class="notification-badge"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <form id="chat-form" style="display: none;">
-                <div class="chat-input-wrapper">
-                    <button type="button" class="attachment-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
-                        </svg>
-                    </button>
-                    <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
-                    <button type="button" class="emoji-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-                        </svg>
-                    </button>
-                    <button type="submit" class="send-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div id="chat-bubble">
-            <div id="chat-notification-dot" class="notification-badge"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-            </svg>
-        </div>
-    </div>
 
     <!-- Mobile Bottom Navigation -->
     <nav id="mobile-bottom-nav" style="display: none;">
