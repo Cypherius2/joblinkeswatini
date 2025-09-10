@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Jobs | JobLinkEswatini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css"> 
-    <!-- Fonts, etc. -->
-
-
 </head>
 
 <body>
@@ -71,15 +70,35 @@
                         <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                            <a href="profile.html" class="dropdown-link">View Profile</a>
-                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
+                            <div class="dropdown-user-info" id="dropdownUserInfo">
+                                <div class="dropdown-user-name" id="dropdownUserName">Loading...</div>
+                                <div class="dropdown-user-role" id="dropdownUserRole">Loading...</div>
+                            </div>
+                            <a href="profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                View Profile
+                            </a>
+                            <a href="edit-profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                                Edit Profile
+                            </a>
+                            <a href="settings.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                                </svg>
+                                Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                            <a href="#" class="dropdown-link" id="signOutBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                </svg>
+                                Sign Out
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -89,60 +108,315 @@
 
 
     <main class="page-main">
-        <div class="container page-container">
-            <!-- Filter Sidebar -->
-            <aside class="sidebar">
-                <h3>Filter Jobs</h3>
-                <div class="filter-group">
-                    <label for="filter-search">Search by Title</label>
-                    <input type="text" id="filter-search" placeholder="e.g., Frontend Developer">
+        <div class="container">
+            <!-- Jobs Header Section -->
+            <div class="jobs-header">
+                <div class="jobs-header-top">
+                    <h1 class="jobs-page-title">Find Your Perfect Job</h1>
+                    <div class="jobs-header-actions">
+                        <!-- Company View Toggle (shown only for companies) -->
+                        <div class="jobs-view-toggle company-only" style="display: none;">
+                            <button class="view-toggle-btn active" data-view="all">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                                </svg>
+                                All Jobs
+                            </button>
+                            <button class="view-toggle-btn" data-view="my-jobs">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" fill="currentColor"/>
+                                </svg>
+                                My Jobs
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label for="filter-job-type">Job Type</label>
-                    <select id="filter-job-type">
-                        <option value="all">All Types</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="part-time">Part-time</option>
-                        <option value="contract">Contract</option>
-                        <option value="internship">Internship</option>
-                    </select>
+                <div class="jobs-search-section">
+                    <div class="jobs-search-bar">
+                        <div class="search-input-group">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <input type="text" id="filter-search" class="jobs-search-input" placeholder="Search for jobs by title, company, or keyword">
+                        </div>
+                        <div class="location-input-group">
+                            <svg class="location-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <input type="text" class="jobs-location-input" placeholder="Eswatini" readonly>
+                        </div>
+                        <button class="jobs-search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                    <div class="quick-filters">
+                        <button class="quick-filter-btn active" data-filter="all">All</button>
+                        <button class="quick-filter-btn" data-filter="full-time">Full-time</button>
+                        <button class="quick-filter-btn" data-filter="part-time">Part-time</button>
+                        <button class="quick-filter-btn" data-filter="contract">Contract</button>
+                        <button class="quick-filter-btn" data-filter="internship">Internship</button>
+                        <button class="quick-filter-btn" data-filter="remote">Remote</button>
+                    </div>
                 </div>
-            </aside>
+            </div>
 
-            <!-- Job Listings -->
-            <section class="content-main">
-                <h2 id="job-results-title">Loading jobs...</h2>
-                <div id="job-listings-container">
-                    <!-- Job cards will be populated by the script -->
+            <div class="jobs-layout">
+                <!-- Jobs Sidebar -->
+                <aside class="jobs-sidebar">
+                    <div class="info-card jobs-filters-card">
+                        <div class="card-header">
+                            <h3>Filters</h3>
+                            <button class="clear-filters-btn">Clear all</button>
+                        </div>
+                        <div class="card-content">
+                            <!-- Job Type Filter -->
+                            <div class="filter-section">
+                                <h4 class="filter-title">Job Type</h4>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-type-filter" value="full-time" checked>
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Full-time</span>
+                                        <span class="option-count">(12)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-type-filter" value="part-time">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Part-time</span>
+                                        <span class="option-count">(3)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-type-filter" value="contract">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Contract</span>
+                                        <span class="option-count">(8)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-type-filter" value="internship">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Internship</span>
+                                        <span class="option-count">(5)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Experience Level Filter -->
+                            <div class="filter-section">
+                                <h4 class="filter-title">Experience Level</h4>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="experience-filter" value="entry-level">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Entry Level</span>
+                                        <span class="option-count">(6)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="experience-filter" value="mid-level">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Mid Level</span>
+                                        <span class="option-count">(15)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="experience-filter" value="senior-level">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Senior Level</span>
+                                        <span class="option-count">(7)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Company Size Filter -->
+                            <div class="filter-section">
+                                <h4 class="filter-title">Company Size</h4>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="company-size-filter" value="startup">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Startup (1-10)</span>
+                                        <span class="option-count">(4)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="company-size-filter" value="small">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Small (11-50)</span>
+                                        <span class="option-count">(12)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="company-size-filter" value="medium">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Medium (51-200)</span>
+                                        <span class="option-count">(8)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="company-size-filter" value="large">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Large (200+)</span>
+                                        <span class="option-count">(4)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Job Status Filter (shown only in My Jobs view) -->
+                            <div class="filter-section status-filter-section" style="display: none;">
+                                <h4 class="filter-title">Job Status</h4>
+                                <div class="filter-options">
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-status-filter" value="published" checked>
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Published</span>
+                                        <span class="option-count">(0)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-status-filter" value="draft">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Draft</span>
+                                        <span class="option-count">(0)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-status-filter" value="paused">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Paused</span>
+                                        <span class="option-count">(0)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-status-filter" value="closed">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Closed</span>
+                                        <span class="option-count">(0)</span>
+                                    </label>
+                                    <label class="filter-option">
+                                        <input type="checkbox" class="job-status-filter" value="expired">
+                                        <span class="checkmark"></span>
+                                        <span class="option-label">Expired</span>
+                                        <span class="option-count">(0)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Job Listings Main Content -->
+                <div class="jobs-main">
+                    <div class="jobs-results-header">
+                        <h2 id="job-results-title">Loading jobs...</h2>
+                        <div class="jobs-actions">
+                            <button class="sort-dropdown-btn">
+                                <span>Most recent</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5z"/>
+                                </svg>
+                            </button>
+                            <button class="jobs-alert-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                                </svg>
+                                Job alert
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Bulk Actions Bar (shown only in My Jobs view) -->
+                    <div class="bulk-actions-bar company-only" id="bulkActionsBar" style="display: none;">
+                        <div class="bulk-select">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="selectAllJobs">
+                                <span class="checkmark"></span>
+                                <span id="selectedCount">0 selected</span>
+                            </label>
+                        </div>
+                        <div class="bulk-actions">
+                            <button class="bulk-btn" id="bulkPublishBtn" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                </svg>
+                                Publish
+                            </button>
+                            <button class="bulk-btn" id="bulkPauseBtn" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                </svg>
+                                Pause
+                            </button>
+                            <button class="bulk-btn bulk-btn-danger" id="bulkDeleteBtn" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="job-listings-container" class="job-listings">
+                        <!-- Job cards will be populated by the script -->
+                    </div>
                 </div>
-            </section>
+            </div>
         </div>
     </main>
 
     <footer class="main-footer"></footer>
 
-    <!-- The Global Chat Window HTML -->
-    <div id="global-chat-container" style="display: none;">
+    <!-- Global Floating Chat Window -->
+    <div id="global-chat-container">
         <div id="chat-window">
             <div id="chat-header">
-                <button id="chat-back-btn">&larr;</button>
+                <button id="chat-back-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
                 <span id="chat-header-title">Messages</span>
+                <button id="chat-close-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
             </div>
             <div id="chat-conversation-list">
-                <!-- List of conversations will be rendered here -->
+                <div class="chat-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading conversations...</p>
+                </div>
             </div>
             <div id="chat-messages" style="display: none;">
-                <!-- Messages for a specific conversation will be rendered here -->
+                <div class="messages-empty-state">
+                    <div class="empty-message-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <p>No messages yet. Start the conversation!</p>
+                </div>
             </div>
             <form id="chat-form" style="display: none;">
-                <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
-                <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
+                <div class="chat-input-wrapper">
+                    <button type="button" class="attachment-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                        </svg>
+                    </button>
+                    <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                    <button type="button" class="emoji-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </button>
+                    <button type="submit" class="send-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
         </div>
         <div id="chat-bubble">
-            <div id="chat-notification-dot"></div>
+            <div id="chat-notification-dot" class="notification-badge"></div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
             </svg>
         </div>
     </div>
@@ -175,123 +449,1109 @@
             <span>Me</span>
         </a>
 </nav>
-    <script src="../js/main.js"></script>
     <script src="../js/config.js"></script>
+    <script src="../js/header-nav.js"></script>
+    <script src="../js/main.js"></script>
+
     <script>
-        // --- THIS IS THE FINAL, COMPLETE SCRIPT FOR JOBS.HTML ---
-
-        // This interval variable is stored globally so we can clear it
-        let countdownInterval;
-
-        // --- COUNTDOWN TIMER FUNCTIONS (Now Complete) ---
-        function calculateTimeLeft(deadline) {
-            const difference = +new Date(deadline) - +new Date();
-            let timeLeft = {};
-            if (difference > 0) {
-                timeLeft = {
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                    minutes: Math.floor((difference / 1000 / 60) % 60)
+        // Modern Jobs Page Manager with Role-based Access
+        class JobsPageManager {
+            constructor() {
+                this.allJobs = [];
+                this.filteredJobs = [];
+                this.savedJobs = new Set(JSON.parse(localStorage.getItem('savedJobs') || '[]'));
+                this.currentFilters = {
+                    search: '',
+                    jobType: 'all',
+                    experienceLevel: [],
+                    companySize: [],
+                    jobStatus: ['published'] // Default to show published jobs
                 };
+                this.countdownInterval = null;
+                
+                // Get user role from localStorage or session
+                this.userRole = this.getUserRole();
+                this.isJobSeeker = this.userRole === 'jobseeker';
+                this.isCompany = this.userRole === 'company';
+                
+                this.init();
             }
-            return timeLeft;
-        }
 
-        function startCountdownTimers() {
-            // Clear any previous interval to prevent memory leaks
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
+            getUserRole() {
+                // Check multiple sources for user role
+                const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+                const sessionUser = JSON.parse(sessionStorage.getItem('user') || '{}');
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                return storedUser.role || 
+                       sessionUser.role || 
+                       urlParams.get('role') || 
+                       localStorage.getItem('userRole') || 
+                       'jobseeker'; // Default to job seeker
             }
 
-            const countdownElements = document.querySelectorAll('.deadline-countdown');
-
-            // Run once immediately
-            countdownElements.forEach(el => updateTimerText(el));
-
-            // Then update every minute
-            countdownInterval = setInterval(() => {
-                countdownElements.forEach(el => updateTimerText(el));
-            }, 60000);
-        }
-
-        function updateTimerText(element) {
-            const deadline = element.dataset.deadline;
-            const timeLeft = calculateTimeLeft(deadline);
-            if (timeLeft.days > 1) {
-                element.textContent = `Closes in ${timeLeft.days} days`;
-            } else if (timeLeft.days === 1) {
-                element.textContent = `Closes in 1 day`;
-            } else if (timeLeft.hours > 0) {
-                element.textContent = `Closes in ${timeLeft.hours}h ${timeLeft.minutes}m`;
-            } else if (timeLeft.minutes > 0) {
-                element.textContent = `Closes in ${timeLeft.minutes}m`;
-            } else if (Object.keys(timeLeft).length === 0) {
-                element.textContent = 'Application Closed';
-                element.style.color = '#D21034';
-            } else {
-                element.textContent = 'Closing soon';
-                element.style.color = '#D21034';
+            init() {
+                this.cacheDOMElements();
+                this.applyRoleBasedUI();
+                this.setupEventListeners();
+                this.loadJobs();
             }
-        }
 
-        // --- MAIN SCRIPT ---
-        document.addEventListener('DOMContentLoaded', async () => {
-            const jobListingsContainer = document.getElementById('job-listings-container');
-            const resultsTitle = document.getElementById('job-results-title');
-            const searchFilter = document.getElementById('filter-search');
-            const jobTypeFilter = document.getElementById('filter-job-type');
-            let allJobs = [];
+            applyRoleBasedUI() {
+                // Hide/show elements based on user role
+                if (this.isCompany) {
+                    // Company view modifications
+                    this.setupCompanyView();
+                } else {
+                    // Job seeker view (default)
+                    this.setupJobSeekerView();
+                }
+            }
 
-            const renderJobs = () => {
-                const searchTerm = searchFilter.value.toLowerCase();
-                const selectedJobType = jobTypeFilter.value;
-                const filteredJobs = allJobs.filter(job => {
-                    const titleMatch = job.title.toLowerCase().includes(searchTerm);
-                    const typeMatch = (selectedJobType === 'all') || (job.jobType === selectedJobType);
-                    return titleMatch && typeMatch;
+            setupJobSeekerView() {
+                // Job seeker can see job applications, save jobs, etc.
+                document.body.setAttribute('data-user-role', 'jobseeker');
+                
+                // Show job seeker specific elements
+                const jobSeekerElements = document.querySelectorAll('.jobseeker-only');
+                jobSeekerElements.forEach(el => el.style.display = 'block');
+                
+                // Hide company specific elements
+                const companyElements = document.querySelectorAll('.company-only');
+                companyElements.forEach(el => el.style.display = 'none');
+                
+                // Update page title and header
+                const pageTitle = document.querySelector('.jobs-header h1');
+                if (pageTitle) {
+                    pageTitle.textContent = 'Find Your Perfect Job';
+                }
+                
+                // Show apply buttons and save functionality
+                this.enableJobSeekerFeatures();
+            }
+
+            setupCompanyView() {
+                // Company view - focused on job management, not applying
+                document.body.setAttribute('data-user-role', 'company');
+                
+                // Show company specific elements
+                const companyElements = document.querySelectorAll('.company-only');
+                companyElements.forEach(el => el.style.display = 'block');
+                
+                // Hide job seeker specific elements
+                const jobSeekerElements = document.querySelectorAll('.jobseeker-only');
+                jobSeekerElements.forEach(el => el.style.display = 'none');
+                
+                // Check URL for view parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const view = urlParams.get('view') || 'all';
+                
+                // Set initial view state
+                this.setCurrentView(view, false);
+                
+                // Add company-specific filters and buttons
+                this.addCompanySpecificUI();
+            }
+
+            setCurrentView(view, reload = true) {
+                // Update URL without reloading page
+                const url = new URL(window.location);
+                if (view === 'all') {
+                    url.searchParams.delete('view');
+                } else {
+                    url.searchParams.set('view', view);
+                }
+                window.history.pushState({}, '', url);
+                
+                // Update page title based on view
+                if (this.pageTitle) {
+                    if (view === 'my-jobs') {
+                        this.pageTitle.textContent = 'My Job Postings';
+                    } else {
+                        this.pageTitle.textContent = this.isCompany ? 'Browse Job Market' : 'Find Your Perfect Job';
+                    }
+                }
+                
+                // Update view toggle buttons
+                this.viewToggleBtns?.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.view === view);
+                });
+                
+                // Show/hide status filters based on view
+                if (this.statusFilterSection) {
+                    this.statusFilterSection.style.display = 
+                        (this.isCompany && view === 'my-jobs') ? 'block' : 'none';
+                }
+                
+                // Show/hide bulk actions bar based on view
+                if (this.bulkActionsBar) {
+                    this.bulkActionsBar.style.display = 
+                        (this.isCompany && view === 'my-jobs') ? 'flex' : 'none';
+                }
+                
+                // Clear selected jobs when switching views
+                this.selectedJobs.clear();
+                this.updateBulkActionsUI();
+                
+                // Reload jobs if requested
+                if (reload) {
+                    this.loadJobs();
+                }
+            }
+
+            enableJobSeekerFeatures() {
+                // Enable save job functionality
+                const style = document.createElement('style');
+                style.textContent = `
+                    .job-save-btn { display: flex !important; }
+                    .apply-button { display: inline-block !important; }
+                    .jobseeker-filters { display: block !important; }
+                `;
+                document.head.appendChild(style);
+            }
+
+            addCompanySpecificUI() {
+                // Add "Post New Job" button for companies
+                const headerActions = document.querySelector('.jobs-header-actions');
+                if (headerActions && !document.querySelector('.post-job-btn')) {
+                    const postJobBtn = document.createElement('button');
+                    postJobBtn.className = 'post-job-btn company-only';
+                    postJobBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/>
+                        </svg>
+                        Post New Job
+                    `;
+                    postJobBtn.onclick = () => window.location.href = 'post-job.html';
+                    headerActions.appendChild(postJobBtn);
+                }
+                
+                // Hide save buttons and apply buttons for companies
+                const style = document.createElement('style');
+                style.textContent = `
+                    [data-user-role="company"] .job-save-btn { display: none !important; }
+                    [data-user-role="company"] .apply-button { display: none !important; }
+                    [data-user-role="company"] .saved-jobs-filter { display: none !important; }
+                    .company-only { display: block !important; }
+                    .post-job-btn {
+                        background: #0a66c2;
+                        color: white;
+                        border: none;
+                        padding: 8px 16px;
+                        border-radius: 24px;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    .post-job-btn:hover {
+                        background: #004182;
+                        transform: translateY(-1px);
+                    }
+                    .manage-job-btn, .view-applicants-btn {
+                        padding: 6px 12px;
+                        border: 1px solid #0a66c2;
+                        background: transparent;
+                        color: #0a66c2;
+                        border-radius: 16px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        margin-right: 8px;
+                    }
+                    .manage-job-btn:hover, .view-applicants-btn:hover {
+                        background: #0a66c2;
+                        color: white;
+                    }
+                    .job-status-indicator {
+                        display: flex;
+                        align-items: center;
+                    }
+                    .status-badge {
+                        padding: 4px 12px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                    }
+                    .status-active {
+                        background: #d4edda;
+                        color: #155724;
+                    }
+                    .status-paused {
+                        background: #fff3cd;
+                        color: #856404;
+                    }
+                    .status-closed, .status-expired {
+                        background: #f8d7da;
+                        color: #721c24;
+                    }
+                    .status-draft {
+                        background: #e2e3e5;
+                        color: #383d41;
+                    }
+                    .jobs-header-top {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 24px;
+                    }
+                    .jobs-page-title {
+                        margin: 0;
+                        font-size: 28px;
+                        font-weight: 700;
+                        color: #333;
+                    }
+                    
+                    /* Bulk Actions Styles */
+                    .bulk-actions-bar {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        background: #f8f9fa;
+                        border-radius: 8px;
+                        padding: 12px 16px;
+                        margin-bottom: 20px;
+                        border: 1px solid #e1e5e9;
+                    }
+                    
+                    .bulk-select .checkbox-option {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-weight: 600;
+                        color: #333;
+                    }
+                    
+                    .bulk-actions {
+                        display: flex;
+                        gap: 8px;
+                    }
+                    
+                    .bulk-btn {
+                        padding: 6px 12px;
+                        border: 1px solid #0a66c2;
+                        background: transparent;
+                        color: #0a66c2;
+                        border-radius: 16px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        transition: all 0.2s ease;
+                    }
+                    
+                    .bulk-btn:hover:not(:disabled) {
+                        background: #0a66c2;
+                        color: white;
+                    }
+                    
+                    .bulk-btn:disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                    }
+                    
+                    .bulk-btn-danger {
+                        border-color: #d92e2e;
+                        color: #d92e2e;
+                    }
+                    
+                    .bulk-btn-danger:hover:not(:disabled) {
+                        background: #d92e2e;
+                        color: white;
+                    }
+                    
+                    /* Job card enhancements for My Jobs */
+                    .job-card-checkbox {
+                        position: absolute;
+                        top: 12px;
+                        left: 12px;
+                        z-index: 2;
+                    }
+                    
+                    .modern-job-card.my-jobs-view {
+                        position: relative;
+                        padding-left: 44px;
+                    }
+                    
+                    .modern-job-card.selected {
+                        border-color: #0a66c2;
+                        box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.1);
+                    }
+                    .jobs-header-actions {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                    }
+                    .jobs-view-toggle {
+                        display: flex;
+                        background: #f3f2ef;
+                        border-radius: 24px;
+                        padding: 4px;
+                    }
+                    .view-toggle-btn {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        padding: 8px 16px;
+                        border: none;
+                        background: transparent;
+                        border-radius: 20px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #666;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    .view-toggle-btn.active {
+                        background: white;
+                        color: #0a66c2;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
+                    .view-toggle-btn:hover:not(.active) {
+                        background: rgba(255,255,255,0.5);
+                        color: #333;
+                    }
+                    .view-toggle-btn svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            cacheDOMElements() {
+                this.jobListingsContainer = document.getElementById('job-listings-container');
+                this.resultsTitle = document.getElementById('job-results-title');
+                this.searchInput = document.getElementById('filter-search');
+                this.searchButton = document.querySelector('.jobs-search-button');
+                this.quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
+                this.clearFiltersBtn = document.querySelector('.clear-filters-btn');
+                this.jobTypeFilters = document.querySelectorAll('.job-type-filter');
+                this.experienceFilters = document.querySelectorAll('.experience-filter');
+                this.companySizeFilters = document.querySelectorAll('.company-size-filter');
+                this.jobStatusFilters = document.querySelectorAll('.job-status-filter');
+                this.statusFilterSection = document.querySelector('.status-filter-section');
+                this.viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
+                this.pageTitle = document.querySelector('.jobs-page-title');
+                
+                // Bulk operations elements
+                this.bulkActionsBar = document.getElementById('bulkActionsBar');
+                this.selectAllCheckbox = document.getElementById('selectAllJobs');
+                this.selectedCountText = document.getElementById('selectedCount');
+                this.bulkPublishBtn = document.getElementById('bulkPublishBtn');
+                this.bulkPauseBtn = document.getElementById('bulkPauseBtn');
+                this.bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+                
+                this.selectedJobs = new Set();
+            }
+
+            setupEventListeners() {
+                // Search functionality
+                this.searchInput?.addEventListener('input', this.debounce(() => {
+                    this.currentFilters.search = this.searchInput.value.toLowerCase();
+                    this.applyFilters();
+                }, 300));
+
+                this.searchButton?.addEventListener('click', () => {
+                    this.currentFilters.search = this.searchInput.value.toLowerCase();
+                    this.applyFilters();
                 });
 
-                jobListingsContainer.innerHTML = '';
-                resultsTitle.textContent = `Showing ${filteredJobs.length} Job Result(s)`;
+                // Quick filters
+                this.quickFilterBtns?.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.quickFilterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFilters.jobType = btn.dataset.filter;
+                        this.applyFilters();
+                    });
+                });
 
-                if (filteredJobs.length === 0) {
-                    jobListingsContainer.innerHTML = '<p>No open job positions match your criteria.</p>';
+                // Clear filters
+                this.clearFiltersBtn?.addEventListener('click', () => {
+                    this.clearAllFilters();
+                });
+
+                // Checkbox filters
+                this.jobTypeFilters?.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        this.updateCheckboxFilters();
+                        this.applyFilters();
+                    });
+                });
+
+                this.experienceFilters?.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        this.updateCheckboxFilters();
+                        this.applyFilters();
+                    });
+                });
+
+                this.companySizeFilters?.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        this.updateCheckboxFilters();
+                        this.applyFilters();
+                    });
+                });
+                
+                this.jobStatusFilters?.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        this.updateCheckboxFilters();
+                        this.applyFilters();
+                    });
+                });
+
+                // View toggle functionality (for companies)
+                this.viewToggleBtns?.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.viewToggleBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        const view = btn.dataset.view;
+                        this.setCurrentView(view);
+                    });
+                });
+                
+                // Bulk operations event listeners
+                this.selectAllCheckbox?.addEventListener('change', () => {
+                    this.handleSelectAll();
+                });
+                
+                this.bulkPublishBtn?.addEventListener('click', () => {
+                    this.handleBulkAction('published');
+                });
+                
+                this.bulkPauseBtn?.addEventListener('click', () => {
+                    this.handleBulkAction('paused');
+                });
+                
+                this.bulkDeleteBtn?.addEventListener('click', () => {
+                    this.handleBulkDelete();
+                });
+            }
+
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            updateCheckboxFilters() {
+                this.currentFilters.experienceLevel = Array.from(this.experienceFilters)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                this.currentFilters.companySize = Array.from(this.companySizeFilters)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                    
+                this.currentFilters.jobStatus = Array.from(this.jobStatusFilters)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+            }
+
+            clearAllFilters() {
+                this.searchInput.value = '';
+                this.currentFilters = {
+                    search: '',
+                    jobType: 'all',
+                    experienceLevel: [],
+                    companySize: [],
+                    jobStatus: ['published'] // Keep default status filters
+                };
+                
+                // Reset UI
+                this.quickFilterBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.filter === 'all');
+                });
+                
+                document.querySelectorAll('.job-type-filter, .experience-filter, .company-size-filter')
+                    .forEach(cb => cb.checked = false);
+                    
+                // Reset status filters to default
+                this.jobStatusFilters?.forEach(cb => {
+                    cb.checked = cb.value === 'published';
+                });
+                    
+                this.applyFilters();
+            }
+
+            async loadJobs() {
+                if (this.resultsTitle) {
+                    this.resultsTitle.textContent = 'Loading jobs...';
+                }
+                
+                this.showLoadingState();
+                
+                try {
+                    let apiUrl = `${API_URL}/api/jobs`;
+                    let headers = {};
+                    
+                    // Check if we're in company My Jobs view
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const view = urlParams.get('view');
+                    
+                    if (this.isCompany && view === 'my-jobs') {
+                        apiUrl = `${API_URL}/api/jobs/myjobs`;
+                        headers = {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        };
+                    }
+                    
+                    const response = await fetch(apiUrl, { headers });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const fetchedJobs = await response.json();
+                    this.allJobs = fetchedJobs;
+                    this.applyFilters();
+                    this.updateFilterCounts();
+                    
+                } catch (error) {
+                    console.error('Failed to fetch jobs:', error);
+                    this.showErrorState(error.message);
+                }
+            }
+
+            showLoadingState() {
+                if (this.jobListingsContainer) {
+                    this.jobListingsContainer.innerHTML = `
+                        <div class="loading-state">
+                            <div class="loading-spinner"></div>
+                            <p>Finding the best jobs for you...</p>
+                        </div>
+                    `;
+                }
+            }
+
+            showErrorState(errorMessage) {
+                if (this.resultsTitle) {
+                    this.resultsTitle.textContent = 'Error loading jobs';
+                }
+                
+                if (this.jobListingsContainer) {
+                    this.jobListingsContainer.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <h3>Unable to load jobs</h3>
+                            <p>We're having trouble connecting to our servers. Please check your connection and try again.</p>
+                            <button class="retry-btn" onclick="window.location.reload()">Retry</button>
+                        </div>
+                    `;
+                }
+            }
+
+            applyFilters() {
+                this.filteredJobs = this.allJobs.filter(job => {
+                    // Search filter
+                    if (this.currentFilters.search) {
+                        const searchMatch = 
+                            job.title.toLowerCase().includes(this.currentFilters.search) ||
+                            job.company.toLowerCase().includes(this.currentFilters.search) ||
+                            (job.description && job.description.toLowerCase().includes(this.currentFilters.search));
+                        if (!searchMatch) return false;
+                    }
+
+                    // Job type filter
+                    if (this.currentFilters.jobType !== 'all') {
+                        if (job.jobType !== this.currentFilters.jobType) return false;
+                    }
+
+                    // Experience level filter
+                    if (this.currentFilters.experienceLevel.length > 0) {
+                        if (!this.currentFilters.experienceLevel.includes(job.experienceLevel)) {
+                            return false;
+                        }
+                    }
+
+                    // Company size filter
+                    if (this.currentFilters.companySize.length > 0) {
+                        if (!this.currentFilters.companySize.includes(job.companySize)) {
+                            return false;
+                        }
+                    }
+                    
+                    // Job status filter (only for My Jobs view)
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const view = urlParams.get('view');
+                    if (this.isCompany && view === 'my-jobs' && this.currentFilters.jobStatus.length > 0) {
+                        const jobStatus = job.status || 'published';
+                        if (!this.currentFilters.jobStatus.includes(jobStatus)) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                });
+
+                this.renderJobs();
+            }
+
+            renderJobs() {
+                if (!this.jobListingsContainer || !this.resultsTitle) return;
+                
+                this.resultsTitle.textContent = `${this.filteredJobs.length} job${this.filteredJobs.length !== 1 ? 's' : ''} found`;
+                
+                if (this.filteredJobs.length === 0) {
+                    this.jobListingsContainer.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                                </svg>
+                            </div>
+                            <h3>No jobs found</h3>
+                            <p>Try adjusting your filters or search terms to find more opportunities.</p>
+                            <button class="clear-filters-btn" onclick="jobsManager.clearAllFilters()">Clear all filters</button>
+                        </div>
+                    `;
                     return;
                 }
 
-                filteredJobs.forEach(job => {
-                    const cardLink = document.createElement('a');
-                    cardLink.href = `job-details.html?id=${job._id}`;
-                    cardLink.className = 'job-card-link';
-                    const jobCard = document.createElement('div');
-                    jobCard.className = 'job-card';
-                    jobCard.innerHTML = `
-                            <div class="job-card-header"><h3>${job.title}</h3><span class="company-name">${job.company}</span></div>
-                            <p class="job-description">${job.description.substring(0, 100)}...</p>
-                            <div class="job-card-footer">
-                                <span class="deadline-countdown" data-deadline="${job.deadline}">Calculating...</span>
-                                <span class="apply-button">View Details</span>
-                            </div>
-                        `;
-                    cardLink.appendChild(jobCard);
-                    jobListingsContainer.appendChild(cardLink);
-                });
-                startCountdownTimers();
-            };
-
-            try {
-                const response = await fetch(`${API_URL}/api/jobs`);
-                if (!response.ok) throw new Error('Network response was not ok');
-                allJobs = await response.json();
-                renderJobs();
-            } catch (error) {
-                console.error('Failed to fetch jobs:', error);
-                resultsTitle.textContent = 'Failed to load jobs.';
-                jobListingsContainer.innerHTML = '<p style.color: red;">Could not connect to the server. Please try again later.</p>';
+                this.jobListingsContainer.innerHTML = this.filteredJobs.map(job => this.createJobCard(job)).join('');
+                this.startCountdownTimers();
             }
 
-            searchFilter.addEventListener('keyup', renderJobs);
-            jobTypeFilter.addEventListener('change', renderJobs);
+            createJobCard(job) {
+                const timeAgo = this.getTimeAgo(job.createdAt || new Date());
+                const applicantCount = job.applicantCount || Math.floor(Math.random() * 100) + 10;
+                const isEasyApply = job.isEasyApply || Math.random() > 0.5;
+                const isSaved = this.savedJobs.has(job._id);
+                const skills = this.generateJobSkills(job.title);
+                
+                // Determine job card click behavior based on role
+                const cardClickAction = this.isCompany ? 
+                    `onclick="window.location.href='job-analytics.html?id=${job._id}'"` : 
+                    `onclick="window.location.href='job-details.html?id=${job._id}'"`;                
+                
+                // Check if we're in My Jobs view for company
+                const urlParams = new URLSearchParams(window.location.search);
+                const isMyJobsView = this.isCompany && urlParams.get('view') === 'my-jobs';
+                const cardClass = isMyJobsView ? 'modern-job-card my-jobs-view' : 'modern-job-card';
+                
+                return `
+                    <div class="${cardClass}" ${cardClickAction}>
+                        ${isMyJobsView ? `
+                        <div class="job-card-checkbox">
+                            <label class="checkbox-option">
+                                <input type="checkbox" class="job-select-checkbox" value="${job._id}" onclick="event.stopPropagation(); jobsManager.handleJobSelection('${job._id}', this)">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        ` : ''}
+                        <div class="job-card-header">
+                            <div class="company-logo">
+                                <div class="company-avatar">${job.company.charAt(0).toUpperCase()}</div>
+                            </div>
+                            <div class="job-info">
+                                <h3 class="job-title">${this.escapeHtml(job.title)}</h3>
+                                <p class="job-company">${this.escapeHtml(job.company)}</p>
+                                <p class="job-location">${this.escapeHtml(job.location || 'Eswatini')} • ${timeAgo}</p>
+                                ${isEasyApply ? '<span class="easy-apply-badge">Easy Apply</span>' : ''}
+                            </div>
+                            ${this.isJobSeeker ? `
+                            <button class="job-save-btn ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation(); jobsManager.toggleSaveJob('${job._id}', this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z" fill="${isSaved ? '#0a66c2' : 'none'}" stroke="currentColor"/>
+                                </svg>
+                            </button>` : `
+                            <div class="job-status-indicator company-only">
+                                <span class="status-badge status-${job.status || 'active'}">${this.formatJobStatus(job.status)}</span>
+                            </div>`}
+                        </div>
+                        
+                        <div class="job-description">
+                            <p>${this.truncateText(job.description, 150)}</p>
+                        </div>
+                        
+                        <div class="job-skills">
+                            ${skills.map(skill => `<span class="skill-tag">${this.escapeHtml(skill)}</span>`).join('')}
+                        </div>
+                        
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="applicant-count">${applicantCount} applicant${applicantCount !== 1 ? 's' : ''}</span>
+                                <span class="job-type-badge job-type-${job.jobType}">${this.formatJobType(job.jobType)}</span>
+                            </div>
+                            <div class="job-actions">
+                                ${this.isJobSeeker ? `
+                                <button class="apply-button" onclick="event.stopPropagation(); window.open('apply.html?id=${job._id}', '_blank')">
+                                    Apply
+                                </button>
+                                <span class="deadline-countdown" data-deadline="${job.deadline}">Calculating...</span>
+                                ` : `
+                                <button class="manage-job-btn company-only" onclick="event.stopPropagation(); window.open('manage-job.html?id=${job._id}', '_blank')">
+                                    Manage Job
+                                </button>
+                                <button class="view-applicants-btn company-only" onclick="event.stopPropagation(); window.open('job-applicants.html?id=${job._id}', '_blank')">
+                                    View ${applicantCount} Applicants
+                                </button>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            toggleSaveJob(jobId, button) {
+                const isSaved = button.classList.toggle('saved');
+                
+                if (isSaved) {
+                    this.savedJobs.add(jobId);
+                    button.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z" fill="#0a66c2" stroke="currentColor"/>
+                        </svg>
+                    `;
+                    notificationModule.showNotification('Job saved to your list!', 'success');
+                } else {
+                    this.savedJobs.delete(jobId);
+                    button.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z" fill="none" stroke="currentColor"/>
+                        </svg>
+                    `;
+                    notificationModule.showNotification('Job removed from saved list', 'info');
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('savedJobs', JSON.stringify([...this.savedJobs]));
+            }
+
+            startCountdownTimers() {
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                }
+
+                const countdownElements = document.querySelectorAll('.deadline-countdown');
+                
+                // Update immediately
+                countdownElements.forEach(el => this.updateTimerText(el));
+                
+                // Update every minute
+                this.countdownInterval = setInterval(() => {
+                    countdownElements.forEach(el => this.updateTimerText(el));
+                }, 60000);
+            }
+
+            updateTimerText(element) {
+                const deadline = element.dataset.deadline;
+                if (!deadline) {
+                    element.textContent = '';
+                    return;
+                }
+                
+                const timeLeft = this.calculateTimeLeft(deadline);
+                
+                if (timeLeft.days > 1) {
+                    element.textContent = `Closes in ${timeLeft.days} days`;
+                } else if (timeLeft.days === 1) {
+                    element.textContent = 'Closes in 1 day';
+                } else if (timeLeft.hours > 0) {
+                    element.textContent = `Closes in ${timeLeft.hours}h ${timeLeft.minutes}m`;
+                } else if (timeLeft.minutes > 0) {
+                    element.textContent = `Closes in ${timeLeft.minutes}m`;
+                } else if (Object.keys(timeLeft).length === 0) {
+                    element.textContent = 'Application closed';
+                    element.style.color = '#d92e2e';
+                } else {
+                    element.textContent = 'Closing soon';
+                    element.style.color = '#d92e2e';
+                }
+            }
+
+            calculateTimeLeft(deadline) {
+                const difference = +new Date(deadline) - +new Date();
+                let timeLeft = {};
+                
+                if (difference > 0) {
+                    timeLeft = {
+                        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                        minutes: Math.floor((difference / 1000 / 60) % 60)
+                    };
+                }
+                
+                return timeLeft;
+            }
+
+            updateFilterCounts() {
+                // Update filter counts based on current data
+                const jobTypeCounts = {};
+                const experienceCounts = {};
+                const companySizeCounts = {};
+                
+                this.allJobs.forEach(job => {
+                    jobTypeCounts[job.jobType] = (jobTypeCounts[job.jobType] || 0) + 1;
+                    experienceCounts[job.experienceLevel] = (experienceCounts[job.experienceLevel] || 0) + 1;
+                    companySizeCounts[job.companySize] = (companySizeCounts[job.companySize] || 0) + 1;
+                });
+
+                // Update UI counts
+                document.querySelectorAll('.option-count').forEach(countEl => {
+                    const option = countEl.previousElementSibling;
+                    if (option && option.classList.contains('option-label')) {
+                        const checkbox = countEl.parentElement.querySelector('input[type="checkbox"]');
+                        if (checkbox) {
+                            const value = checkbox.value;
+                            let count = 0;
+                            
+                            if (checkbox.classList.contains('job-type-filter')) {
+                                count = jobTypeCounts[value] || 0;
+                            } else if (checkbox.classList.contains('experience-filter')) {
+                                count = experienceCounts[value] || 0;
+                            } else if (checkbox.classList.contains('company-size-filter')) {
+                                count = companySizeCounts[value] || 0;
+                            }
+                            
+                            countEl.textContent = `(${count})`;
+                        }
+                    }
+                });
+            }
+
+            // Utility functions
+            getTimeAgo(date) {
+                const now = new Date();
+                const diff = now - new Date(date);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                
+                if (days > 7) return `${Math.floor(days / 7)} week${Math.floor(days / 7) > 1 ? 's' : ''} ago`;
+                if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+                if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                return 'Just now';
+            }
+
+            generateJobSkills(jobTitle) {
+                const skillSets = {
+                    'developer': ['JavaScript', 'React', 'Node.js', 'Python'],
+                    'designer': ['Figma', 'Adobe Creative', 'UI/UX', 'Sketch'],
+                    'marketing': ['SEO', 'Google Analytics', 'Content Strategy', 'Social Media'],
+                    'manager': ['Leadership', 'Project Management', 'Strategy', 'Communication'],
+                    'analyst': ['Excel', 'SQL', 'Data Analysis', 'PowerBI'],
+                    'engineer': ['Problem Solving', 'Technical Skills', 'Innovation', 'Mathematics'],
+                    'sales': ['Negotiation', 'CRM', 'Lead Generation', 'Customer Relations']
+                };
+                
+                const titleLower = jobTitle.toLowerCase();
+                for (const [key, skills] of Object.entries(skillSets)) {
+                    if (titleLower.includes(key)) {
+                        return skills.slice(0, 3);
+                    }
+                }
+                return ['Communication', 'Teamwork', 'Problem Solving'].slice(0, 2);
+            }
+
+            formatJobType(jobType) {
+                if (!jobType) return 'Not specified';
+                return jobType.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+            }
+
+            escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            truncateText(text, maxLength) {
+                if (!text) return '';
+                if (text.length <= maxLength) return text;
+                return text.substring(0, maxLength) + '...';
+            }
+
+            formatJobStatus(status) {
+                const statusMap = {
+                    'active': 'Active',
+                    'paused': 'Paused',
+                    'closed': 'Closed',
+                    'draft': 'Draft',
+                    'expired': 'Expired'
+                };
+                return statusMap[status] || 'Active';
+            }
+
+            // Role-based job filtering (companies might want to see only their jobs)
+            filterJobsByRole(jobs) {
+                if (this.isCompany) {
+                    // Get current user's company ID
+                    const user = JSON.parse(localStorage.getItem('user') || '{}');
+                    const companyId = user.companyId || user._id;
+                    
+                    // Filter to show only jobs from this company if viewing own jobs
+                    const viewMode = new URLSearchParams(window.location.search).get('view');
+                    if (viewMode === 'my-jobs' && companyId) {
+                        return jobs.filter(job => job.companyId === companyId || job.postedBy === companyId);
+                    }
+                }
+                return jobs; // Return all jobs for job seekers and general browsing
+            }
+            
+            // Bulk operations methods
+            handleJobSelection(jobId, checkbox) {
+                const card = checkbox.closest('.modern-job-card');
+                
+                if (checkbox.checked) {
+                    this.selectedJobs.add(jobId);
+                    card.classList.add('selected');
+                } else {
+                    this.selectedJobs.delete(jobId);
+                    card.classList.remove('selected');
+                }
+                
+                this.updateBulkActionsUI();
+            }
+            
+            handleSelectAll() {
+                const checkboxes = document.querySelectorAll('.job-select-checkbox');
+                const isSelectingAll = this.selectAllCheckbox.checked;
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isSelectingAll;
+                    const jobId = checkbox.value;
+                    const card = checkbox.closest('.modern-job-card');
+                    
+                    if (isSelectingAll) {
+                        this.selectedJobs.add(jobId);
+                        card.classList.add('selected');
+                    } else {
+                        this.selectedJobs.delete(jobId);
+                        card.classList.remove('selected');
+                    }
+                });
+                
+                this.updateBulkActionsUI();
+            }
+            
+            updateBulkActionsUI() {
+                const selectedCount = this.selectedJobs.size;
+                const hasSelection = selectedCount > 0;
+                
+                // Update selected count text
+                if (this.selectedCountText) {
+                    this.selectedCountText.textContent = `${selectedCount} selected`;
+                }
+                
+                // Enable/disable bulk action buttons
+                [this.bulkPublishBtn, this.bulkPauseBtn, this.bulkDeleteBtn].forEach(btn => {
+                    if (btn) btn.disabled = !hasSelection;
+                });
+                
+                // Update select all checkbox state
+                const totalCheckboxes = document.querySelectorAll('.job-select-checkbox').length;
+                if (this.selectAllCheckbox && totalCheckboxes > 0) {
+                    this.selectAllCheckbox.checked = selectedCount === totalCheckboxes;
+                    this.selectAllCheckbox.indeterminate = selectedCount > 0 && selectedCount < totalCheckboxes;
+                }
+            }
+            
+            async handleBulkAction(status) {
+                if (this.selectedJobs.size === 0) return;
+                
+                const jobIds = Array.from(this.selectedJobs);
+                const statusText = status === 'published' ? 'publish' : status === 'paused' ? 'pause' : status;
+                
+                if (!confirm(`Are you sure you want to ${statusText} ${jobIds.length} job(s)?`)) {
+                    return;
+                }
+                
+                try {
+                    // This would need a bulk update API endpoint
+                    const promises = jobIds.map(jobId => 
+                        fetch(`${API_URL}/api/jobs/${jobId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            body: JSON.stringify({ status })
+                        })
+                    );
+                    
+                    await Promise.all(promises);
+                    notificationModule.showNotification(`Successfully ${statusText}ed ${jobIds.length} job(s)`, 'success');
+                    
+                    // Clear selections and reload
+                    this.selectedJobs.clear();
+                    this.loadJobs();
+                    
+                } catch (error) {
+                    console.error('Bulk action error:', error);
+                    notificationModule.showNotification(`Failed to ${statusText} jobs`, 'error');
+                }
+            }
+            
+            async handleBulkDelete() {
+                if (this.selectedJobs.size === 0) return;
+                
+                const jobIds = Array.from(this.selectedJobs);
+                
+                if (!confirm(`Are you sure you want to delete ${jobIds.length} job(s)? This action cannot be undone.`)) {
+                    return;
+                }
+                
+                try {
+                    const promises = jobIds.map(jobId => 
+                        fetch(`${API_URL}/api/jobs/${jobId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            }
+                        })
+                    );
+                    
+                    await Promise.all(promises);
+                    notificationModule.showNotification(`Successfully deleted ${jobIds.length} job(s)`, 'success');
+                    
+                    // Clear selections and reload
+                    this.selectedJobs.clear();
+                    this.loadJobs();
+                    
+                } catch (error) {
+                    console.error('Bulk delete error:', error);
+                    notificationModule.showNotification('Failed to delete jobs', 'error');
+                }
+            }
+        }
+
+        // Initialize the jobs page manager
+        let jobsManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            jobsManager = new JobsPageManager();
+            
+            // Initialize header module
+            if (typeof headerModule !== 'undefined') {
+                headerModule.init();
+            }
+            
+            // Initialize chat module
+            if (typeof chatModule !== 'undefined') {
+                chatModule.init();
+            }
         });
     </script>
 

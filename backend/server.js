@@ -59,6 +59,7 @@ app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
 
 // --- API Routes ---
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/users', require('./routes/profileRoutes')); // Profile management routes
 app.use('/api/jobs', require('./routes/jobRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/skills', require('./routes/skillRoutes'));

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Database Integration Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <style>
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .test-controls h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+        
+        .test-section h4 {
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+        
+        .test-controls select, .test-controls input, .test-controls textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .test-controls button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .test-controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .test-controls button.active {
+            background: #0a66c2;
+            color: white;
+            border-color: #0a66c2;
+        }
+        
+        .test-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .test-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .test-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .mock-data {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-controls">
+        <h3>Profile Database Test</h3>
+        
+        <div class="test-section">
+            <h4>User Type</h4>
+            <select id="userRole">
+                <option value="jobseeker">Job Seeker</option>
+                <option value="company">Company</option>
+            </select>
+        </div>
+
+        <div class="test-section">
+            <h4>Mock Job Seeker Data</h4>
+            <input type="text" id="jobseekerName" placeholder="Full Name" value="John Doe">
+            <textarea id="jobseekerBio" placeholder="Bio/About" rows="3">Experienced software developer with 5+ years in web development. Passionate about creating user-friendly applications and learning new technologies.</textarea>
+            <input type="text" id="jobseekerLocation" placeholder="Location" value="Mbabane, Eswatini">
+            <input type="text" id="jobseekerHeadline" placeholder="Headline" value="Senior Software Developer">
+        </div>
+
+        <div class="test-section">
+            <h4>Mock Company Data</h4>
+            <input type="text" id="companyName" placeholder="Company Name" value="Tech Solutions Ltd">
+            <textarea id="companyDescription" placeholder="Company Description" rows="3">Leading technology company in Eswatini providing innovative software solutions for businesses across Africa.</textarea>
+            <input type="text" id="companyIndustry" placeholder="Industry" value="Technology">
+            <select id="companySize">
+                <option value="">Select size</option>
+                <option value="1-10">1-10 employees</option>
+                <option value="11-50" selected>11-50 employees</option>
+                <option value="51-200">51-200 employees</option>
+                <option value="201-500">201-500 employees</option>
+                <option value="501-1000">501-1000 employees</option>
+                <option value="1000+">1000+ employees</option>
+            </select>
+            <input type="number" id="companyFounded" placeholder="Founded Year" value="2015">
+            <input type="url" id="companyWebsite" placeholder="Website" value="https://techsolutions.sz">
+            <input type="tel" id="companyPhone" placeholder="Phone" value="+268 123 4567">
+        </div>
+
+        <div class="test-section">
+            <h4>Test Actions</h4>
+            <button onclick="loadProfileData()">Load Profile Data</button>
+            <button onclick="testAboutSection()">Test About Section</button>
+            <button onclick="testCompanyInfo()">Test Company Info</button>
+            <button onclick="simulateEdit('about')">Simulate Edit About</button>
+            <button onclick="simulateEdit('company')">Simulate Edit Company</button>
+        </div>
+
+        <div id="testResults" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="profile-container" id="profileContainer" data-user-role="jobseeker">
+        <div class="profile-header-card">
+            <div class="profile-info">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-container">
+                        <img id="profileAvatar" src="../assets/placeholder.svg" alt="Profile Picture" class="profile-avatar">
+                    </div>
+                    <div class="profile-basic-info">
+                        <h1 id="profileName" class="profile-name">Loading...</h1>
+                        <p id="profileHeadline" class="profile-headline">Loading...</p>
+                        <div class="profile-meta">
+                            <div class="profile-meta-item">
+                                <span id="profileLocation">Loading location...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content-layout">
+            <div class="profile-main-content">
+                <!-- About Section -->
+                <div class="profile-section" id="aboutSection">
+                    <div class="section-header">
+                        <h2 class="section-title">About</h2>
+                        <button class="btn-icon edit-section-btn" id="editAboutBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="section-content">
+                        <p id="profileAbout" class="profile-about-text">Loading profile information...</p>
+                    </div>
+                </div>
+
+                <!-- Company Information Section (Companies Only) -->
+                <div class="profile-section" id="companyInfoSection" data-role="company" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Company Information</h2>
+                        <button class="btn-icon edit-section-btn" id="editCompanyInfoBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="section-content" id="companyInfoContent">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock API URL
+        const API_URL = 'http://localhost:5000';
+        
+        // Mock profile manager
+        let mockProfileManager = {
+            currentUser: { _id: 'user123', role: 'jobseeker' },
+            profileData: {},
+            isOwner: true,
+            profileUserId: 'user123'
+        };
+
+        // Generate mock profile data based on form inputs
+        function generateMockProfileData() {
+            const userRole = document.getElementById('userRole').value;
+            
+            const baseData = {
+                _id: 'user123',
+                role: userRole,
+                profileViews: 42,
+                searchAppearances: 15,
+                connections: ['user456', 'user789'],
+                socialLinks: {
+                    linkedin: 'linkedin.com/in/johndoe',
+                    twitter: 'twitter.com/johndoe'
+                }
+            };
+
+            if (userRole === 'jobseeker') {
+                return {
+                    ...baseData,
+                    name: document.getElementById('jobseekerName').value,
+                    bio: document.getElementById('jobseekerBio').value,
+                    about: document.getElementById('jobseekerBio').value,
+                    location: document.getElementById('jobseekerLocation').value,
+                    headline: document.getElementById('jobseekerHeadline').value,
+                    experience: [
+                        {
+                            title: 'Senior Developer',
+                            company: 'TechCorp',
+                            location: 'Mbabane',
+                            startDate: new Date('2020-01-01'),
+                            current: true,
+                            description: 'Leading development team for web applications.'
+                        }
+                    ],
+                    education: [
+                        {
+                            school: 'University of Eswatini',
+                            degree: 'Bachelor of Computer Science',
+                            startDate: new Date('2016-01-01'),
+                            endDate: new Date('2019-12-01')
+                        }
+                    ],
+                    skills: [
+                        { name: 'JavaScript', endorsements: 12 },
+                        { name: 'Python', endorsements: 8 },
+                        { name: 'React', endorsements: 15 }
+                    ]
+                };
+            } else {
+                return {
+                    ...baseData,
+                    name: document.getElementById('companyName').value,
+                    companyName: document.getElementById('companyName').value,
+                    companyDescription: document.getElementById('companyDescription').value,
+                    bio: document.getElementById('companyDescription').value,
+                    about: document.getElementById('companyDescription').value,
+                    industry: document.getElementById('companyIndustry').value,
+                    companySize: document.getElementById('companySize').value,
+                    foundedYear: parseInt(document.getElementById('companyFounded').value),
+                    website: document.getElementById('companyWebsite').value,
+                    phoneNumber: document.getElementById('companyPhone').value,
+                    location: 'Mbabane, Eswatini',
+                    headline: 'Technology Company'
+                };
+            }
+        }
+
+        // Load and display profile data
+        function loadProfileData() {
+            const userRole = document.getElementById('userRole').value;
+            const profileData = generateMockProfileData();
+            
+            // Update mock profile manager
+            mockProfileManager.profileData = profileData;
+            mockProfileManager.currentUser.role = userRole;
+            
+            // Update profile container role
+            document.getElementById('profileContainer').setAttribute('data-user-role', userRole);
+            
+            // Update basic profile info
+            document.getElementById('profileName').textContent = profileData.name;
+            document.getElementById('profileHeadline').textContent = profileData.headline;
+            document.getElementById('profileLocation').textContent = profileData.location;
+            
+            showTestResult(`Loaded ${userRole} profile data for: ${profileData.name}`, 'success');
+        }
+
+        // Test About section rendering
+        function testAboutSection() {
+            const profileData = mockProfileManager.profileData;
+            const aboutEl = document.getElementById('profileAbout');
+            const isOwner = mockProfileManager.isOwner;
+            
+            let aboutText = '';
+            
+            if (profileData.role === 'company') {
+                aboutText = profileData.companyDescription || profileData.bio || profileData.about || '';
+            } else {
+                aboutText = profileData.bio || profileData.about || '';
+            }
+            
+            if (aboutText && aboutText.trim()) {
+                aboutEl.innerHTML = aboutText.replace(/\n/g, '<br>');
+                showTestResult(`✅ About section populated: "${aboutText.substring(0, 50)}..."`, 'success');
+            } else {
+                if (isOwner) {
+                    const placeholderText = profileData.role === 'company' ? 
+                        'Add a description about your company to help job seekers learn more about you.' :
+                        'Add a description about yourself to help employers and connections learn more about you.';
+                    aboutEl.innerHTML = `<em>${placeholderText}</em>`;
+                    showTestResult(`ℹ️ About section showing owner placeholder`, 'success');
+                } else {
+                    showTestResult(`❌ About section hidden for viewer (no content)`, 'error');
+                }
+            }
+        }
+
+        // Test Company Information section
+        function testCompanyInfo() {
+            const profileData = mockProfileManager.profileData;
+            const companyInfoSection = document.getElementById('companyInfoSection');
+            const companyInfoContent = document.getElementById('companyInfoContent');
+            
+            if (profileData.role !== 'company') {
+                companyInfoSection.style.display = 'none';
+                showTestResult(`ℹ️ Company info section hidden for job seekers`, 'success');
+                return;
+            }
+            
+            companyInfoSection.style.display = 'block';
+            
+            // Format company size
+            const formatCompanySize = (size) => {
+                const sizeMap = {
+                    '1-10': '1-10 employees',
+                    '11-50': '11-50 employees', 
+                    '51-200': '51-200 employees',
+                    '201-500': '201-500 employees',
+                    '501-1000': '501-1000 employees',
+                    '1000+': '1000+ employees'
+                };
+                return sizeMap[size] || size;
+            };
+            
+            companyInfoContent.innerHTML = `
+                <div class="company-info-grid">
+                    <div class="company-info-item">
+                        <div class="company-info-label">Industry</div>
+                        <div class="company-info-value">${profileData.industry || '<em>Not specified</em>'}</div>
+                    </div>
+                    <div class="company-info-item">
+                        <div class="company-info-label">Company Size</div>
+                        <div class="company-info-value">${formatCompanySize(profileData.companySize) || '<em>Not specified</em>'}</div>
+                    </div>
+                    <div class="company-info-item">
+                        <div class="company-info-label">Founded</div>
+                        <div class="company-info-value">${profileData.foundedYear || '<em>Not specified</em>'}</div>
+                    </div>
+                    <div class="company-info-item">
+                        <div class="company-info-label">Website</div>
+                        <div class="company-info-value">
+                            ${profileData.website ? 
+                                `<a href="${profileData.website}" target="_blank" rel="noopener noreferrer">${profileData.website}</a>` : 
+                                '<em>Not specified</em>'
+                            }
+                        </div>
+                    </div>
+                    ${profileData.phoneNumber ? `
+                        <div class="company-info-item">
+                            <div class="company-info-label">Phone</div>
+                            <div class="company-info-value">
+                                <a href="tel:${profileData.phoneNumber}">${profileData.phoneNumber}</a>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="company-stats">
+                    <div class="company-stat">
+                        <span class="company-stat-number">0</span>
+                        <span class="company-stat-label">Active Jobs</span>
+                    </div>
+                    <div class="company-stat">
+                        <span class="company-stat-number">${profileData.connections?.length || 0}</span>
+                        <span class="company-stat-label">Connections</span>
+                    </div>
+                    <div class="company-stat">
+                        <span class="company-stat-number">${profileData.profileViews || 0}</span>
+                        <span class="company-stat-label">Profile Views</span>
+                    </div>
+                </div>
+            `;
+            
+            showTestResult(`✅ Company info section populated with ${profileData.name}'s data`, 'success');
+        }
+
+        // Simulate edit functionality
+        function simulateEdit(section) {
+            const profileData = mockProfileManager.profileData;
+            
+            if (section === 'about') {
+                const currentAbout = profileData.role === 'company' ? 
+                    (profileData.companyDescription || profileData.bio || '') :
+                    (profileData.bio || profileData.about || '');
+                    
+                const newAbout = prompt(
+                    `Edit ${profileData.role === 'company' ? 'Company Description' : 'About Section'}:`, 
+                    currentAbout
+                );
+                
+                if (newAbout !== null) {
+                    if (profileData.role === 'company') {
+                        profileData.companyDescription = newAbout;
+                        profileData.bio = newAbout;
+                    } else {
+                        profileData.bio = newAbout;
+                        profileData.about = newAbout;
+                    }
+                    
+                    testAboutSection();
+                    showTestResult(`✅ About section updated via simulated API call`, 'success');
+                }
+            } else if (section === 'company' && profileData.role === 'company') {
+                const industry = prompt('Industry:', profileData.industry || '');
+                const website = prompt('Website:', profileData.website || '');
+                
+                if (industry !== null) profileData.industry = industry;
+                if (website !== null) profileData.website = website;
+                
+                testCompanyInfo();
+                showTestResult(`✅ Company info updated via simulated API call`, 'success');
+            }
+        }
+
+        // Show test result
+        function showTestResult(message, type) {
+            const resultDiv = document.getElementById('testResults');
+            resultDiv.textContent = message;
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Event listeners
+        document.getElementById('userRole').addEventListener('change', () => {
+            loadProfileData();
+            if (document.getElementById('userRole').value === 'company') {
+                testCompanyInfo();
+            } else {
+                document.getElementById('companyInfoSection').style.display = 'none';
+            }
+            testAboutSection();
+        });
+
+        // Show edit buttons for owner
+        document.getElementById('editAboutBtn').style.display = 'block';
+        document.getElementById('editCompanyInfoBtn').style.display = 'block';
+
+        // Initialize with default data
+        loadProfileData();
+        testAboutSection();
+    </script>
+</body>
+</html>

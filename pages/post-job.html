@@ -4,79 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post a New Job | JobLinkEswatini</title>
+    <title>Post a Job | JobLinkEswatini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css">
-    <!-- You might need to add your Poppins font link here as well -->
 </head>
 
 <body>
     <div id="notification-container"></div>
     <header class="main-header">
         <div class="container">
-            <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
-                <div class="header-search-container">
-                    <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-                    </svg>
-                    <input type="text" class="header-search-input" placeholder="Search">
-                </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
             <nav class="main-nav" id="main-nav">
-                <a href="../index.html" class="header-nav-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                    </svg>
-                    <span>Home</span>
-                </a>
-                <a href="#" class="header-nav-item" id="connectLink">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                    </svg>
-                    <span>My Network</span>
-                </a>
                 <a href="jobs.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-                    </svg>
-                    <span>Messaging</span>
-                    <span class="notification-badge" id="messaging-notification-dot"></span>
-                </a>
-
                 <div class="auth-buttons">
-                    <div id="loggedOutNav" style="display: flex;">
-                        <a href="login.html" class="header-nav-item">Sign In</a>
-                    </div>
-                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
-                        style="display: none;">
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav">
                         <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
                             <a href="profile.html" class="dropdown-link">View Profile</a>
-                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
                         </div>
                     </div>
@@ -86,114 +43,843 @@
     </header>
 
     <main class="page-main">
-        <div class="container page-container-profile">
-            <section class="profile-section-card">
-                <h2>Create a New Job Posting</h2>
-                <p>Fill out the details below to find the perfect candidate.</p>
+        <div class="container">
+            <div class="post-job-layout">
+                <!-- Post Job Header -->
+                <div class="post-job-header">
+                    <div class="breadcrumb">
+                        <a href="jobs.html?view=my-jobs">My Jobs</a>
+                        <span class="breadcrumb-separator">›</span>
+                        <span>Post New Job</span>
+                    </div>
+                    <h1 class="post-job-title">Post a New Job</h1>
+                    <p class="post-job-subtitle">Fill in the details below to post your job opening and attract the best talent in Eswatini.</p>
+                </div>
 
-                <form class="auth-form" id="postJobForm" style="text-align: left;">
-                    <div class="form-group">
-                        <label for="deadline">Application Deadline*</label>
-                        <input type="datetime-local" id="deadline" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Job Title</label>
-                        <input type="text" id="title" placeholder="e.g., Senior Software Engineer" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company Name</label>
-                        <input type="text" id="company" placeholder="e.g., Eswatini Tech Innovators" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g., Mbabane, Eswatini" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="jobType">Job Type</label>
-                        <select id="jobType" required>
-                            <option value="full-time">Full-time</option>
-                            <option value="part-time">Part-time</option>
-                            <option value="contract">Contract</option>
-                            <option value="internship">Internship</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Job Description</label>
-                        <textarea id="description" rows="8"
-                            placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
-                    </div>
+                <div class="post-job-content">
+                    <form id="post-job-form" class="post-job-form">
+                        <!-- Job Basic Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">Job Information</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="jobTitle" class="form-label">Job Title *</label>
+                                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" 
+                                           placeholder="e.g. Senior Software Developer" required>
+                                    <div class="form-error" id="jobTitleError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jobType" class="form-label">Job Type *</label>
+                                    <select id="jobType" name="jobType" class="form-select" required>
+                                        <option value="">Select job type</option>
+                                        <option value="full-time">Full-time</option>
+                                        <option value="part-time">Part-time</option>
+                                        <option value="contract">Contract</option>
+                                        <option value="internship">Internship</option>
+                                        <option value="freelance">Freelance</option>
+                                    </select>
+                                    <div class="form-error" id="jobTypeError"></div>
+                                </div>
+                            </div>
 
-                    <button type="submit" class="auth-button"
-                        style="width: 100%; border-radius: 5px; margin-top: 1rem;">Post Job</button>
-                </form>
-            </section>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="experienceLevel" class="form-label">Experience Level *</label>
+                                    <select id="experienceLevel" name="experienceLevel" class="form-select" required>
+                                        <option value="">Select experience level</option>
+                                        <option value="entry-level">Entry Level (0-2 years)</option>
+                                        <option value="mid-level">Mid Level (3-5 years)</option>
+                                        <option value="senior-level">Senior Level (6+ years)</option>
+                                        <option value="executive">Executive/Leadership</option>
+                                    </select>
+                                    <div class="form-error" id="experienceLevelError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="workLocation" class="form-label">Work Location *</label>
+                                    <select id="workLocation" name="workLocation" class="form-select" required>
+                                        <option value="">Select location</option>
+                                        <option value="mbabane">Mbabane</option>
+                                        <option value="manzini">Manzini</option>
+                                        <option value="lobamba">Lobamba</option>
+                                        <option value="siteki">Siteki</option>
+                                        <option value="nhlangano">Nhlangano</option>
+                                        <option value="piggs-peak">Pigg's Peak</option>
+                                        <option value="remote">Remote</option>
+                                        <option value="hybrid">Hybrid</option>
+                                    </select>
+                                    <div class="form-error" id="workLocationError"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jobDescription" class="form-label">Job Description *</label>
+                                <div class="rich-text-editor">
+                                    <div class="editor-toolbar">
+                                        <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-command="italic" title="Italic">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"/>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div id="jobDescription" class="editor-content" contenteditable="true" 
+                                         data-placeholder="Describe the role, responsibilities, and what you're looking for in a candidate..."></div>
+                                </div>
+                                <div class="form-error" id="jobDescriptionError"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="requirements" class="form-label">Requirements *</label>
+                                <div class="rich-text-editor">
+                                    <div class="editor-toolbar">
+                                        <button type="button" class="toolbar-btn" data-command="bold" data-target="requirements">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-command="insertUnorderedList" data-target="requirements">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div id="requirements" class="editor-content" contenteditable="true" 
+                                         data-placeholder="List the required qualifications, skills, and experience..."></div>
+                                </div>
+                                <div class="form-error" id="requirementsError"></div>
+                            </div>
+                        </div>
+
+                        <!-- Compensation & Benefits -->
+                        <div class="form-section">
+                            <h2 class="section-title">Compensation & Benefits</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="salaryMin" class="form-label">Minimum Salary (SZL)</label>
+                                    <input type="number" id="salaryMin" name="salaryMin" class="form-input" 
+                                           placeholder="e.g. 25000" min="0">
+                                    <div class="form-error" id="salaryMinError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="salaryMax" class="form-label">Maximum Salary (SZL)</label>
+                                    <input type="number" id="salaryMax" name="salaryMax" class="form-input" 
+                                           placeholder="e.g. 35000" min="0">
+                                    <div class="form-error" id="salaryMaxError"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Benefits (Optional)</label>
+                                <div class="checkbox-grid">
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="health-insurance">
+                                        <span class="checkmark"></span>
+                                        <span>Health Insurance</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="dental-insurance">
+                                        <span class="checkmark"></span>
+                                        <span>Dental Insurance</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="retirement-plan">
+                                        <span class="checkmark"></span>
+                                        <span>Retirement Plan</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="paid-time-off">
+                                        <span class="checkmark"></span>
+                                        <span>Paid Time Off</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="flexible-hours">
+                                        <span class="checkmark"></span>
+                                        <span>Flexible Hours</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" name="benefits" value="remote-work">
+                                        <span class="checkmark"></span>
+                                        <span>Remote Work Options</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Settings -->
+                        <div class="form-section">
+                            <h2 class="section-title">Application Settings</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="applicationDeadline" class="form-label">Application Deadline *</label>
+                                    <input type="date" id="applicationDeadline" name="applicationDeadline" 
+                                           class="form-input" required min="">
+                                    <div class="form-error" id="applicationDeadlineError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail" class="form-label">Contact Email</label>
+                                    <input type="email" id="contactEmail" name="contactEmail" class="form-input" 
+                                           placeholder="hr@company.com">
+                                    <div class="form-error" id="contactEmailError"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="isEasyApply" name="isEasyApply" checked>
+                                    <span class="checkmark"></span>
+                                    <span>Enable Easy Apply (candidates can apply with one click using their profile)</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="isUrgent" name="isUrgent">
+                                    <span class="checkmark"></span>
+                                    <span>Mark as urgent (will be highlighted to job seekers)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="form-btn form-btn-secondary" id="saveDraftBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                                </svg>
+                                Save as Draft
+                            </button>
+                            <button type="submit" class="form-btn form-btn-primary" id="publishJobBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                </svg>
+                                <span class="btn-text">Publish Job</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <span class="loading-spinner"></span>
+                                    Publishing...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2025 JobLinkEswatini.</p>
-        </div>
-    </footer>
-
-    <script src="../js/theme-toggle.js"></script>
-    <script src="../js/main.js"></script>
     <script src="../js/config.js"></script>
+    <script src="../js/main.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('token');
-
-            // Gatekeeper: If user is not logged in, redirect them.
-            if (!token) {
-                showNotification('You must be logged in to post a job.');
-                window.location.href = 'login.html';
-                return;
+        class PostJobManager {
+            constructor() {
+                this.form = document.getElementById('post-job-form');
+                this.saveDraftBtn = document.getElementById('saveDraftBtn');
+                this.publishBtn = document.getElementById('publishJobBtn');
+                this.isSubmitting = false;
+                
+                this.init();
             }
-
-            const postJobForm = document.getElementById('postJobForm');
-            postJobForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                const jobData = {
-                    title: document.getElementById('title').value,
-                    company: document.getElementById('company').value,
-                    location: document.getElementById('location').value,
-                    jobType: document.getElementById('jobType').value,
-                    description: document.getElementById('description').value,
-                    deadline: document.getElementById('deadline').value // <-- Add this line
-                };
-
-                // Basic validation
-                if (!jobData.title || !jobData.company || !jobData.location || !jobData.description) {
-                    showNotification('Please fill out all fields.');
+            
+            init() {
+                this.setupFormValidation();
+                this.setupEventListeners();
+                this.setupRichTextEditors();
+                this.setMinDate();
+                this.loadUserData();
+            }
+            
+            setupEventListeners() {
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e, 'published'));
+                this.saveDraftBtn.addEventListener('click', () => this.handleSubmit(null, 'draft'));
+                
+                // Real-time validation
+                const inputs = this.form.querySelectorAll('input, select, [contenteditable]');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => this.validateField(input));
+                });
+            }
+            
+            setupRichTextEditors() {
+                const editors = document.querySelectorAll('.editor-content');
+                editors.forEach(editor => {
+                    editor.addEventListener('focus', () => {
+                        editor.classList.add('focused');
+                    });
+                    
+                    editor.addEventListener('blur', () => {
+                        editor.classList.remove('focused');
+                        if (editor.textContent.trim() === '') {
+                            editor.classList.add('empty');
+                        } else {
+                            editor.classList.remove('empty');
+                        }
+                    });
+                    
+                    // Initial state
+                    if (editor.textContent.trim() === '') {
+                        editor.classList.add('empty');
+                    }
+                });
+                
+                // Toolbar functionality
+                document.querySelectorAll('.toolbar-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const command = btn.dataset.command;
+                        const target = btn.dataset.target;
+                        
+                        if (target) {
+                            document.getElementById(target).focus();
+                        }
+                        
+                        document.execCommand(command, false, null);
+                    });
+                });
+            }
+            
+            setMinDate() {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                const deadlineInput = document.getElementById('applicationDeadline');
+                deadlineInput.min = tomorrow.toISOString().split('T')[0];
+            }
+            
+            loadUserData() {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                if (user.email && !document.getElementById('contactEmail').value) {
+                    document.getElementById('contactEmail').value = user.email;
+                }
+            }
+            
+            validateField(field) {
+                const fieldName = field.name || field.id;
+                const errorElement = document.getElementById(fieldName + 'Error');
+                let isValid = true;
+                let errorMessage = '';
+                
+                // Remove previous error styling
+                field.parentElement.classList.remove('error');
+                if (errorElement) errorElement.textContent = '';
+                
+                // Required field validation
+                if (field.hasAttribute('required')) {
+                    const value = field.contentEditable === 'true' ? field.textContent.trim() : field.value.trim();
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'This field is required';
+                    }
+                }
+                
+                // Specific field validations
+                if (fieldName === 'salaryMin' || fieldName === 'salaryMax') {
+                    const min = parseFloat(document.getElementById('salaryMin').value) || 0;
+                    const max = parseFloat(document.getElementById('salaryMax').value) || 0;
+                    
+                    if (min > 0 && max > 0 && min >= max) {
+                        isValid = false;
+                        errorMessage = 'Maximum salary must be greater than minimum salary';
+                    }
+                }
+                
+                if (fieldName === 'contactEmail' && field.value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(field.value)) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid email address';
+                    }
+                }
+                
+                if (fieldName === 'applicationDeadline') {
+                    const selectedDate = new Date(field.value);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (selectedDate <= today) {
+                        isValid = false;
+                        errorMessage = 'Deadline must be at least tomorrow';
+                    }
+                }
+                
+                // Show error if validation failed
+                if (!isValid) {
+                    field.parentElement.classList.add('error');
+                    if (errorElement) errorElement.textContent = errorMessage;
+                }
+                
+                return isValid;
+            }
+            
+            setupFormValidation() {
+                // Custom validation for rich text editors
+                ['jobDescription', 'requirements'].forEach(id => {
+                    const editor = document.getElementById(id);
+                    editor.addEventListener('input', () => {
+                        if (editor.textContent.trim().length > 0) {
+                            editor.classList.remove('empty');
+                        } else {
+                            editor.classList.add('empty');
+                        }
+                    });
+                });
+            }
+            
+            validateForm() {
+                let isValid = true;
+                const requiredFields = this.form.querySelectorAll('[required]');
+                const richTextRequired = ['jobDescription', 'requirements'];
+                
+                // Validate regular required fields
+                requiredFields.forEach(field => {
+                    if (!this.validateField(field)) {
+                        isValid = false;
+                    }
+                });
+                
+                // Validate rich text editors
+                richTextRequired.forEach(id => {
+                    const editor = document.getElementById(id);
+                    if (editor.textContent.trim() === '') {
+                        isValid = false;
+                        editor.parentElement.classList.add('error');
+                        const errorElement = document.getElementById(id + 'Error');
+                        if (errorElement) errorElement.textContent = 'This field is required';
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            async handleSubmit(event, status = 'published') {
+                if (event) event.preventDefault();
+                
+                if (this.isSubmitting) return;
+                
+                if (status === 'published' && !this.validateForm()) {
+                    notificationModule.showNotification('Please fix the errors in the form', 'error');
                     return;
                 }
-
+                
+                this.isSubmitting = true;
+                this.setLoading(true, status);
+                
                 try {
+                    const formData = this.getFormData();
+                    formData.status = status;
+                    
                     const response = await fetch(`${API_URL}/api/jobs`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-auth-token': token // Send the authentication token
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
                         },
-                        body: JSON.stringify(jobData)
+                        body: JSON.stringify(formData)
                     });
-
-                    if (response.ok) {
-                        showNotification('Job posted successfully!');
-                        // Redirect to the main jobs page to see the new post
-                        window.location.href = 'jobs.html';
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok || result.success) {
+                        const message = result.message || (status === 'draft' ? 
+                            'Job saved as draft successfully!' : 
+                            'Job posted successfully!');
+                        notificationModule.showNotification(message, 'success');
+                        
+                        // Redirect after a delay
+                        setTimeout(() => {
+                            window.location.href = 'jobs.html?view=my-jobs';
+                        }, 2000);
+                        
                     } else {
-                        const errorData = await response.json();
-                        showNotification('Error posting job: ' + (errorData.msg || 'Please try again.'));
+                        // Handle validation errors
+                        if (result.errors && Array.isArray(result.errors)) {
+                            result.errors.forEach(error => {
+                                console.error(`Validation error - ${error.field}: ${error.message}`);
+                            });
+                            notificationModule.showNotification('Please check the form for errors', 'error');
+                        } else {
+                            notificationModule.showNotification(result.message || 'Failed to post job', 'error');
+                        }
                     }
+                    
                 } catch (error) {
-                    console.error('Failed to post job:', error);
-                    showNotification('An error occurred while posting the job. Please check the console.');
+                    console.error('Error posting job:', error);
+                    notificationModule.showNotification('Network error. Please try again.', 'error');
+                } finally {
+                    this.isSubmitting = false;
+                    this.setLoading(false, status);
                 }
-            });
+            }
+            
+            getFormData() {
+                const formData = new FormData(this.form);
+                const data = {};
+                
+                // Get regular form fields
+                for (let [key, value] of formData.entries()) {
+                    if (key === 'benefits') {
+                        if (!data.benefits) data.benefits = [];
+                        data.benefits.push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                // Get rich text content
+                data.description = document.getElementById('jobDescription').innerHTML;
+                data.requirements = document.getElementById('requirements').innerHTML;
+                
+                // Convert checkboxes to booleans
+                data.isEasyApply = document.getElementById('isEasyApply').checked;
+                data.isUrgent = document.getElementById('isUrgent').checked;
+                
+                // Add user/company info
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                data.postedBy = user._id;
+                data.companyId = user.companyId || user._id;
+                data.company = user.companyName || user.name;
+                data.location = data.workLocation;
+                data.title = data.jobTitle;
+                data.deadline = data.applicationDeadline;
+                
+                return data;
+            }
+            
+            setLoading(loading, status) {
+                const btn = status === 'draft' ? this.saveDraftBtn : this.publishBtn;
+                const btnText = btn.querySelector('.btn-text');
+                const btnLoading = btn.querySelector('.btn-loading');
+                
+                if (loading) {
+                    btn.disabled = true;
+                    if (btnText) btnText.style.display = 'none';
+                    if (btnLoading) btnLoading.style.display = 'flex';
+                } else {
+                    btn.disabled = false;
+                    if (btnText) btnText.style.display = 'flex';
+                    if (btnLoading) btnLoading.style.display = 'none';
+                }
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new PostJobManager();
+            
+            // Initialize header module
+            if (typeof headerModule !== 'undefined') {
+                headerModule.init();
+            }
         });
     </script>
+    
+    <style>
+        .post-job-layout {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 0;
+        }
+        
+        .post-job-header {
+            margin-bottom: 32px;
+        }
+        
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .breadcrumb a {
+            color: #0a66c2;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+        }
+        
+        .post-job-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #000;
+        }
+        
+        .post-job-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .post-job-form {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #d0d0d0;
+            overflow: hidden;
+        }
+        
+        .form-section {
+            padding: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 24px 0;
+            color: #000;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-input, .form-select {
+            padding: 12px 16px;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #0a66c2;
+            box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.1);
+        }
+        
+        .form-group.error .form-input,
+        .form-group.error .form-select,
+        .form-group.error .rich-text-editor {
+            border-color: #d92e2e;
+        }
+        
+        .form-error {
+            color: #d92e2e;
+            font-size: 12px;
+            margin-top: 4px;
+            min-height: 16px;
+        }
+        
+        .rich-text-editor {
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .editor-toolbar {
+            display: flex;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 4px;
+        }
+        
+        .toolbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        
+        .toolbar-btn:hover {
+            background: #f3f2ef;
+            color: #000;
+        }
+        
+        .toolbar-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        .editor-content {
+            min-height: 120px;
+            padding: 16px;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .editor-content.empty:before {
+            content: attr(data-placeholder);
+            color: #999;
+            font-style: italic;
+        }
+        
+        .editor-content.focused {
+            background: #fafafa;
+        }
+        
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            display: none;
+        }
+        
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d0d0d0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-option input[type="checkbox"]:checked + .checkmark {
+            background: #0a66c2;
+            border-color: #0a66c2;
+        }
+        
+        .checkbox-option input[type="checkbox"]:checked + .checkmark:after {
+            content: "✓";
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            padding: 24px;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+        }
+        
+        .form-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 140px;
+            justify-content: center;
+        }
+        
+        .form-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .form-btn-secondary {
+            background: white;
+            color: #0a66c2;
+            border: 1px solid #0a66c2;
+        }
+        
+        .form-btn-secondary:hover:not(:disabled) {
+            background: #f3f2ef;
+        }
+        
+        .form-btn-primary {
+            background: #0a66c2;
+            color: white;
+        }
+        
+        .form-btn-primary:hover:not(:disabled) {
+            background: #004182;
+        }
+        
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .btn-loading {
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .post-job-layout {
+                padding: 16px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .form-section {
+                padding: 16px;
+            }
+            
+            .form-actions {
+                padding: 16px;
+                flex-direction: column;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </body>
 
 </html>

@@ -17,6 +17,8 @@ const headerModule = {
         this.navProfilePic = document.getElementById('navProfilePic');
         this.connectLink = document.getElementById('connectLink');
         this.profileDropdownMenu = document.getElementById('profileDropdownMenu');
+        this.dropdownUserName = document.getElementById('dropdownUserName');
+        this.dropdownUserRole = document.getElementById('dropdownUserRole');
     },
 
     setupEventListeners() {
@@ -60,9 +62,23 @@ const headerModule = {
             if (this.navProfilePic) {
                 const currentPath = window.location.pathname;
                 const localPlaceholder = currentPath.includes('/pages/') ? '../assets/placeholder.svg' : 'assets/placeholder.svg';
-                this.navProfilePic.src = (user.profilePicture && user.profilePicture.filename) 
-                    ? `${API_URL}/api/files/${user.profilePicture.filename}` 
+                this.navProfilePic.src = (user.profilePicture && user.profilePicture.filename)
+                    ? `${API_URL}/api/files/${user.profilePicture.filename}`
                     : localPlaceholder;
+            }
+
+            // Populate dropdown user info
+            if (this.dropdownUserName) {
+                this.dropdownUserName.textContent = user.name || 'User';
+            }
+            if (this.dropdownUserRole) {
+                let roleText = '';
+                if (user.role === 'company') {
+                    roleText = user.companyName ? `${user.companyName}` : 'Company Account';
+                } else {
+                    roleText = user.currentPosition || user.headline || 'Professional';
+                }
+                this.dropdownUserRole.textContent = roleText;
             }
 
             if (this.connectLink) {
@@ -99,11 +115,13 @@ const chatModule = {
         this.cacheDOMElements();
         if (!this.chatContainer) return;
 
-        this.chatContainer.style.display = 'block';
+        this.chatContainer.classList.add('active');
         this.addEventListeners();
         this.fetchLoggedInUserId();
         this.showConversationListView();
         this.startNotificationPolling();
+        this.currentReceiverId = null;
+        this.currentReceiverName = null;
     },
 
     cacheDOMElements() {
@@ -112,6 +130,7 @@ const chatModule = {
         this.chatWindow = document.getElementById('chat-window');
         this.chatHeaderTitle = document.getElementById('chat-header-title');
         this.chatBackBtn = document.getElementById('chat-back-btn');
+        this.chatCloseBtn = document.getElementById('chat-close-btn');
         this.conversationList = document.getElementById('chat-conversation-list');
         this.chatMessages = document.getElementById('chat-messages');
         this.chatForm = document.getElementById('chat-form');
@@ -121,21 +140,42 @@ const chatModule = {
     },
 
     addEventListeners() {
-        if (this.chatBubble) this.chatBubble.addEventListener('click', () => {
-            this.chatWindow.classList.toggle('is-open');
-            if (this.chatWindow.classList.contains('is-open') && this.conversationList.style.display === 'block') {
-                this.showConversationListView();
-            }
-        });
-        if (this.chatBackBtn) this.chatBackBtn.addEventListener('click', () => this.showConversationListView());
+        // Toggle chat window when bubble is clicked
+        if (this.chatBubble) {
+            this.chatBubble.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleChatWindow();
+            });
+        }
 
+        // Close chat when close button is clicked
+        if (this.chatCloseBtn) {
+            this.chatCloseBtn.addEventListener('click', () => {
+                this.closeChatWindow();
+            });
+        }
+
+        // Back to conversation list when back button is clicked
+        if (this.chatBackBtn) {
+            this.chatBackBtn.addEventListener('click', () => {
+                this.showConversationListView();
+            });
+        }
+
+        // Close chat when clicking outside
         document.addEventListener('click', (event) => {
+            if (!this.chatContainer.contains(event.target) && this.chatWindow.classList.contains('is-open')) {
+                this.closeChatWindow();
+            }
+
+            // Handle message user buttons from other pages
             if (event.target.classList.contains('message-user-btn')) {
                 event.preventDefault();
                 this.openChat(event.target.dataset.userid, event.target.dataset.username);
             }
         });
 
+        // Handle conversation item clicks
         if (this.conversationList) {
             this.conversationList.addEventListener('click', (event) => {
                 const conversationItem = event.target.closest('.conversation-item');
@@ -145,17 +185,71 @@ const chatModule = {
             });
         }
 
+        // Handle message form submission
         if (this.chatForm) {
             this.chatForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const content = this.chatInput.value.trim();
-                if (!content || !this.currentReceiverId) return;
-                try {
-                    await fetch(`${API_URL}/api/messages/${this.currentReceiverId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': this.token }, body: JSON.stringify({ content }) });
-                    this.chatInput.value = '';
-                    this.openChat(this.currentReceiverId, this.currentReceiverName);
-                } catch (err) { console.error("Failed to send message", err); }
+                await this.sendMessage();
             });
+        }
+
+        // Handle Enter key in chat input
+        if (this.chatInput) {
+            this.chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.sendMessage();
+                }
+            });
+        }
+    },
+
+    toggleChatWindow() {
+        if (this.chatWindow.classList.contains('is-open')) {
+            this.closeChatWindow();
+        } else {
+            this.openChatWindow();
+        }
+    },
+
+    openChatWindow() {
+        this.chatWindow.classList.add('is-open');
+        if (!this.currentReceiverId) {
+            this.showConversationListView();
+        }
+    },
+
+    closeChatWindow() {
+        this.chatWindow.classList.remove('is-open');
+    },
+
+    async sendMessage() {
+        const content = this.chatInput.value.trim();
+        if (!content || !this.currentReceiverId) return;
+
+        try {
+            // Disable input while sending
+            this.chatInput.disabled = true;
+
+            await fetch(`${API_URL}/api/messages/${this.currentReceiverId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': this.token
+                },
+                body: JSON.stringify({ content })
+            });
+
+            this.chatInput.value = '';
+            // Refresh the chat to show the new message
+            await this.loadMessages(this.currentReceiverId);
+
+        } catch (err) {
+            console.error('Failed to send message:', err);
+            notificationModule.showNotification('Failed to send message', 'error');
+        } finally {
+            this.chatInput.disabled = false;
+            this.chatInput.focus();
         }
     },
 
@@ -188,10 +282,11 @@ const chatModule = {
         dots.forEach(dot => {
             if (dot) {
                 if (count > 0) {
-                    dot.style.display = 'flex';
+                    dot.classList.add('show');
                     dot.textContent = count > 9 ? '9+' : count;
                 } else {
-                    dot.style.display = 'none';
+                    dot.classList.remove('show');
+                    dot.textContent = '';
                 }
             }
         });
@@ -199,63 +294,248 @@ const chatModule = {
 
     async showConversationListView() {
         this.currentReceiverId = null;
+        this.currentReceiverName = null;
+
+        // Update header and UI
         if (this.chatHeaderTitle) this.chatHeaderTitle.textContent = 'Messages';
         if (this.chatBackBtn) this.chatBackBtn.style.display = 'none';
         if (this.chatMessages) this.chatMessages.style.display = 'none';
         if (this.chatForm) this.chatForm.style.display = 'none';
+
         if (this.conversationList) {
-            this.conversationList.style.display = 'block';
-            this.conversationList.innerHTML = '<p>Loading conversations...</p>';
+            this.conversationList.style.display = 'flex';
+            this.conversationList.innerHTML = `
+                <div class="chat-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading conversations...</p>
+                </div>
+            `;
         }
+
         try {
-            const res = await fetch(`${API_URL}/api/messages/conversations`, { headers: { 'x-auth-token': this.token } });
-            const conversations = await res.json();
-            this.renderConversationList(conversations);
-        } catch (err) { if (this.conversationList) this.conversationList.innerHTML = '<p>Could not load conversations.</p>'; }
+            const res = await fetch(`${API_URL}/api/messages/conversations`, {
+                headers: { 'x-auth-token': this.token }
+            });
+
+            if (res.ok) {
+                const conversations = await res.json();
+                this.renderConversationList(conversations);
+            } else {
+                throw new Error('Failed to fetch conversations');
+            }
+        } catch (err) {
+            console.error('Error loading conversations:', err);
+            if (this.conversationList) {
+                this.conversationList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                        <h4>Could not load conversations</h4>
+                        <p>Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
     },
 
     async openChat(userId, userName) {
         this.currentReceiverId = userId;
         this.currentReceiverName = userName;
-        if (this.chatHeaderTitle) this.chatHeaderTitle.textContent = `Chat with ${userName}`;
-        if (this.chatBackBtn) this.chatBackBtn.style.display = 'block';
+
+        // Update header and UI
+        if (this.chatHeaderTitle) this.chatHeaderTitle.textContent = `${userName}`;
+        if (this.chatBackBtn) this.chatBackBtn.style.display = 'flex';
         if (this.conversationList) this.conversationList.style.display = 'none';
         if (this.chatMessages) this.chatMessages.style.display = 'flex';
-        if (this.chatForm) this.chatForm.style.display = 'flex';
-        if (this.chatMessages) this.chatMessages.innerHTML = '<p>Loading messages...</p>';
+        if (this.chatForm) this.chatForm.style.display = 'block';
+
+        // Ensure chat window is open
         if (this.chatWindow) this.chatWindow.classList.add('is-open');
+
+        // Load messages
+        await this.loadMessages(userId);
+
+        // Focus on input
+        if (this.chatInput) {
+            setTimeout(() => this.chatInput.focus(), 100);
+        }
+    },
+
+    async loadMessages(userId) {
+        if (this.chatMessages) {
+            this.chatMessages.innerHTML = `
+                <div class="loading-messages">
+                    <div class="loading-spinner"></div>
+                    <p>Loading messages...</p>
+                </div>
+            `;
+        }
+
         try {
-            const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, { headers: { 'x-auth-token': this.token } });
-            const messages = await res.json();
-            this.renderMessages(messages);
-            this.checkForNewMessages();
-        } catch (err) { if (this.chatMessages) this.chatMessages.innerHTML = '<p>Could not load messages.</p>'; }
+            const res = await fetch(`${API_URL}/api/messages/conversation/${userId}`, {
+                headers: { 'x-auth-token': this.token }
+            });
+
+            if (res.ok) {
+                const messages = await res.json();
+                this.renderMessages(messages);
+                // Mark messages as read
+                this.markAsRead(userId);
+                // Update notification count
+                this.checkForNewMessages();
+            } else {
+                throw new Error('Failed to fetch messages');
+            }
+        } catch (err) {
+            console.error('Error loading messages:', err);
+            if (this.chatMessages) {
+                this.chatMessages.innerHTML = `
+                    <div class="messages-empty-state">
+                        <div class="empty-message-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <p>Could not load messages. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+    },
+
+    async markAsRead(userId) {
+        try {
+            await fetch(`${API_URL}/api/messages/mark-read/${userId}`, {
+                method: 'POST',
+                headers: { 'x-auth-token': this.token }
+            });
+        } catch (err) {
+            console.error('Failed to mark messages as read:', err);
+        }
     },
 
     renderConversationList(conversations) {
         if (!this.conversationList) return;
+
         if (!conversations || conversations.length === 0) {
-            this.conversationList.innerHTML = '<p>No conversations yet. Message a user from their profile to start!</p>';
+            this.conversationList.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <h4>No conversations yet</h4>
+                    <p>Message someone from their profile to start chatting!</p>
+                </div>
+            `;
             return;
         }
+
         this.conversationList.innerHTML = conversations.map(convo => {
-            const unreadDot = convo.unreadCount > 0 ? `<span class.notification-badge" style="display:flex; position:static; margin-left:auto;">${convo.unreadCount}</span>` : '';
+            const profilePicSrc = (convo.withUser.profilePicture && convo.withUser.profilePicture.filename)
+                ? `${API_URL}/api/files/${convo.withUser.profilePicture.filename}`
+                : (window.location.pathname.includes('/pages/') ? '../assets/placeholder.svg' : 'assets/placeholder.svg');
+
+            const unreadBadge = convo.unreadCount > 0
+                ? `<span class="notification-badge">${convo.unreadCount > 9 ? '9+' : convo.unreadCount}</span>`
+                : '';
+
+            const lastMessage = convo.lastMessage ? this.truncateMessage(convo.lastMessage, 40) : 'No messages yet';
+
             return `
                 <div class="conversation-item" data-userid="${convo.withUser._id}" data-username="${convo.withUser.name}">
-                    <img src="${(convo.withUser.profilePicture && convo.withUser.profilePicture.filename) ? `${API_URL}/api/files/${convo.withUser.profilePicture.filename}` : (window.location.pathname.includes('/pages/') ? '../assets/placeholder.svg' : 'assets/placeholder.svg')}" alt="${convo.withUser.name}">
-                    <div class="conversation-item-info"><h4>${convo.withUser.name}</h4><p>${convo.lastMessage}</p></div>
-                    ${unreadDot}
+                    <img src="${profilePicSrc}" alt="${convo.withUser.name}">
+                    <div class="conversation-item-info">
+                        <h4>${convo.withUser.name}</h4>
+                        <p>${lastMessage}</p>
+                    </div>
+                    ${unreadBadge}
                 </div>
             `;
         }).join('');
     },
 
+    truncateMessage(message, maxLength) {
+        if (message.length <= maxLength) return message;
+        return message.substring(0, maxLength) + '...';
+    },
+
     renderMessages(messages) {
         if (!this.chatMessages) return;
-        this.chatMessages.innerHTML = messages.map(msg => `
-            <div style="text-align: ${msg.sender === this.loggedInUserId ? 'right' : 'left'};"><p style="background-color:${msg.sender === this.loggedInUserId ? '#eef2f9' : '#f0fdf4'}; padding:10px; border-radius:10px; display:inline-block;">${msg.content}</p></div>
-        `).join('');
-        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+
+        if (!messages || messages.length === 0) {
+            this.chatMessages.innerHTML = `
+                <div class="messages-empty-state">
+                    <div class="empty-message-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <p>No messages yet. Start the conversation!</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Group messages by date and render with modern chat bubbles
+        let html = '';
+        let lastDate = null;
+
+        messages.forEach(msg => {
+            const messageDate = new Date(msg.createdAt);
+            const currentDate = messageDate.toDateString();
+
+            // Add date divider if date has changed
+            if (currentDate !== lastDate) {
+                const today = new Date().toDateString();
+                const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+                let dateLabel;
+                if (currentDate === today) {
+                    dateLabel = 'Today';
+                } else if (currentDate === yesterday) {
+                    dateLabel = 'Yesterday';
+                } else {
+                    dateLabel = messageDate.toLocaleDateString();
+                }
+
+                html += `
+                    <div class="message-date-divider">
+                        <span>${dateLabel}</span>
+                    </div>
+                `;
+                lastDate = currentDate;
+            }
+
+            const isSent = msg.sender === this.loggedInUserId;
+            const messageTime = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            html += `
+                <div class="message-wrapper ${isSent ? 'sent' : 'received'}">
+                    <div class="message-bubble">
+                        <div class="message-content">${this.escapeHtml(msg.content)}</div>
+                        <div class="message-time">${messageTime}</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        this.chatMessages.innerHTML = html;
+
+        // Scroll to bottom
+        setTimeout(() => {
+            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        }, 50);
+    },
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 };
 
@@ -301,31 +581,57 @@ const notificationModule = {
             // Create notification element
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
-            
+
             // Determine colors based on theme and type
             const isDarkTheme = document.body.classList.contains('dark-theme');
             let bgColor, textColor, borderColor;
-            
-            if (type === 'error') {
-                if (isDarkTheme) {
-                    bgColor = '#dc3545';
-                    textColor = '#ffffff';
-                    borderColor = '#c82333';
-                } else {
-                    bgColor = '#f8d7da';
-                    textColor = '#721c24';
-                    borderColor = '#f5c6cb';
-                }
-            } else { // success
-                if (isDarkTheme) {
-                    bgColor = '#28a745';
-                    textColor = '#ffffff';
-                    borderColor = '#1e7e34';
-                } else {
-                    bgColor = '#d4edda';
-                    textColor = '#155724';
-                    borderColor = '#c3e6cb';
-                }
+
+            switch (type) {
+                case 'error':
+                    if (isDarkTheme) {
+                        bgColor = '#dc3545';
+                        textColor = '#ffffff';
+                        borderColor = '#c82333';
+                    } else {
+                        bgColor = '#f8d7da';
+                        textColor = '#721c24';
+                        borderColor = '#f5c6cb';
+                    }
+                    break;
+                case 'warning':
+                    if (isDarkTheme) {
+                        bgColor = '#ffc107';
+                        textColor = '#212529';
+                        borderColor = '#ffca2c';
+                    } else {
+                        bgColor = '#fff3cd';
+                        textColor = '#856404';
+                        borderColor = '#ffeaa7';
+                    }
+                    break;
+                case 'info':
+                    if (isDarkTheme) {
+                        bgColor = '#17a2b8';
+                        textColor = '#ffffff';
+                        borderColor = '#1c7430';
+                    } else {
+                        bgColor = '#d1ecf1';
+                        textColor = '#0c5460';
+                        borderColor = '#bee5eb';
+                    }
+                    break;
+                case 'success':
+                default:
+                    if (isDarkTheme) {
+                        bgColor = '#28a745';
+                        textColor = '#ffffff';
+                        borderColor = '#1e7e34';
+                    } else {
+                        bgColor = '#d4edda';
+                        textColor = '#155724';
+                        borderColor = '#c3e6cb';
+                    }
+                    break;
             }
 
             // Set notification content and styles
@@ -334,14 +640,18 @@ const notificationModule = {
                     <span class="notification-message">${message}</span>
                     <button class="notification-close" type="button">&times;</button>
                 </div>
+                <div class="notification-progress-bar">
+                    <div class="notification-progress-fill"></div>
+                </div>
             `;
 
             notification.style.cssText = `
+                position: relative;
                 background-color: ${bgColor};
                 color: ${textColor};
                 border: 1px solid ${borderColor};
                 border-left: 5px solid ${borderColor};
-                padding: 12px 16px;
+                padding: 12px 16px 15px 16px;
                 border-radius: 6px;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 font-family: 'Poppins', sans-serif;
@@ -351,6 +661,7 @@ const notificationModule = {
                 max-width: 400px;
                 animation: slideInFromRight 0.3s ease-out;
                 opacity: 0;
+                overflow: hidden;
             `;
 
             // Style the content
@@ -360,6 +671,29 @@ const notificationModule = {
                 align-items: center;
                 justify-content: space-between;
                 gap: 12px;
+            `;
+
+            // Style the progress bar
+            const progressBar = notification.querySelector('.notification-progress-bar');
+            const progressFill = notification.querySelector('.notification-progress-fill');
+
+            progressBar.style.cssText = `
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 6px 6px;
+                overflow: hidden;
+            `;
+
+            progressFill.style.cssText = `
+                height: 100%;
+                background: rgba(255, 255, 255, 0.3);
+                width: 100%;
+                transform: translateX(-100%);
+                transition: transform linear;
             `;
 
             // Style and setup the close button
@@ -376,12 +710,14 @@ const notificationModule = {
                 margin: 0;
                 line-height: 1;
             `;
-            
+
             closeBtn.addEventListener('click', () => {
-                notification.style.animation = 'slideOutToRight 0.3s ease-in';
-                setTimeout(() => notification.remove(), 300);
+                // Stop progress animation
+                progressFill.style.transition = 'none';
+                notification.style.animation = 'slideOutToRight 1s ease-in';
+                setTimeout(() => notification.remove(), 700);
             });
-            closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
+            closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '0.5');
             closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.8');
 
             // Add animation styles if not already present
@@ -415,20 +751,38 @@ const notificationModule = {
 
             // Add to container
             container.appendChild(notification);
-            
+
             // Trigger animation
             setTimeout(() => {
                 notification.style.opacity = '1';
+                // Start progress bar animation
+                progressFill.style.transitionDuration = `${duration}ms`;
+                progressFill.style.transform = 'translateX(0)';
             }, 10);
 
-            // Auto remove after 4 seconds
+            // Auto remove after different durations based on type
+            let duration;
+            switch (type) {
+                case 'error':
+                case 'warning':
+                    duration = 8000; // 8 seconds for errors and warnings
+                    break;
+                case 'info':
+                    duration = 6000; // 6 seconds for info
+                    break;
+                case 'success':
+                default:
+                    duration = 5000; // 5 seconds for success (default)
+                    break;
+            }
+
             setTimeout(() => {
                 if (notification.parentElement) {
                     notification.style.animation = 'slideOutToRight 0.3s ease-in';
                     setTimeout(() => notification.remove(), 300);
                 }
-            }, 4000);
-            
+            }, duration);
+
         } catch (error) {
             console.error('Error showing notification:', error);
             // Fallback to alert if notification system fails

@@ -67,7 +67,6 @@
     <script src="../js/config.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/main.js"></script>
-    <script src="debug-notifications.js"></script>
 
     <script>
         // Test functions
@@ -75,7 +74,7 @@
             if (typeof showNotification === 'function') {
                 showNotification('✅ This is a success notification!', 'success');
             } else {
-                alert('showNotification function not available');
+                console.error('showNotification function not available');
             }
         }
 
@@ -83,7 +82,7 @@
             if (typeof showNotification === 'function') {
                 showNotification('❌ This is an error notification!', 'error');
             } else {
-                alert('showNotification function not available');
+                console.error('showNotification function not available');
             }
         }
 
@@ -102,7 +101,7 @@
                 const message = newTheme === 'dark' ? '🌙 Switched to Dark Theme' : '☀️ Switched to Light Theme';
                 showNotification(message, 'success');
             } else {
-                alert('showNotification function not available');
+                console.error('showNotification function not available');
             }
         }
 

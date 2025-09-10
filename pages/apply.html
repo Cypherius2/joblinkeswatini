@@ -7,6 +7,247 @@
     <title>Apply for Job | JobLinkEswatini</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/theme-tech.css">
+    <style>
+        /* Job Application Specific Styles */
+        .apply-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .job-info-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .job-info-header {
+            background: linear-gradient(135deg, #0066cc, #004499);
+            color: white;
+            padding: 25px;
+        }
+
+        .job-info-header h1 {
+            font-size: 1.8em;
+            margin: 0 0 10px 0;
+        }
+
+        .job-company {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin: 0 0 10px 0;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-meta-item svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .application-form-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 1.4em;
+            color: #1a1a1a;
+            margin: 0 0 10px 0;
+        }
+
+        .form-header p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .application-form {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group .required {
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+            margin-top: 30px;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .btn-cancel:hover {
+            background: #545b62;
+        }
+
+        .application-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            color: #28a745;
+        }
+
+        .success-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .help-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        #documentsCheckboxes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .document-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+
+        .document-checkbox:hover {
+            background: #e9ecef;
+        }
+
+        .document-checkbox input[type="checkbox"] {
+            margin: 0;
+        }
+
+        .document-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .apply-container {
+                padding: 15px;
+            }
+
+            .application-form {
+                padding: 20px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .job-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -86,52 +327,159 @@
     </header>
 
     <main class="page-main">
-        <div class="container page-container-profile">
-            <section class="profile-section-card">
-                <div id="application-header">
-                    <h2>Apply for <span id="jobTitle" style="color: #00205B;">Loading job title...</span></h2>
-                    <p>at <span id="companyName" style="font-weight: 500;">...</span></p>
+        <div class="apply-container">
+            <!-- Job Information Card -->
+            <div class="job-info-card">
+                <div class="job-info-header">
+                    <h1 id="jobTitle">Loading job details...</h1>
+                    <p class="job-company" id="companyName"></p>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span id="jobLocation"></span>
+                        </div>
+                        <div class="job-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 6h-2V4c0-1.11-.89-2-2-2H8c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0H10V4h4v2z"/>
+                            </svg>
+                            <span id="jobType"></span>
+                        </div>
+                        <div class="job-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            <span id="jobPosted"></span>
+                        </div>
+                    </div>
                 </div>
-                <hr>
-                <form id="applicationForm" class="auth-form" style="text-align: left; margin-top: 2rem;">
+            </div>
 
-                    <h4>Your Information (from your profile)</h4>
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" disabled>
+            <!-- Application Form -->
+            <div class="application-form-card">
+                <div class="form-header">
+                    <h2>Submit Your Application</h2>
+                    <p>Please complete the form below to apply for this position.</p>
+                </div>
+
+                <form class="application-form" id="applicationForm">
+                    <!-- Personal Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Personal Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" class="form-control" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Current Location</label>
+                            <input type="text" id="location" name="location" class="form-control">
+                        </div>
                     </div>
 
-                    <h4>Attach Your Documents</h4>
-                    <div id="documents-to-attach" class="form-group">
-                        <p>Select which of your saved documents to attach:</p>
-                        <!-- Checkboxes for documents will be inserted here by the script -->
-                        <p style="font-size: 0.9rem; color: #777; margin-top: 1rem;">You can manage your documents on
-                            your <a href="profile.html">profile page</a>.</p>
+                    <!-- Documents Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Your Documents</h3>
+                        <div id="documents-to-attach" class="form-group">
+                            <p>Select documents to attach from your profile:</p>
+                            <div id="documentsCheckboxes"></div>
+                            <p class="help-text">You can manage your documents on your <a href="profile.html">profile page</a>.</p>
+                        </div>
                     </div>
 
-                    <h4>Cover Letter</h4>
-                    <div class="form-group">
-                        <label for="coverLetter">Write a brief cover letter (optional)</label>
-                        <textarea id="coverLetter" rows="10"
-                            placeholder="Introduce yourself and explain why you are a good fit for this role..."></textarea>
+                    <!-- Cover Letter Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Cover Letter</h3>
+                        
+                        <div class="form-group">
+                            <label for="coverLetter">Write a cover letter (recommended)</label>
+                            <textarea id="coverLetter" name="coverLetter" class="form-control" rows="8" 
+                                placeholder="Introduce yourself and explain why you are the right candidate for this position..."></textarea>
+                        </div>
                     </div>
 
-                    <button type="submit" class="auth-button">Submit Application</button>
-                    <a href="jobs.html" class="auth-button"
-                        style="background-color: #777; text-align: center; display: block; box-sizing: border-box; margin-top: 0.5rem;">Cancel</a>
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">Additional Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="experience">Relevant Experience</label>
+                            <textarea id="experience" name="experience" class="form-control" rows="5" 
+                                placeholder="Briefly describe your relevant work experience..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="availability">Available Start Date</label>
+                            <input type="date" id="availability" name="availability" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salaryExpectation">Salary Expectation (Optional)</label>
+                            <input type="text" id="salaryExpectation" name="salaryExpectation" class="form-control" 
+                                placeholder="e.g., E15,000 - E20,000 per month">
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="termsAccepted" name="termsAccepted" required>
+                        <label for="termsAccepted">
+                            I agree to the Terms and Conditions and Privacy Policy. 
+                            I consent to the processing of my personal data for recruitment purposes. 
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletterOptIn" name="newsletterOptIn">
+                        <label for="newsletterOptIn">
+                            I would like to receive job alerts and updates from JobLink Eswatini.
+                        </label>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-cancel" onclick="window.history.back()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </div>
                 </form>
-            </section>
+
+                <!-- Success Message -->
+                <div class="application-success" id="applicationSuccess">
+                    <div class="success-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h2>Application Submitted Successfully!</h2>
+                    <p>Thank you for your interest in this position. We have received your application and will review it shortly.</p>
+                    <p>You will receive a confirmation email at <span id="confirmationEmail"></span></p>
+                    <div style="margin-top: 30px;">
+                        <a href="jobs.html" class="btn btn-primary">Browse More Jobs</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer class="main-footer"></footer>
+    <script src="../js/config.js"></script>
+    <script src="../js/header-nav.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('token');
@@ -149,7 +497,7 @@
             try {
                 // Use Promise.all to fetch both sets of data concurrently for efficiency
                 const [userRes, jobRes] = await Promise.all([
-                    fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } }),
+                    fetch(`${API_URL}/api/users/me`, { headers: { 'Authorization': `Bearer ${token}` } }),
                     fetch(`${API_URL}/api/jobs/${jobId}`)
                 ]);
 
@@ -164,27 +512,36 @@
                 document.title = `Apply for ${job.title} | JobLinkEswatini`;
                 document.getElementById('jobTitle').textContent = job.title;
                 document.getElementById('companyName').textContent = job.company;
+                document.getElementById('jobLocation').textContent = job.location || 'Not specified';
+                document.getElementById('jobType').textContent = job.jobType || 'Full-time';
+                
+                // Format posted date
+                const postedDate = new Date(job.datePosted);
+                const daysAgo = Math.floor((Date.now() - postedDate.getTime()) / (1000 * 60 * 60 * 24));
+                document.getElementById('jobPosted').textContent = daysAgo === 0 ? 'Today' : 
+                    daysAgo === 1 ? '1 day ago' : `${daysAgo} days ago`;
+                
+                // Populate user information
                 document.getElementById('name').value = user.name;
                 document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phoneNumber || '';
+                document.getElementById('location').value = user.location || '';
 
                 // Dynamically create checkboxes for each of the user's documents
-                const documentsContainer = document.getElementById('documents-to-attach');
+                const documentsCheckboxes = document.getElementById('documentsCheckboxes');
                 if (user.documents && user.documents.length > 0) {
-                    // Clear any placeholder text
-                    documentsContainer.querySelector('p').style.display = 'none';
-
                     user.documents.forEach(doc => {
                         const checkboxDiv = document.createElement('div');
-                        // We set the checkbox as 'checked' by default for convenience
+                        checkboxDiv.className = 'document-checkbox';
                         checkboxDiv.innerHTML = `
-                            <input type="checkbox" id="${doc._id}" name="attachedDocuments" value="${doc._id}" checked style="margin-right: 10px;">
+                            <input type="checkbox" id="${doc._id}" name="attachedDocuments" value="${doc._id}" checked>
                             <label for="${doc._id}">${doc.originalName}</label>
                         `;
-                        documentsContainer.appendChild(checkboxDiv);
+                        documentsCheckboxes.appendChild(checkboxDiv);
                     });
                 } else {
-                    documentsContainer.innerHTML = '<p style="color: #D21034;">You have no documents uploaded. Please add a CV or Portfolio to your profile before applying.</p>';
-                    document.querySelector('button[type="submit"]').disabled = true; // Disable submission if no documents
+                    documentsCheckboxes.innerHTML = '<p style="color: #e74c3c;">You have no documents uploaded. Please add a resume to your profile before applying.</p>';
+                    document.querySelector('button[type="submit"]').disabled = true;
                 }
 
             } catch (error) {
@@ -197,6 +554,67 @@
             const form = document.getElementById('applicationForm');
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
+                
+                try {
+                    // Show loading state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+                    
+                    // Collect form data
+                    const formData = {
+                        jobId: jobId,
+                        applicantName: document.getElementById('name').value,
+                        applicantEmail: document.getElementById('email').value,
+                        applicantPhone: document.getElementById('phone').value,
+                        applicantLocation: document.getElementById('location').value,
+                        coverLetter: document.getElementById('coverLetter').value,
+                        experience: document.getElementById('experience').value,
+                        availability: document.getElementById('availability').value,
+                        salaryExpectation: document.getElementById('salaryExpectation').value,
+                        newsletterOptIn: document.getElementById('newsletterOptIn').checked,
+                        attachedDocuments: []
+                    };
+                    
+                    // Get selected documents
+                    const selectedDocs = document.querySelectorAll('input[name="attachedDocuments"]:checked');
+                    formData.attachedDocuments = Array.from(selectedDocs).map(cb => cb.value);
+                    
+                    // Submit application
+                    const response = await fetch(`${API_URL}/api/applications`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Failed to submit application');
+                    }
+                    
+                    const result = await response.json();
+                    
+                    // Show success message
+                    document.querySelector('.application-form').style.display = 'none';
+                    document.getElementById('applicationSuccess').style.display = 'block';
+                    document.getElementById('confirmationEmail').textContent = formData.applicantEmail;
+                    
+                    // Scroll to success message
+                    document.getElementById('applicationSuccess').scrollIntoView({ behavior: 'smooth' });
+                    
+                } catch (error) {
+                    console.error('Application submission error:', error);
+                    alert('Failed to submit application: ' + error.message);
+                } finally {
+                    // Reset button state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
 
                 const coverLetter = document.getElementById('coverLetter').value;
                 const attachedDocumentIds = Array.from(document.querySelectorAll('input[name="attachedDocuments"]:checked'))

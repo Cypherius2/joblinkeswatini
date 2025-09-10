@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Authentication Debug</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .debug-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .debug-panel h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+            border-bottom: 2px solid #0a66c2;
+            padding-bottom: 10px;
+        }
+        
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0a66c2;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        
+        .error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .success {
+            border-left-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0a66c2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin: 5px 5px 5px 0;
+            font-size: 14px;
+        }
+        
+        .button:hover {
+            background: #004182;
+        }
+        
+        .button.danger {
+            background: #dc3545;
+        }
+        
+        .button.danger:hover {
+            background: #c82333;
+        }
+        
+        .button.secondary {
+            background: #6c757d;
+        }
+        
+        .button.secondary:hover {
+            background: #545b62;
+        }
+        
+        #output {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Profile Authentication Debug Tool</h1>
+    
+    <div class="debug-panel">
+        <h2>Current Session Status</h2>
+        <div id="sessionStatus">Loading...</div>
+        <button class="button" onclick="checkSession()">Refresh Session Info</button>
+        <button class="button danger" onclick="clearAllCache()">Clear All Cache</button>
+        <button class="button secondary" onclick="exportDebugInfo()">Export Debug Info</button>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>API Tests</h2>
+        <button class="button" onclick="testCurrentUser()">Test /api/users/me</button>
+        <button class="button" onclick="testProfileEndpoint()">Test Profile Endpoint</button>
+        <button class="button" onclick="testWithDifferentUser()">Test Different User Profile</button>
+        <div id="apiResults"></div>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>Quick Actions</h2>
+        <button class="button" onclick="loginAsJobSeeker()">Login as Job Seeker</button>
+        <button class="button" onclick="loginAsCompany()">Login as Company</button>
+        <button class="button secondary" onclick="viewProfile()">Go to Profile Page</button>
+        <div id="loginResults"></div>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>Debug Console</h2>
+        <div id="output">Debug output will appear here...</div>
+        <button class="button secondary" onclick="clearOutput()">Clear Output</button>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+        
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+            output.innerHTML += `${timestamp} ${icon} ${message}\n`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '';
+        }
+        
+        function checkSession() {
+            log('🔍 Checking session status...');
+            
+            const token = localStorage.getItem('token');
+            const currentUser = sessionStorage.getItem('currentUser');
+            
+            let sessionInfo = '';
+            
+            if (token) {
+                try {
+                    // Decode JWT token manually (basic decode, no verification)
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    sessionInfo += `Token Valid: Yes\n`;
+                    sessionInfo += `Token User ID: ${payload.user.id}\n`;
+                    sessionInfo += `Token Expires: ${new Date(payload.exp * 1000).toLocaleString()}\n`;
+                    log('Token found and decoded', 'success');
+                } catch (e) {
+                    sessionInfo += `Token Valid: No (decode error)\n`;
+                    log('Token decode error: ' + e.message, 'error');
+                }
+            } else {
+                sessionInfo += `Token: Not found\n`;
+                log('No token found', 'error');
+            }
+            
+            if (currentUser) {
+                try {
+                    const userData = JSON.parse(currentUser);
+                    sessionInfo += `\nCached User:\n`;
+                    sessionInfo += `- ID: ${userData._id}\n`;
+                    sessionInfo += `- Name: ${userData.name}\n`;
+                    sessionInfo += `- Role: ${userData.role}\n`;
+                    sessionInfo += `- Email: ${userData.email}\n`;
+                    log('Cached user data found', 'success');
+                } catch (e) {
+                    sessionInfo += `\nCached User: Corrupted data\n`;
+                    log('Cached user data corrupted', 'error');
+                }
+            } else {
+                sessionInfo += `\nCached User: None\n`;
+                log('No cached user data');
+            }
+            
+            document.getElementById('sessionStatus').innerHTML = `<div class="debug-info">${sessionInfo}</div>`;
+        }
+        
+        async function testCurrentUser() {
+            log('🌐 Testing /api/users/me endpoint...');
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('No token available for API test', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/api/users/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                log(`API Response Status: ${response.status}`);
+                
+                if (response.ok) {
+                    const userData = await response.json();
+                    log(`✅ Current user: ${userData.name} (${userData.role}) - ID: ${userData._id}`, 'success');
+                    
+                    document.getElementById('apiResults').innerHTML = `
+                        <div class="debug-info success">
+                            API Test Successful!<br>
+                            User: ${userData.name}<br>
+                            Role: ${userData.role}<br>
+                            ID: ${userData._id}<br>
+                            Email: ${userData.email}
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ API Error: ${response.status} - ${errorText}`, 'error');
+                    document.getElementById('apiResults').innerHTML = `
+                        <div class="debug-info error">
+                            API Test Failed!<br>
+                            Status: ${response.status}<br>
+                            Error: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                log(`💥 Network Error: ${error.message}`, 'error');
+                document.getElementById('apiResults').innerHTML = `
+                    <div class="debug-info error">
+                        Network Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        async function testProfileEndpoint() {
+            log('🌐 Testing profile endpoint...');
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('No token available for profile test', 'error');
+                return;
+            }
+            
+            // First get current user ID
+            try {
+                const userResponse = await fetch(`${API_URL}/api/users/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!userResponse.ok) {
+                    throw new Error('Failed to get current user');
+                }
+                
+                const userData = await userResponse.json();
+                log(`Testing profile endpoint for user: ${userData._id}`);
+                
+                // Now test profile endpoint
+                const profileResponse = await fetch(`${API_URL}/api/users/profile/${userData._id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                log(`Profile API Response Status: ${profileResponse.status}`);
+                
+                if (profileResponse.ok) {
+                    const profileData = await profileResponse.json();
+                    log(`✅ Profile data: ${profileData.name} (${profileData.role}) - ID: ${profileData._id}`, 'success');
+                    
+                    // Check for mismatch
+                    if (profileData._id !== userData._id) {
+                        log(`⚠️ PROFILE MISMATCH! Requested: ${userData._id}, Got: ${profileData._id}`, 'error');
+                    }
+                    
+                    document.getElementById('apiResults').innerHTML = `
+                        <div class="debug-info ${profileData._id === userData._id ? 'success' : 'error'}">
+                            Profile Test Result:<br>
+                            Requested ID: ${userData._id}<br>
+                            Returned ID: ${profileData._id}<br>
+                            Name: ${profileData.name}<br>
+                            Role: ${profileData.role}<br>
+                            Match: ${profileData._id === userData._id ? 'YES' : 'NO - MISMATCH!'}
+                        </div>
+                    `;
+                } else {
+                    const errorText = await profileResponse.text();
+                    log(`❌ Profile API Error: ${profileResponse.status} - ${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`💥 Profile Test Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearAllCache() {
+            log('🗑️ Clearing all cache and storage...');
+            localStorage.removeItem('token');
+            sessionStorage.clear();
+            // Clear any profile manager cache if it exists
+            if (window.profileManager) {
+                window.profileManager.clearCache();
+            }
+            log('✅ All cache cleared', 'success');
+            checkSession();
+        }
+        
+        function exportDebugInfo() {
+            const debugInfo = {
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                token: !!localStorage.getItem('token'),
+                sessionData: sessionStorage.getItem('currentUser'),
+                userAgent: navigator.userAgent
+            };
+            
+            const blob = new Blob([JSON.stringify(debugInfo, null, 2)], {
+                type: 'application/json'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `profile-debug-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            log('📄 Debug info exported', 'success');
+        }
+        
+        function viewProfile() {
+            window.location.href = 'pages/profile.html';
+        }
+        
+        // Mock login functions for testing
+        async function loginAsJobSeeker() {
+            log('👤 Simulating job seeker login...');
+            // This would need to be implemented based on your actual login system
+            alert('This would require implementing a test login. Use the actual login page instead.');
+        }
+        
+        async function loginAsCompany() {
+            log('🏢 Simulating company login...');
+            // This would need to be implemented based on your actual login system
+            alert('This would require implementing a test login. Use the actual login page instead.');
+        }
+        
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            log('🚀 Debug tool initialized');
+            checkSession();
+        });
+    </script>
+</body>
+</html>

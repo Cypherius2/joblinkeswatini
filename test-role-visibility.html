@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role-Based Profile Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <style>
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        
+        .test-controls h3 {
+            margin: 0 0 15px 0;
+        }
+        
+        .test-controls button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .test-controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .test-controls button.active {
+            background: #0a66c2;
+            color: white;
+            border-color: #0a66c2;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-controls">
+        <h3>Test Role Visibility</h3>
+        <button id="jobseekerBtn" class="active">Job Seeker Profile</button>
+        <button id="companyBtn">Company Profile</button>
+        <hr style="margin: 15px 0;">
+        <div id="visibleSections">
+            <small>Visible Sections:</small>
+            <div id="sectionsList"></div>
+        </div>
+    </div>
+
+    <div class="profile-container" id="profileContainer" data-user-role="jobseeker">
+        <div class="profile-header-card">
+            <div class="profile-info">
+                <h1>Test Profile</h1>
+                <p>Testing role-based section visibility</p>
+            </div>
+        </div>
+
+        <div class="profile-content-layout">
+            <div class="profile-main-content">
+                <!-- About Section (Always visible) -->
+                <div class="profile-section" id="aboutSection">
+                    <div class="section-header">
+                        <h2 class="section-title">About</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should always be visible regardless of role.</p>
+                    </div>
+                </div>
+
+                <!-- Experience Section (Job Seekers Only) -->
+                <div class="profile-section" id="experienceSection" data-role="jobseeker">
+                    <div class="section-header">
+                        <h2 class="section-title">Experience</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for job seekers.</p>
+                    </div>
+                </div>
+
+                <!-- Education Section (Job Seekers Only) -->
+                <div class="profile-section" id="educationSection" data-role="jobseeker">
+                    <div class="section-header">
+                        <h2 class="section-title">Education</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for job seekers.</p>
+                    </div>
+                </div>
+
+                <!-- Skills Section (Job Seekers Only) -->
+                <div class="profile-section" id="skillsSection" data-role="jobseeker">
+                    <div class="section-header">
+                        <h2 class="section-title">Skills</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for job seekers.</p>
+                    </div>
+                </div>
+
+                <!-- Documents Section (Job Seekers Only) -->
+                <div class="profile-section" id="documentsSection" data-role="jobseeker">
+                    <div class="section-header">
+                        <h2 class="section-title">Documents</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for job seekers.</p>
+                    </div>
+                </div>
+
+                <!-- Company Information Section (Companies Only) -->
+                <div class="profile-section" id="companyInfoSection" data-role="company">
+                    <div class="section-header">
+                        <h2 class="section-title">Company Information</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for companies.</p>
+                    </div>
+                </div>
+
+                <!-- Job Postings Section (Companies Only) -->
+                <div class="profile-section" id="jobPostingsSection" data-role="company">
+                    <div class="section-header">
+                        <h2 class="section-title">Job Postings</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>This section should only be visible for companies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate the role-based visibility function from profile.js
+        function applyRoleBasedVisibility(userRole) {
+            // Define sections that should only appear for specific roles
+            const roleSections = {
+                jobseeker: [
+                    'experienceSection',
+                    'educationSection',
+                    'skillsSection',
+                    'documentsSection'
+                ],
+                company: [
+                    'companyInfoSection',
+                    'jobPostingsSection'
+                ]
+            };
+            
+            // Hide all role-specific sections first
+            Object.values(roleSections).flat().forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Show sections appropriate for the current role
+            const sectionsToShow = roleSections[userRole] || roleSections.jobseeker;
+            sectionsToShow.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.style.display = 'block';
+                }
+            });
+            
+            // About section is shown for all users
+            const aboutSection = document.getElementById('aboutSection');
+            if (aboutSection) {
+                aboutSection.style.display = 'block';
+            }
+        }
+
+        function updateVisibleSectionsList() {
+            const visibleSections = [];
+            document.querySelectorAll('.profile-section').forEach(section => {
+                const title = section.querySelector('.section-title')?.textContent || 'Unknown';
+                const isVisible = section.style.display !== 'none';
+                if (isVisible) {
+                    visibleSections.push(title);
+                }
+            });
+            
+            document.getElementById('sectionsList').innerHTML = visibleSections.map(section => 
+                `<div style="font-size: 0.8em; padding: 2px 0;">• ${section}</div>`
+            ).join('');
+        }
+
+        // Event listeners for role switching
+        document.getElementById('jobseekerBtn').addEventListener('click', function() {
+            document.getElementById('profileContainer').setAttribute('data-user-role', 'jobseeker');
+            applyRoleBasedVisibility('jobseeker');
+            
+            // Update button states
+            document.getElementById('jobseekerBtn').classList.add('active');
+            document.getElementById('companyBtn').classList.remove('active');
+            
+            updateVisibleSectionsList();
+        });
+
+        document.getElementById('companyBtn').addEventListener('click', function() {
+            document.getElementById('profileContainer').setAttribute('data-user-role', 'company');
+            applyRoleBasedVisibility('company');
+            
+            // Update button states
+            document.getElementById('companyBtn').classList.add('active');
+            document.getElementById('jobseekerBtn').classList.remove('active');
+            
+            updateVisibleSectionsList();
+        });
+
+        // Initialize with job seeker view
+        applyRoleBasedVisibility('jobseeker');
+        updateVisibleSectionsList();
+    </script>
+</body>
+</html>

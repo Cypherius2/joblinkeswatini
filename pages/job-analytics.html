@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Analytics | JobLinkEswatini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .analytics-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .analytics-header {
+            margin-bottom: 32px;
+        }
+        
+        .analytics-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .job-info-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a66c2;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .metric-change {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .metric-change.positive {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .metric-change.neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e1e5e9;
+            margin-bottom: 24px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-draft {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .actions-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: #0a66c2;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0a66c2;
+            border: 1px solid #0a66c2;
+        }
+        
+        .loading-spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #0a66c2;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="notification-container"></div>
+    <header class="main-header"></header>
+
+    <main class="page-main">
+        <div class="analytics-layout">
+            <div class="analytics-header">
+                <div class="breadcrumb">
+                    <a href="jobs.html?view=my-jobs">My Jobs</a>
+                    <span>›</span>
+                    <span>Analytics</span>
+                </div>
+                <h1 class="analytics-title" id="pageTitle">Job Analytics</h1>
+            </div>
+
+            <div id="loadingState" class="loading-spinner"></div>
+            
+            <div id="analyticsContent" style="display: none;">
+                <!-- Job Information Card -->
+                <div class="job-info-card" id="jobInfoCard">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="actions-bar">
+                    <a href="#" class="btn btn-primary" id="manageJobBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                        Manage Job
+                    </a>
+                    <a href="#" class="btn btn-secondary" id="viewApplicantsBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                        View Applicants
+                    </a>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="metrics-grid" id="metricsGrid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Charts Section -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Application Trend (Last 7 Days)</h3>
+                    <div id="applicationChart">
+                        <p>Chart will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <script>
+        class JobAnalyticsManager {
+            constructor() {
+                this.jobId = new URLSearchParams(window.location.search).get('id');
+                if (!this.jobId) {
+                    window.location.href = 'jobs.html?view=my-jobs';
+                    return;
+                }
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.loadJobAnalytics();
+            }
+
+            setupEventListeners() {
+                const manageBtn = document.getElementById('manageJobBtn');
+                const applicantsBtn = document.getElementById('viewApplicantsBtn');
+                
+                if (manageBtn) {
+                    manageBtn.href = `manage-job.html?id=${this.jobId}`;
+                }
+                
+                if (applicantsBtn) {
+                    applicantsBtn.href = `job-applicants.html?id=${this.jobId}`;
+                }
+            }
+
+            async loadJobAnalytics() {
+                try {
+                    const response = await fetch(`${API_URL}/api/jobs/${this.jobId}/analytics`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to load analytics');
+                    }
+
+                    const data = await response.json();
+                    this.renderAnalytics(data);
+                } catch (error) {
+                    console.error('Error loading analytics:', error);
+                    notificationModule.showNotification('Failed to load job analytics', 'error');
+                }
+            }
+
+            renderAnalytics(data) {
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('analyticsContent').style.display = 'block';
+                
+                // Update page title
+                document.getElementById('pageTitle').textContent = `Analytics: ${data.jobInfo.title}`;
+                
+                // Render job info
+                this.renderJobInfo(data.jobInfo);
+                
+                // Render metrics
+                this.renderMetrics(data.performance);
+            }
+
+            renderJobInfo(jobInfo) {
+                const container = document.getElementById('jobInfoCard');
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h2 style="margin: 0 0 8px 0; font-size: 20px;">${jobInfo.title}</h2>
+                            <p style="margin: 0 0 8px 0; color: #666;">${jobInfo.company}</p>
+                            <p style="margin: 0; color: #666; font-size: 14px;">
+                                Posted: ${new Date(jobInfo.postedDate).toLocaleDateString()} • 
+                                Deadline: ${new Date(jobInfo.deadline).toLocaleDateString()}
+                            </p>
+                        </div>
+                        <span class="status-badge status-${jobInfo.status}">${jobInfo.status}</span>
+                    </div>
+                `;
+            }
+
+            renderMetrics(performance) {
+                const container = document.getElementById('metricsGrid');
+                const metrics = [
+                    {
+                        label: 'Total Views',
+                        value: performance.views,
+                        change: '+12% this week'
+                    },
+                    {
+                        label: 'Applications',
+                        value: performance.applications.total,
+                        change: `+${performance.trends?.applicationsLast7Days || 0} this week`
+                    },
+                    {
+                        label: 'Conversion Rate',
+                        value: `${performance.conversionRate}%`,
+                        change: 'Industry average: 8%'
+                    },
+                    {
+                        label: 'Pending Reviews',
+                        value: performance.applications.pending,
+                        change: 'Requires attention'
+                    }
+                ];
+
+                container.innerHTML = metrics.map(metric => `
+                    <div class="metric-card">
+                        <div class="metric-value">${metric.value}</div>
+                        <div class="metric-label">${metric.label}</div>
+                        <div class="metric-change neutral">${metric.change}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new JobAnalyticsManager();
+            
+            // Initialize header module
+            if (typeof headerModule !== 'undefined') {
+                headerModule.init();
+            }
+        });
+    </script>
+</body>
+</html>

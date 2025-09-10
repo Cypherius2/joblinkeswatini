@@ -4,76 +4,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile | JobLinkEswatini</title>
+    <meta name="description" content="Professional profile on JobLink Eswatini - Connect, network, and grow your career">
+    <title>Profile | JobLink Eswatini</title>
+    
+    <!-- Preconnect to improve loading performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="Profile | JobLink Eswatini">
+    <meta property="og:description" content="Professional networking platform for Eswatini">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="../assets/og-image.jpg">
+    
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Profile | JobLink Eswatini">
+    <meta name="twitter:description" content="Professional networking platform for Eswatini">
+    <meta name="twitter:image" content="../assets/twitter-card.jpg">
 </head>
 
 <body>
+    <!-- Notification Container -->
     <div id="notification-container"></div>
+
+    <!-- Header Section -->
     <header class="main-header">
         <div class="container">
+            <!-- Header Left: Logo & Search -->
             <div class="header-left">
                 <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
                 <div class="header-search-container">
                     <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
-                    <input type="text" class="header-search-input" placeholder="Search">
+                    <input type="text" class="header-search-input" placeholder="Search professionals, jobs, companies...">
                 </div>
             </div>
 
+            <!-- Header Right: Navigation -->
             <nav class="main-nav" id="main-nav">
                 <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                     </svg>
                     <span>Home</span>
                 </a>
                 <a href="my-network.html" class="header-nav-item" id="connectLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                     </svg>
                     <span>My Network</span>
                 </a>
                 <a href="jobs.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
+                <a href="message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
                     </svg>
                     <span>Messaging</span>
                     <span class="notification-badge" id="messaging-notification-dot"></span>
                 </a>
 
+                <!-- Authentication Buttons -->
                 <div class="auth-buttons">
-                    <div id="loggedOutNav" style="display: flex;">
+                    <div id="loggedOutNav" style="display: none;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
                     </div>
-                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
-                        style="display: none;">
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav" style="display: none;">
                         <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                            <a href="profile.html" class="dropdown-link">View Profile</a>
-                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
+                            <div class="dropdown-user-info" id="dropdownUserInfo">
+                                <div class="dropdown-user-name" id="dropdownUserName">Loading...</div>
+                                <div class="dropdown-user-role" id="dropdownUserRole">Loading...</div>
+                            </div>
+                            <a href="profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                View Profile
+                            </a>
+                            <a href="edit-profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                                Edit Profile
+                            </a>
+                            <a href="settings.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                                </svg>
+                                Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                            <a href="#" class="dropdown-link" id="signOutBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                </svg>
+                                Sign Out
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -81,364 +129,449 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="page-main">
-        <div class="container page-container-profile-grid">
+        <!-- Loading State -->
+        <div id="loadingState" class="loading" style="display: block;">
+            <div class="loading-spinner"></div>
+        </div>
 
-            <div class="profile-main-content">
-                <section class="profile-header-card">
-                    <div class="profile-banner" id="profileBanner">
-                        <form id="coverPhotoForm"><label for="coverPhotoFile" id="coverPhotoLabel">&#128247; Change
-                                Cover</label><input type="file" id="coverPhotoFile" name="coverPhoto"
-                                accept="image/png,image/jpeg,image/jpg"></form>
+        <!-- Profile Container -->
+        <div class="profile-container" id="profileContainer" style="display: none;">
+            <!-- Profile Header -->
+            <div class="profile-header-card">
+                <!-- Cover Photo Section -->
+                <div class="profile-cover-container">
+                    <div class="profile-cover" id="profileCover">
+                        <div class="cover-overlay"></div>
                     </div>
-                    <div class="profile-info">
-                        <div class="profile-picture-container">
-                            <img id="profilePicture" src="../assets/placeholder.svg" alt="User Profile Picture"
-                                class="profile-picture">
-                            <form id="pictureForm"><label for="pictureFile" id="uploadIconLabel">+</label><input
-                                    type="file" id="pictureFile" name="profilePicture" accept="image/png,image/jpeg,image/jpg">
-                            </form>
+                    <!-- Cover Photo Edit Button -->
+                    <div class="cover-edit-controls" id="coverEditControls" style="display: none;">
+                        <button class="cover-edit-btn" id="editCoverBtn" title="Update cover photo">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span>Update cover photo</span>
+                        </button>
+                        <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- Profile Info Section -->
+                <div class="profile-info">
+                    <!-- Profile Avatar Section -->
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar-container">
+                            <img id="profileAvatar" src="../assets/placeholder.svg" alt="Profile Picture" class="profile-avatar">
+                            <!-- Avatar Edit Overlay -->
+                            <div class="avatar-edit-overlay" id="avatarEditOverlay" style="display: none;">
+                                <button class="avatar-edit-btn" id="editAvatarBtn" title="Update profile picture">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3zm7 9c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-3.2-5c0 1.77 1.43 3.2 3.2 3.2s3.2-1.43 3.2-3.2-1.43-3.2-3.2-3.2-3.2 1.43-3.2 3.2z"/>
+                                    </svg>
+                                </button>
+                                <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+                            </div>
                         </div>
-                        <div class="profile-name-title">
-                            <h1 id="profileName">Loading...</h1>
-                            <p id="profileHeadline"></p>
-                            <span id="profileLocation" class="profile-location"></span>
+
+                        <!-- Profile Basic Info -->
+                        <div class="profile-basic-info">
+                            <div class="profile-name-section">
+                                <h1 id="profileName" class="profile-name">Loading...</h1>
+                                <button class="edit-name-btn" id="editNameBtn" style="display: none;" title="Edit name">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="profile-headline-section">
+                                <p id="profileHeadline" class="profile-headline">Loading...</p>
+                                <button class="edit-headline-btn" id="editHeadlineBtn" style="display: none;" title="Edit headline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Profile Meta Information -->
+                            <div class="profile-meta">
+                                <div class="profile-meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    <span id="profileLocation">Loading location...</span>
+                                    <button class="edit-location-btn" id="editLocationBtn" style="display: none;" title="Edit location">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="profile-meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span id="connectionsCount">0 connections</span>
+                                </div>
+                                <div class="profile-meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                    </svg>
+                                    <span id="profileViews">0 profile views</span>
+                                </div>
+                            </div>
+
+                            <!-- Profile Stats -->
+                            <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <span class="profile-stat-number" id="profileViewsCount">0</span>
+                                    <span class="profile-stat-label">Profile views</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="profile-stat-number" id="postViewsCount">0</span>
+                                    <span class="profile-stat-label">Post impressions</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="profile-stat-number" id="searchAppearancesCount">0</span>
+                                    <span class="profile-stat-label">Search appearances</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="profile-actions"></div>
                     </div>
-                </section>
 
-                <section id="about-section" class="profile-section-card">
-                    <div class="section-header">
-                        <h2>About</h2><a href="edit-profile.html" class="edit-icon" id="editAboutBtn"
-                            style="display: none;">&#9998;</a>
+                    <!-- Profile Actions -->
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" id="editProfileBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
+                            Edit Profile
+                        </button>
+                        <button class="btn btn-secondary" id="shareProfileBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                            Share Profile
+                        </button>
+                        <button class="btn btn-secondary" id="messageUserBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                            </svg>
+                            Send Message
+                        </button>
+                        <button class="btn btn-secondary" id="connectBtn" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Connect
+                        </button>
                     </div>
-                    <p id="profileAbout"></p>
-                </section>
-
-                <section id="experience-section" class="profile-section-card">
-                    <div class="section-header">
-                        <h2>Experience</h2><a href="add-experience.html" class="add-button" id="addExperienceBtn"
-                            style="display: none;">+</a>
-                    </div>
-                    <div id="experienceList"></div>
-                </section>
-
-                <section id="skills-section" class="profile-section-card">
-                    <div class="section-header">
-                        <h2>Skills</h2><a href="add-skill.html" class="add-button" id="addSkillBtn"
-                            style="display: none;">+</a>
-                    </div>
-                    <div id="skillsList" class="skills-container"></div>
-                </section>
-
-                <section id="documents-section" class="profile-section-card" style="display: none;">
-                    <h2>My Documents</h2>
-                    <ul id="documentList" class="document-list"></ul>
-                    <hr>
-                    <form id="documentForm" style="margin-top: 1.5rem;">
-                        <div class="form-group">
-                            <label for="documentFile">Upload New Document</label>
-                            <input type="file" id="documentFile" name="document" required>
-                        </div>
-                        <button type="submit" class="auth-button">Upload Document</button>
-                    </form>
-                </section>
-
-                <section id="company-jobs-section" class="profile-section-card" style="display: none;">
-                    <h2>Your Job Postings</h2>
-                    <div id="my-jobs-list"></div>
-                </section>
+                </div>
             </div>
 
-            <aside class="profile-sidebar">
-                <div class="sidebar-card">
-                    <h3>Profile language</h3>
-                    <p>English</p>
+            <!-- Profile Content Layout -->
+            <div class="profile-content-layout">
+                <!-- Main Content -->
+                <div class="profile-main-content">
+                    <!-- About Section -->
+                    <div class="profile-section" id="aboutSection">
+                        <div class="section-header">
+                            <h2 class="section-title">About</h2>
+                            <button class="btn-icon edit-section-btn" id="editAboutBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            <p id="profileAbout" class="profile-about-text">Loading profile information...</p>
+                        </div>
+                    </div>
+
+                    <!-- Experience Section -->
+                    <div class="profile-section" id="experienceSection">
+                        <div class="section-header">
+                            <h2 class="section-title">Experience</h2>
+                            <button class="btn-icon add-section-btn" id="addExperienceBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="experienceList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="profile-section" id="educationSection">
+                        <div class="section-header">
+                            <h2 class="section-title">Education</h2>
+                            <button class="btn-icon add-section-btn" id="addEducationBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="educationList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="profile-section" id="skillsSection" data-role="jobseeker">
+                        <div class="section-header">
+                            <h2 class="section-title">Skills</h2>
+                            <button class="btn-icon add-section-btn" id="addSkillsBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="skillsList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents Section (Job Seekers) -->
+                    <div class="profile-section" id="documentsSection" data-role="jobseeker">
+                        <div class="section-header">
+                            <h2 class="section-title">Documents</h2>
+                            <button class="btn-icon add-section-btn" id="addDocumentBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="documentsList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Information Section (Companies) -->
+                    <div class="profile-section" id="companyInfoSection" data-role="company">
+                        <div class="section-header">
+                            <h2 class="section-title">Company Information</h2>
+                            <button class="btn-icon edit-section-btn" id="editCompanyInfoBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="companyInfoContent">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Postings Section (Companies) -->
+                    <div class="profile-section" id="jobPostingsSection" data-role="company">
+                        <div class="section-header">
+                            <h2 class="section-title">Job Postings</h2>
+                            <button class="btn-icon add-section-btn" id="addJobPostingBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="section-content" id="jobPostingsList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar-card">
-                    <h3>Public profile & URL</h3>
-                    <a class="profile-link" id="publicProfileUrl" href="#">www.joblinkeswatini.com/in/username</a>
+
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <!-- Profile Strength Card -->
+                    <div class="sidebar-card" id="profileStrengthCard">
+                        <div class="card-header">
+                            <h3 class="card-title">Profile Strength</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="profile-strength">
+                                <div class="strength-meter">
+                                    <div class="strength-progress" id="strengthProgress" style="width: 30%;"></div>
+                                </div>
+                                <p class="strength-level">Beginner</p>
+                                <div class="strength-suggestions">
+                                    <h4>Improve your profile:</h4>
+                                    <ul id="strengthSuggestions">
+                                        <li>Add a professional photo</li>
+                                        <li>Write a compelling headline</li>
+                                        <li>Complete your about section</li>
+                                        <li>Add work experience</li>
+                                        <li>List your skills</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Analytics Card -->
+                    <div class="sidebar-card" id="profileAnalyticsCard">
+                        <div class="card-header">
+                            <h3 class="card-title">Profile Analytics</h3>
+                            <span class="analytics-period">Past 30 days</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="analytics-grid">
+                                <div class="analytics-item">
+                                    <span class="analytics-number" id="viewsAnalytics">0</span>
+                                    <span class="analytics-label">Profile views</span>
+                                </div>
+                                <div class="analytics-item">
+                                    <span class="analytics-number" id="searchAnalytics">0</span>
+                                    <span class="analytics-label">Search appearances</span>
+                                </div>
+                                <div class="analytics-item">
+                                    <span class="analytics-number" id="connectionsAnalytics">0</span>
+                                    <span class="analytics-label">New connections</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Suggested Connections Card -->
+                    <div class="sidebar-card" id="suggestedConnectionsCard">
+                        <div class="card-header">
+                            <h3 class="card-title">People You May Know</h3>
+                        </div>
+                        <div class="card-content" id="suggestedConnectionsList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar-card">
-                    <h3>Who's viewed your profile</h3>
-                    <p style="color: #777;">Feature coming soon!</p>
-                </div>
-            </aside>
+            </div>
         </div>
     </main>
 
-    <div id="global-chat-container" style="display: none;">
-        </div>
-
-    <footer class="main-footer"></footer>
-
-    <script src="../js/theme-toggle.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/config.js"></script>
-
-
-    <script>
-        // --- Reusable Render Functions ---
-        const renderProfileHeader = (user) => {
-            const localPlaceholder = 'images/placeholder.svg';
-            const pic = document.getElementById('profilePicture');
-            const banner = document.getElementById('profileBanner');
-
-            // Use GridFS file serving endpoints
-            const picUrl = user.profilePicture && user.profilePicture.filename 
-                ? `${API_URL}/api/files/${user.profilePicture.filename}` 
-                : localPlaceholder;
-            const coverUrl = user.coverPhoto && user.coverPhoto.filename 
-                ? `${API_URL}/api/files/${user.coverPhoto.filename}` 
-                : '';
-
-            pic.src = picUrl;
-            if (coverUrl) {
-                banner.style.backgroundImage = `url('${coverUrl}')`;
-            } else {
-                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
-            }
-
-            document.getElementById('profileName').textContent = user.name;
-            document.getElementById('profileHeadline').textContent = user.headline;
-            document.getElementById('profileLocation').textContent = user.location;
-
-            // Set the public profile URL
-            const publicProfileUrlEl = document.getElementById('publicProfileUrl');
-            if (publicProfileUrlEl) {
-                publicProfileUrlEl.href = `view-profile.html?id=${user._id}`;
-                publicProfileUrlEl.textContent = `joblinkeswatini.com/in/${user.name.toLowerCase().replace(/\s/g, '-')}`;
-            }
-        };
-
-        const renderAbout = (user) => {
-            const aboutEl = document.getElementById('profileAbout');
-            if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
-        };
-
-        const renderExperience = (experience) => {
-            const expList = document.getElementById('experienceList');
-            if (!expList) return;
-            if (!experience || experience.length === 0) {
-                expList.innerHTML = '<p>No experience added yet. Click the + button to add your work history.</p>';
-                return;
-            }
-            expList.innerHTML = experience.map(exp => `
-                <div class="experience-item">
-                    <h3>${exp.title}</h3>
-                    <p class="company">${exp.company} | ${exp.location || ''}</p>
-                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
-                    <p>${exp.description || ''}</p>
+    <!-- Global Chat Container -->
+    <div id="global-chat-container">
+        <div id="chat-window">
+            <div id="chat-header">
+                <button id="chat-back-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <span id="chat-header-title">Messages</span>
+                <button id="chat-close-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="chat-conversation-list">
+                <div class="chat-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading conversations...</p>
                 </div>
-            `).join('');
-        };
-
-        const renderSkills = (skills) => {
-            const skillsList = document.getElementById('skillsList');
-            if (!skillsList) return;
-            if (!skills || skills.length === 0) {
-                skillsList.innerHTML = '<p>No skills added yet. Click the + button to showcase your talents.</p>';
-                return;
-            }
-            skillsList.innerHTML = skills.map(skill => `
-                <span class="skill-tag">
-                    ${skill.name}
-                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
-                </span>
-            `).join('');
-        };
-
-        const renderDocumentsSection = (documents) => {
-            const container = document.getElementById('documentList');
-            if (!container) return;
-            container.innerHTML = '';
-            if (!documents || documents.length === 0) {
-                container.innerHTML = '<li class="document-item"><p>You have not uploaded any documents yet. Click "Upload Document" to get started.</p></li>';
-                return;
-            }
-            container.innerHTML = documents.map(doc => `
-                <li class="document-item">
-                    <a href="${API_URL}/api/files/${doc.filename}" target="_blank" rel="noopener noreferrer">${doc.originalName}</a>
-                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
-                </li>
-            `).join('');
-        };
-
-        const fetchAndRenderMyJobs = async (token) => {
-            const myJobsList = document.getElementById('my-jobs-list');
-            if (!myJobsList) return;
-            myJobsList.innerHTML = '<p>Loading your jobs...</p>';
-            try {
-                const response = await fetch(`${API_URL}/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
-                if (!response.ok) throw new Error('Could not fetch jobs');
-                const jobs = await response.json();
-                if (jobs.length === 0) {
-                    myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
-                }
-                myJobsList.innerHTML = jobs.map(job => `
-                    <div class="experience-item">
-                        <h3>${job.title}</h3>
-                        <p class="company">${job.company} - ${job.location}</p>
-                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
+            </div>
+            <div id="chat-messages" style="display: none;">
+                <div class="messages-empty-state">
+                    <div class="empty-message-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
                     </div>
-                `).join('');
-            } catch (error) {
-                console.error('Failed to fetch user jobs:', error);
-                myJobsList.innerHTML = '<p>Could not load your jobs.</p>';
-            }
-        };
+                    <p>No messages yet. Start the conversation!</p>
+                </div>
+            </div>
+            <form id="chat-form" style="display: none;">
+                <div class="chat-input-wrapper">
+                    <button type="button" class="attachment-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                        </svg>
+                    </button>
+                    <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                    <button type="button" class="emoji-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </button>
+                    <button type="submit" class="send-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="chat-bubble">
+            <div id="chat-notification-dot" class="notification-badge"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+            </svg>
+        </div>
+    </div>
 
-        // --- MAIN SCRIPT ON PAGE LOAD ---
-        let currentUserData = {};
-        document.addEventListener('DOMContentLoaded', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) { window.location.href = 'login.html'; return; }
-            try {
-                const response = await fetch(`${API_URL}/api/users/me`, { headers: { 'x-auth-token': token } });
-                if (!response.ok) throw new Error('Authentication failed');
-                currentUserData = await response.json();
+    <!-- Mobile Bottom Navigation -->
+    <nav id="mobile-bottom-nav" style="display: none;">
+        <div class="container">
+            <a href="my-network.html" id="mobileConnectLink" class="header-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.998 3.998 0 0118 14v4h-2zM2 15a4 4 0 004 3v-3h-4z"/>
+                </svg>
+                <span id="mobileConnectText">My Network</span>
+            </a>
+            <a href="jobs.html" class="header-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6 6a2 2 0 00-2 2v3.586l1.293-1.293a1 1 0 011.414 0L9 10.586V12a1 1 0 102 0v-1.414l2.293-2.293a1 1 0 011.414 0L16 11.586V8a2 2 0 00-2-2H6z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                </svg>
+                <span>Jobs</span>
+            </a>
+            <a href="message-center.html" class="header-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <span>Messages</span>
+                <span class="notification-badge" id="mobile-messaging-dot"></span>
+            </a>
+            <a href="profile.html" class="header-nav-item">
+                <img src="../assets/placeholder.svg" id="mobileProfilePic" class="nav-profile-pic">
+                <span>Me</span>
+            </a>
+        </div>
+    </nav>
 
-                renderProfileHeader(currentUserData);
-                renderAbout(currentUserData);
-                renderExperience(currentUserData.experience);
-                renderSkills(currentUserData.skills);
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 JobLinkEswatini. Built for the Future of Work.</p>
+            <nav class="footer-nav">
+                <a href="about.html">About</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
 
-                const profileActions = document.querySelector('.profile-actions');
-                if (currentUserData.role === 'company') {
-                    profileActions.innerHTML = `<a href="post-job.html" class="profile-button-primary">Post New Job</a>`;
-                    document.getElementById('company-jobs-section').style.display = 'block';
-                    document.getElementById('documents-section').style.display = 'none';
-                    document.getElementById('addExperienceBtn').style.display = 'none';
-                    document.getElementById('addSkillBtn').style.display = 'none';
-                    document.getElementById('editAboutBtn').style.display = 'none';
-                    fetchAndRenderMyJobs(token);
-                } else { // Seeker
-                    profileActions.innerHTML = `<a href="edit-profile.html" class="profile-button-primary">Edit Profile</a>`;
-                    document.getElementById('addExperienceBtn').style.display = 'block';
-                    document.getElementById('addSkillBtn').style.display = 'block';
-                    document.getElementById('editAboutBtn').style.display = 'block';
-                    document.getElementById('documents-section').style.display = 'block';
-                    document.getElementById('company-jobs-section').style.display = 'none';
-                    renderDocumentsSection(currentUserData.documents);
-                }
-            } catch (error) {
-                console.error('Failed to load profile:', error);
-                localStorage.removeItem('token');
-                window.location.href = 'login.html';
-            }
-        });
+    <!-- Scripts -->
+    <script src="../js/config.js"></script>
+    <script src="../js/header-nav.js"></script>
+    <script src="../js/profile.js"></script>
+    <script src="../js/animations.js"></script>
 
-        // --- EVENT LISTENERS ---
-        const pictureFile = document.getElementById('pictureFile');
-        if (pictureFile) pictureFile.addEventListener('change', async (event) => {
-            const token = localStorage.getItem('token');
-            const file = event.target.files[0];
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('profilePicture', file);
-            try {
-                const response = await fetch(`${API_URL}/api/users/profilePicture`, {
-                    method: 'POST',
-                    headers: { 'x-auth-token': token },
-                    body: formData
-                });
-                if (response.ok) {
-                    currentUserData = await response.json();
-                    showNotification('Profile picture updated!');
-                    renderProfileHeader(currentUserData);
-                } else { showNotification('Upload failed.'); }
-            } catch (error) { console.error('Error uploading picture:', error); }
-        });
-
-        const coverPhotoFile = document.getElementById('coverPhotoFile');
-        if (coverPhotoFile) coverPhotoFile.addEventListener('change', async (event) => {
-            const token = localStorage.getItem('token');
-            const file = event.target.files[0];
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('coverPhoto', file);
-            try {
-                const response = await fetch(`${API_URL}/api/users/coverPhoto`, {
-                    method: 'POST',
-                    headers: { 'x-auth-token': token },
-                    body: formData
-                });
-                if (response.ok) {
-                    currentUserData = await response.json();
-                    showNotification('Cover photo updated!');
-                    renderProfileHeader(currentUserData);
-                } else { showNotification('Cover photo Upload failed.'); }
-            } catch (error) { console.error('Error uploading cover photo:', error); }
-        });
-
-
-        const documentForm = document.getElementById('documentForm');
-        if (documentForm) {
-            documentForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const token = localStorage.getItem('token');
-                const file = document.getElementById('documentFile').files[0];
-                if (!file) { showNotification('Please select a file.'); return; }
-                const formData = new FormData();
-                formData.append('document', file);
-                try {
-                    const response = await fetch(`${API_URL}/api/users/documents`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
-                    if (response.ok) {
-                        currentUserData = await response.json();
-                        showNotification('Document uploaded successfully!');
-                        renderDocumentsSection(currentUserData.documents);
-                        document.getElementById('documentForm').reset();
-                    } else { showNotification('File upload failed.'); }
-                } catch (error) { console.error('Error uploading document:', error); }
-            });
-        }
-
-        const mainContent = document.querySelector('.profile-main-content');
-        if (mainContent) {
-            mainContent.addEventListener('click', async (event) => {
-                const token = localStorage.getItem('token');
-                if (event.target.classList.contains('delete-skill-btn')) {
-                    const skillId = event.target.getAttribute('data-id');
-                    if (confirm('Are you sure you want to remove this skill?')) {
-                        try {
-                            const response = await fetch(`${API_URL}/api/skills/${skillId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
-                            if (response.ok) {
-                                currentUserData = await response.json();
-                                renderSkills(currentUserData.skills);
-                            } else { showNotification('Failed to delete skill.'); }
-                        } catch (error) { console.error('Error deleting skill:', error); }
-                    }
-                }
-                if (event.target.classList.contains('delete-doc-btn')) {
-                    const docId = event.target.getAttribute('data-id');
-                    if (confirm('Are you sure you want to delete this document?')) {
-                        try {
-                            const response = await fetch(`${API_URL}/api/users/documents/${docId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
-                            if (response.ok) {
-                                currentUserData = await response.json();
-                                renderDocumentsSection(currentUserData.documents);
-                            } else { showNotification('Failed to delete document.'); }
-                        } catch (error) { console.error('Error deleting document:', error); }
-                    }
-                }
-                if (event.target.classList.contains('delete-btn')) {
-                    const jobId = event.target.getAttribute('data-id');
-                    if (confirm('Are you sure you want to delete this job posting?')) {
-                        try {
-                            const response = await fetch(`${API_URL}/api/jobs/${jobId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
-                            if (response.ok) {
-                                showNotification('Job deleted successfully.');
-                                fetchAndRenderMyJobs(token);
-                            } else {
-                                const errorData = await response.json();
-                                showNotification('Failed to delete job: ' + errorData.msg);
-                            }
-                        } catch (error) { console.error('Error deleting job:', error); }
-                    }
-                }
-            });
-        }
+    <!-- Analytics and tracking (optional) -->
+    <script>
+        // Google Analytics or other tracking scripts can be added here
+        console.log('JobLink Eswatini Profile - Loaded successfully');
     </script>
 </body>
 

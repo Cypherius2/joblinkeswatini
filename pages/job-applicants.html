@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Applicants | JobLinkEswatini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    
+    <header class="main-header">
+        <div class="container">
+            <div class="header-left">
+                <a href="../index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav" id="main-nav">
+                <a href="jobs.html?view=my-jobs" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                <div class="auth-buttons">
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav">
+                        <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container">
+            <div class="applicants-layout">
+                <!-- Page Header -->
+                <div class="applicants-header">
+                    <div class="breadcrumb">
+                        <a href="jobs.html?view=my-jobs">My Jobs</a>
+                        <span class="breadcrumb-separator">›</span>
+                        <span id="job-title-breadcrumb">Job Applicants</span>
+                    </div>
+                    <div class="header-content">
+                        <div class="job-info">
+                            <h1 id="job-title" class="applicants-title">Loading...</h1>
+                            <div class="job-meta">
+                                <span id="job-location" class="meta-item">—</span>
+                                <span class="meta-separator">•</span>
+                                <span id="job-type" class="meta-item">—</span>
+                                <span class="meta-separator">•</span>
+                                <span id="total-applicants" class="meta-item">— applicants</span>
+                            </div>
+                        </div>
+                        <div class="header-actions">
+                            <button class="header-btn header-btn-secondary" id="exportBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                Export CSV
+                            </button>
+                            <button class="header-btn header-btn-primary" id="manageJobBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Manage Job
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="applicants-filters">
+                    <div class="filter-left">
+                        <div class="search-filter">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <input type="text" id="searchApplicants" placeholder="Search by name, email, or skills...">
+                        </div>
+                        <div class="status-filters">
+                            <button class="status-filter-btn active" data-status="all">
+                                All <span class="count" id="count-all">0</span>
+                            </button>
+                            <button class="status-filter-btn" data-status="applied">
+                                Applied <span class="count" id="count-applied">0</span>
+                            </button>
+                            <button class="status-filter-btn" data-status="reviewing">
+                                Reviewing <span class="count" id="count-reviewing">0</span>
+                            </button>
+                            <button class="status-filter-btn" data-status="interview">
+                                Interview <span class="count" id="count-interview">0</span>
+                            </button>
+                            <button class="status-filter-btn" data-status="accepted">
+                                Accepted <span class="count" id="count-accepted">0</span>
+                            </button>
+                            <button class="status-filter-btn" data-status="rejected">
+                                Rejected <span class="count" id="count-rejected">0</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="filter-right">
+                        <select id="sortBy" class="sort-select">
+                            <option value="date-desc">Newest first</option>
+                            <option value="date-asc">Oldest first</option>
+                            <option value="name-asc">Name A-Z</option>
+                            <option value="name-desc">Name Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Applicants List -->
+                <div class="applicants-content">
+                    <div class="applicants-list" id="applicantsList">
+                        <!-- Loading state -->
+                        <div class="loading-state" id="loadingState">
+                            <div class="loading-spinner"></div>
+                            <p>Loading applicants...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Applicant Detail Modal -->
+    <div class="modal-overlay" id="applicantModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalApplicantName">Applicant Details</h2>
+                <button class="modal-close" id="closeModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="applicant-profile">
+                    <div class="profile-avatar">
+                        <img id="modalApplicantAvatar" src="../assets/placeholder.svg" alt="Profile">
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="modalApplicantFullName">—</h3>
+                        <p id="modalApplicantEmail">—</p>
+                        <p id="modalApplicantPhone">—</p>
+                        <div class="profile-meta">
+                            <span id="modalApplicationDate">Applied —</span>
+                            <span class="meta-separator">•</span>
+                            <span id="modalExperience">— years experience</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Cover Letter</h4>
+                    <div id="modalCoverLetter" class="cover-letter">
+                        No cover letter provided.
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Skills</h4>
+                    <div id="modalSkills" class="skills-list">
+                        <span class="skill-tag">No skills listed</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Resume</h4>
+                    <div class="resume-section">
+                        <button id="modalResumeBtn" class="resume-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            <span>Download Resume</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <div class="status-update">
+                        <label for="statusSelect">Update Status:</label>
+                        <select id="statusSelect" class="status-select">
+                            <option value="applied">Applied</option>
+                            <option value="reviewing">Reviewing</option>
+                            <option value="interview">Interview</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <button class="update-btn" id="updateStatusBtn">Update</button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn contact-btn" id="contactApplicantBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                            </svg>
+                            Contact
+                        </button>
+                        <button class="action-btn schedule-btn" id="scheduleInterviewBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                            </svg>
+                            Schedule Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <script>
+        class JobApplicantsManager {
+            constructor() {
+                this.jobId = new URLSearchParams(window.location.search).get('id');
+                this.applicants = [];
+                this.filteredApplicants = [];
+                this.currentFilters = {
+                    status: 'all',
+                    search: '',
+                    sort: 'date-desc'
+                };
+                this.selectedApplicant = null;
+                
+                this.init();
+            }
+            
+            init() {
+                if (!this.jobId) {
+                    notificationModule.showNotification('No job ID specified', 'error');
+                    window.location.href = 'jobs.html?view=my-jobs';
+                    return;
+                }
+                
+                this.cacheDOMElements();
+                this.setupEventListeners();
+                this.loadJobDetails();
+                this.loadApplicants();
+            }
+            
+            cacheDOMElements() {
+                this.jobTitle = document.getElementById('job-title');
+                this.jobTitleBreadcrumb = document.getElementById('job-title-breadcrumb');
+                this.jobLocation = document.getElementById('job-location');
+                this.jobType = document.getElementById('job-type');
+                this.totalApplicants = document.getElementById('total-applicants');
+                this.applicantsList = document.getElementById('applicantsList');
+                this.loadingState = document.getElementById('loadingState');
+                this.searchInput = document.getElementById('searchApplicants');
+                this.sortSelect = document.getElementById('sortBy');
+                this.statusFilterBtns = document.querySelectorAll('.status-filter-btn');
+                this.applicantModal = document.getElementById('applicantModal');
+                this.exportBtn = document.getElementById('exportBtn');
+                this.manageJobBtn = document.getElementById('manageJobBtn');
+            }
+            
+            setupEventListeners() {
+                // Search and filters
+                this.searchInput.addEventListener('input', this.debounce(() => {
+                    this.currentFilters.search = this.searchInput.value.toLowerCase();
+                    this.applyFilters();
+                }, 300));
+                
+                this.sortSelect.addEventListener('change', () => {
+                    this.currentFilters.sort = this.sortSelect.value;
+                    this.applyFilters();
+                });
+                
+                this.statusFilterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.statusFilterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFilters.status = btn.dataset.status;
+                        this.applyFilters();
+                    });
+                });
+                
+                // Export and manage buttons
+                this.exportBtn.addEventListener('click', () => this.exportApplicants());
+                this.manageJobBtn.addEventListener('click', () => {
+                    window.location.href = `manage-job.html?id=${this.jobId}`;
+                });
+                
+                // Modal events
+                document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
+                this.applicantModal.addEventListener('click', (e) => {
+                    if (e.target === this.applicantModal) this.closeModal();
+                });
+                
+                document.getElementById('updateStatusBtn').addEventListener('click', () => this.updateApplicantStatus());
+                document.getElementById('contactApplicantBtn').addEventListener('click', () => this.contactApplicant());
+                document.getElementById('scheduleInterviewBtn').addEventListener('click', () => this.scheduleInterview());
+            }
+            
+            async loadJobDetails() {
+                try {
+                    const response = await fetch(`${API_URL}/api/jobs/${this.jobId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const job = await response.json();
+                        this.updateJobDisplay(job);
+                    } else {
+                        throw new Error('Failed to load job details');
+                    }
+                } catch (error) {
+                    console.error('Error loading job details:', error);
+                    notificationModule.showNotification('Failed to load job details', 'error');
+                }
+            }
+            
+            updateJobDisplay(job) {
+                this.jobTitle.textContent = job.title;
+                this.jobTitleBreadcrumb.textContent = job.title;
+                this.jobLocation.textContent = job.location;
+                this.jobType.textContent = this.formatJobType(job.jobType);
+            }
+            
+            async loadApplicants() {
+                try {
+                    const response = await fetch(`${API_URL}/api/jobs/${this.jobId}/applicants`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        this.applicants = await response.json();
+                        this.applyFilters();
+                        this.updateStatusCounts();
+                    } else {
+                        throw new Error('Failed to load applicants');
+                    }
+                } catch (error) {
+                    console.error('Error loading applicants:', error);
+                    this.showErrorState();
+                } finally {
+                    this.loadingState.style.display = 'none';
+                }
+            }
+            
+            applyFilters() {
+                this.filteredApplicants = this.applicants.filter(applicant => {
+                    // Status filter
+                    if (this.currentFilters.status !== 'all' && applicant.status !== this.currentFilters.status) {
+                        return false;
+                    }
+                    
+                    // Search filter
+                    if (this.currentFilters.search) {
+                        const searchTerm = this.currentFilters.search;
+                        const searchable = [
+                            applicant.name,
+                            applicant.email,
+                            applicant.skills?.join(' ') || '',
+                            applicant.coverLetter || ''
+                        ].join(' ').toLowerCase();
+                        
+                        if (!searchable.includes(searchTerm)) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                // Apply sorting
+                this.sortApplicants();
+                this.renderApplicants();
+                this.updateTotalCount();
+            }
+            
+            sortApplicants() {
+                const [sortField, sortDirection] = this.currentFilters.sort.split('-');
+                
+                this.filteredApplicants.sort((a, b) => {
+                    let comparison = 0;
+                    
+                    switch (sortField) {
+                        case 'date':
+                            comparison = new Date(a.applicationDate) - new Date(b.applicationDate);
+                            break;
+                        case 'name':
+                            comparison = a.name.localeCompare(b.name);
+                            break;
+                    }
+                    
+                    return sortDirection === 'desc' ? -comparison : comparison;
+                });
+            }
+            
+            renderApplicants() {
+                if (this.filteredApplicants.length === 0) {
+                    this.showEmptyState();
+                    return;
+                }
+                
+                const applicantsHTML = this.filteredApplicants.map(applicant => this.createApplicantCard(applicant)).join('');
+                this.applicantsList.innerHTML = applicantsHTML;
+            }
+            
+            createApplicantCard(applicant) {
+                const applicationDate = new Date(applicant.applicationDate).toLocaleDateString();
+                const statusClass = `status-${applicant.status}`;
+                const avatar = applicant.avatar || '../assets/placeholder.svg';
+                
+                return `
+                    <div class="applicant-card" onclick="jobApplicantsManager.openApplicantModal('${applicant._id}')">
+                        <div class="applicant-avatar">
+                            <img src="${avatar}" alt="${applicant.name}">
+                        </div>
+                        <div class="applicant-info">
+                            <div class="applicant-header">
+                                <h3 class="applicant-name">${this.escapeHtml(applicant.name)}</h3>
+                                <span class="application-status ${statusClass}">${this.formatStatus(applicant.status)}</span>
+                            </div>
+                            <p class="applicant-email">${this.escapeHtml(applicant.email)}</p>
+                            <p class="applicant-experience">${applicant.experience || 0} years experience</p>
+                            <div class="applicant-skills">
+                                ${(applicant.skills || []).slice(0, 3).map(skill => 
+                                    `<span class="skill-tag">${this.escapeHtml(skill)}</span>`
+                                ).join('')}
+                                ${applicant.skills && applicant.skills.length > 3 ? 
+                                    `<span class="more-skills">+${applicant.skills.length - 3} more</span>` : ''}
+                            </div>
+                            <div class="applicant-meta">
+                                <span class="application-date">Applied ${applicationDate}</span>
+                                ${applicant.resumeUrl ? '<span class="has-resume">📄 Resume</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="applicant-actions">
+                            <button class="quick-action-btn contact-btn" onclick="event.stopPropagation(); jobApplicantsManager.contactApplicant('${applicant._id}')" title="Contact">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                                </svg>
+                            </button>
+                            <button class="quick-action-btn schedule-btn" onclick="event.stopPropagation(); jobApplicantsManager.scheduleInterview('${applicant._id}')" title="Schedule Interview">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            openApplicantModal(applicantId) {
+                const applicant = this.applicants.find(a => a._id === applicantId);
+                if (!applicant) return;
+                
+                this.selectedApplicant = applicant;
+                this.populateModal(applicant);
+                this.applicantModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            populateModal(applicant) {
+                document.getElementById('modalApplicantName').textContent = applicant.name;
+                document.getElementById('modalApplicantFullName').textContent = applicant.name;
+                document.getElementById('modalApplicantEmail').textContent = applicant.email;
+                document.getElementById('modalApplicantPhone').textContent = applicant.phone || 'Not provided';
+                document.getElementById('modalApplicantAvatar').src = applicant.avatar || '../assets/placeholder.svg';
+                document.getElementById('modalApplicationDate').textContent = `Applied ${new Date(applicant.applicationDate).toLocaleDateString()}`;
+                document.getElementById('modalExperience').textContent = `${applicant.experience || 0} years experience`;
+                document.getElementById('modalCoverLetter').textContent = applicant.coverLetter || 'No cover letter provided.';
+                document.getElementById('statusSelect').value = applicant.status;
+                
+                // Skills
+                const skillsContainer = document.getElementById('modalSkills');
+                if (applicant.skills && applicant.skills.length > 0) {
+                    skillsContainer.innerHTML = applicant.skills.map(skill => 
+                        `<span class="skill-tag">${this.escapeHtml(skill)}</span>`
+                    ).join('');
+                } else {
+                    skillsContainer.innerHTML = '<span class="skill-tag">No skills listed</span>';
+                }
+                
+                // Resume button
+                const resumeBtn = document.getElementById('modalResumeBtn');
+                if (applicant.resumeUrl) {
+                    resumeBtn.onclick = () => window.open(applicant.resumeUrl, '_blank');
+                    resumeBtn.disabled = false;
+                } else {
+                    resumeBtn.onclick = null;
+                    resumeBtn.disabled = true;
+                    resumeBtn.querySelector('span').textContent = 'No Resume';
+                }
+            }
+            
+            closeModal() {
+                this.applicantModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                this.selectedApplicant = null;
+            }
+            
+            async updateApplicantStatus() {
+                if (!this.selectedApplicant) return;
+                
+                const newStatus = document.getElementById('statusSelect').value;
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/applications/${this.selectedApplicant._id}/status`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                    
+                    if (response.ok) {
+                        this.selectedApplicant.status = newStatus;
+                        notificationModule.showNotification('Status updated successfully', 'success');
+                        this.applyFilters();
+                        this.updateStatusCounts();
+                    } else {
+                        throw new Error('Failed to update status');
+                    }
+                } catch (error) {
+                    console.error('Error updating status:', error);
+                    notificationModule.showNotification('Failed to update status', 'error');
+                }
+            }
+            
+            contactApplicant(applicantId = null) {
+                const applicant = applicantId ? 
+                    this.applicants.find(a => a._id === applicantId) : 
+                    this.selectedApplicant;
+                    
+                if (!applicant) return;
+                
+                const subject = encodeURIComponent(`Regarding your application for ${this.jobTitle.textContent}`);
+                const mailtoLink = `mailto:${applicant.email}?subject=${subject}`;
+                window.location.href = mailtoLink;
+            }
+            
+            scheduleInterview(applicantId = null) {
+                const applicant = applicantId ? 
+                    this.applicants.find(a => a._id === applicantId) : 
+                    this.selectedApplicant;
+                    
+                if (!applicant) return;
+                
+                // This would typically open a scheduling modal or redirect to a calendar integration
+                notificationModule.showNotification('Interview scheduling feature coming soon!', 'info');
+            }
+            
+            exportApplicants() {
+                if (this.filteredApplicants.length === 0) {
+                    notificationModule.showNotification('No applicants to export', 'info');
+                    return;
+                }
+                
+                const csvContent = this.generateCSV(this.filteredApplicants);
+                this.downloadCSV(csvContent, `applicants-${this.jobId}.csv`);
+                notificationModule.showNotification('Applicants exported successfully', 'success');
+            }
+            
+            generateCSV(applicants) {
+                const headers = ['Name', 'Email', 'Phone', 'Experience', 'Status', 'Application Date', 'Skills'];
+                const rows = applicants.map(applicant => [
+                    applicant.name,
+                    applicant.email,
+                    applicant.phone || '',
+                    applicant.experience || 0,
+                    this.formatStatus(applicant.status),
+                    new Date(applicant.applicationDate).toLocaleDateString(),
+                    (applicant.skills || []).join('; ')
+                ]);
+                
+                return [headers, ...rows]
+                    .map(row => row.map(field => `"${field}"`).join(','))
+                    .join('\\n');
+            }
+            
+            downloadCSV(content, filename) {
+                const blob = new Blob([content], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
+            
+            updateStatusCounts() {
+                const counts = {
+                    all: this.applicants.length,
+                    applied: 0,
+                    reviewing: 0,
+                    interview: 0,
+                    accepted: 0,
+                    rejected: 0
+                };
+                
+                this.applicants.forEach(applicant => {
+                    if (counts.hasOwnProperty(applicant.status)) {
+                        counts[applicant.status]++;
+                    }
+                });
+                
+                Object.keys(counts).forEach(status => {
+                    const countElement = document.getElementById(`count-${status}`);
+                    if (countElement) {
+                        countElement.textContent = counts[status];
+                    }
+                });
+            }
+            
+            updateTotalCount() {
+                this.totalApplicants.textContent = `${this.filteredApplicants.length} applicant${this.filteredApplicants.length !== 1 ? 's' : ''}`;
+            }
+            
+            showEmptyState() {
+                this.applicantsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                        </div>
+                        <h3>No applicants found</h3>
+                        <p>No applicants match your current filters.</p>
+                    </div>
+                `;
+            }
+            
+            showErrorState() {
+                this.applicantsList.innerHTML = `
+                    <div class="error-state">
+                        <div class="error-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <h3>Error loading applicants</h3>
+                        <p>There was a problem loading the applicants. Please try again.</p>
+                        <button class="retry-btn" onclick="window.location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+            
+            // Utility functions
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+            
+            formatStatus(status) {
+                const statusMap = {
+                    'applied': 'Applied',
+                    'reviewing': 'Under Review',
+                    'interview': 'Interview',
+                    'accepted': 'Accepted',
+                    'rejected': 'Rejected'
+                };
+                return statusMap[status] || status;
+            }
+            
+            formatJobType(jobType) {
+                return jobType.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+            }
+            
+            escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        let jobApplicantsManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            jobApplicantsManager = new JobApplicantsManager();
+            
+            // Initialize header module
+            if (typeof headerModule !== 'undefined') {
+                headerModule.init();
+            }
+        });
+    </script>
+    
+    <style>
+        .applicants-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 0;
+        }
+        
+        .applicants-header {
+            margin-bottom: 32px;
+        }
+        
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .breadcrumb a {
+            color: #0a66c2;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .applicants-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #000;
+        }
+        
+        .job-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .meta-separator {
+            color: #ccc;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .header-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .header-btn-secondary {
+            background: white;
+            color: #0a66c2;
+            border: 1px solid #0a66c2;
+        }
+        
+        .header-btn-secondary:hover {
+            background: #f3f2ef;
+        }
+        
+        .header-btn-primary {
+            background: #0a66c2;
+            color: white;
+            border: 1px solid #0a66c2;
+        }
+        
+        .header-btn-primary:hover {
+            background: #004182;
+        }
+        
+        .applicants-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #d0d0d0;
+        }
+        
+        .filter-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex: 1;
+        }
+        
+        .search-filter {
+            position: relative;
+            min-width: 300px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: #666;
+        }
+        
+        .search-filter input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid #d0d0d0;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .search-filter input:focus {
+            outline: none;
+            border-color: #0a66c2;
+            box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.1);
+        }
+        
+        .status-filters {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .status-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: transparent;
+            border: 1px solid #d0d0d0;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .status-filter-btn.active {
+            background: #0a66c2;
+            color: white;
+            border-color: #0a66c2;
+        }
+        
+        .status-filter-btn:hover:not(.active) {
+            background: #f3f2ef;
+        }
+        
+        .count {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-filter-btn.active .count {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sort-select {
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 16px;
+            font-size: 14px;
+            background: white;
+        }
+        
+        .sort-select:focus {
+            outline: none;
+            border-color: #0a66c2;
+        }
+        
+        .applicants-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .applicant-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .applicant-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #0a66c2;
+        }
+        
+        .applicant-avatar {
+            width: 60px;
+            height: 60px;
+            margin-right: 16px;
+        }
+        
+        .applicant-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .applicant-info {
+            flex: 1;
+        }
+        
+        .applicant-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .applicant-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: #000;
+        }
+        
+        .application-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-applied {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .status-reviewing {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .status-interview {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .status-accepted {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        
+        .status-rejected {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .applicant-email {
+            color: #666;
+            font-size: 14px;
+            margin: 0 0 4px 0;
+        }
+        
+        .applicant-experience {
+            color: #666;
+            font-size: 14px;
+            margin: 0 0 8px 0;
+        }
+        
+        .applicant-skills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .skill-tag {
+            padding: 2px 8px;
+            background: #f3f2ef;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .more-skills {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .applicant-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .has-resume {
+            color: #0a66c2;
+        }
+        
+        .applicant-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .quick-action-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d0d0d0;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-action-btn:hover {
+            background: #f3f2ef;
+            border-color: #0a66c2;
+        }
+        
+        .quick-action-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #666;
+        }
+        
+        .quick-action-btn:hover svg {
+            fill: #0a66c2;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: #f3f2ef;
+        }
+        
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+            fill: #666;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .applicant-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            margin-right: 16px;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .profile-info h3 {
+            margin: 0 0 4px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .profile-info p {
+            margin: 0 0 2px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .profile-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #999;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        
+        .modal-section {
+            margin-bottom: 24px;
+        }
+        
+        .modal-section h4 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .cover-letter {
+            padding: 16px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .resume-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #f3f2ef;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .resume-btn:hover:not(:disabled) {
+            background: #e8e8e8;
+            border-color: #0a66c2;
+        }
+        
+        .resume-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .status-update {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .status-update label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .status-select {
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .update-btn {
+            padding: 8px 16px;
+            background: #0a66c2;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .update-btn:hover {
+            background: #004182;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1px solid #d0d0d0;
+            background: white;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            background: #f3f2ef;
+            border-color: #0a66c2;
+        }
+        
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        /* Loading and Empty States */
+        .loading-state, .empty-state, .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f2ef;
+            border-top: 3px solid #0a66c2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .empty-icon, .error-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            fill: #ccc;
+        }
+        
+        .empty-state h3, .error-state h3 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .empty-state p, .error-state p {
+            margin: 0 0 16px 0;
+            color: #666;
+        }
+        
+        .retry-btn {
+            padding: 10px 20px;
+            background: #0a66c2;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .retry-btn:hover {
+            background: #004182;
+        }
+        
+        @media (max-width: 768px) {
+            .applicants-layout {
+                padding: 16px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .applicants-filters {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .filter-left {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .search-filter {
+                min-width: auto;
+            }
+            
+            .status-filters {
+                flex-wrap: wrap;
+            }
+            
+            .applicant-card {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            .applicant-header {
+                width: 100%;
+            }
+            
+            .applicant-actions {
+                margin-top: 12px;
+                align-self: flex-end;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+        }
+    </style>
+</body>
+
+</html>

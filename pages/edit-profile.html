@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile | JobLinkEswatini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/theme-tech.css">
+    <link rel="stylesheet" href="../css/animations.css">
 </head>
 
 <body>
     <div id="notification-container"></div>
+    
     <header class="main-header">
         <div class="container">
             <!-- Header Left: Logo & Search -->
             <div class="header-left">
-                <!-- THIS IS THE CORRECT, RESTORED LOGO -->
                 <a href="../index.html" class="logo-link">
                     <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
                 </a>
@@ -28,7 +31,7 @@
                 </div>
             </div>
 
-            <!-- Header Right: Navigation (This part remains the same) -->
+            <!-- Header Right: Navigation -->
             <nav class="main-nav" id="main-nav">
                 <a href="../index.html" class="header-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -36,7 +39,7 @@
                     </svg>
                     <span>Home</span>
                 </a>
-                <a href="#" class="header-nav-item" id="connectLink">
+                <a href="my-network.html" class="header-nav-item" id="connectLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -50,7 +53,7 @@
                     </svg>
                     <span>Jobs</span>
                 </a>
-                <a href="#" class="header-nav-item" id="messagingLink">
+                <a href="message-center.html" class="header-nav-item" id="messagingLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
                             d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
@@ -60,7 +63,7 @@
                 </a>
 
                 <div class="auth-buttons">
-                    <div id="loggedOutNav" style="display: flex;">
+                    <div id="loggedOutNav" style="display: none;">
                         <a href="login.html" class="header-nav-item">Sign In</a>
                     </div>
                     <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav"
@@ -68,15 +71,35 @@
                         <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                            <a href="profile.html" class="dropdown-link">View Profile</a>
-                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="themeToggle">
-                                <span id="themeToggleIcon">🌙</span>
-                                <span id="themeToggleText">Dark Theme</span>
+                            <div class="dropdown-user-info" id="dropdownUserInfo">
+                                <div class="dropdown-user-name" id="dropdownUserName">Loading...</div>
+                                <div class="dropdown-user-role" id="dropdownUserRole">Loading...</div>
+                            </div>
+                            <a href="profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                View Profile
+                            </a>
+                            <a href="edit-profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                                Edit Profile
+                            </a>
+                            <a href="settings.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                                </svg>
+                                Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-link" id="signOutBtn">Sign Out</a>
+                            <a href="#" class="dropdown-link" id="signOutBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                </svg>
+                                Sign Out
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -85,214 +108,1187 @@
     </header>
 
     <main class="page-main">
-        <div class="container page-container-profile">
-            <section class="profile-section-card">
-                <h2>Edit Your Profile</h2>
-                <p>Keep your professional information up to date.</p>
+        <div class="container">
+            <div class="edit-profile-layout">
+                <!-- Profile Header -->
+                <div class="edit-profile-header">
+                    <div class="breadcrumb">
+                        <a href="profile.html">Profile</a>
+                        <span class="breadcrumb-separator">›</span>
+                        <span>Edit Profile</span>
+                    </div>
+                    <h1>Edit Your Profile</h1>
+                    <p>Keep your profile up to date to increase your visibility to recruiters and opportunities.</p>
+                </div>
 
-                <form id="editProfileForm" class="auth-form" style="text-align: left;">
-                    <!-- Profile Picture Upload Section -->
-                    <div class="form-group profile-picture-edit-section">
-                        <label>Profile Picture</label>
-                        <div class="profile-picture-upload-container">
-                            <div class="current-profile-picture-container">
-                                <img id="currentProfilePicture" src="../assets/placeholder.svg" alt="Current Profile Picture" class="current-profile-picture">
-                                <div class="upload-overlay">
-                                    <label for="profilePictureFile" class="upload-label">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="upload-icon">
-                                            <path d="M12 2L3 9l1.4 1.4L11 3.8V16h2V3.8l6.6 6.6L21 9l-9-7z"/>
+                <!-- Profile Form -->
+                <div class="edit-profile-content">
+                    <!-- Profile Photo Section -->
+                    <div class="edit-section profile-photo-section">
+                        <div class="section-header">
+                            <h2>Profile Photo & Cover</h2>
+                            <p>Add photos to make your profile stand out</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="photo-upload-grid">
+                                <!-- Profile Picture Upload -->
+                                <div class="photo-upload-item">
+                                    <div class="photo-preview" id="profilePhotoPreview">
+                                        <img id="profilePhotoImg" src="../assets/placeholder.svg" alt="Profile Photo">
+                                        <div class="photo-overlay">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M9 2l1.17 1H15a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.17L9 2m3 15c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z"/>
+                                            </svg>
+                                            <span>Change Photo</span>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;">
+                                    <h4>Profile Picture</h4>
+                                    <p>Recommended: Square image, at least 300x300px</p>
+                                    <button type="button" class="btn btn-secondary" id="uploadProfilePhotoBtn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                                         </svg>
-                                        Change Picture
-                                    </label>
-                                    <input type="file" id="profilePictureFile" accept="image/png,image/jpeg,image/jpg" style="display: none;">
+                                        Upload Photo
+                                    </button>
+                                </div>
+
+                                <!-- Cover Photo Upload -->
+                                <div class="photo-upload-item">
+                                    <div class="cover-preview" id="coverPhotoPreview">
+                                        <div class="cover-placeholder">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                            </svg>
+                                            <span>Add Cover Photo</span>
+                                        </div>
+                                        <img id="coverPhotoImg" style="display: none;" alt="Cover Photo">
+                                    </div>
+                                    <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;">
+                                    <h4>Cover Photo</h4>
+                                    <p>Recommended: 1584x396px minimum</p>
+                                    <button type="button" class="btn btn-secondary" id="uploadCoverPhotoBtn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                        </svg>
+                                        Upload Cover
+                                    </button>
                                 </div>
                             </div>
-                            <p class="upload-help-text">Supported formats: JPG, JPEG, PNG</p>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="headline">Headline</label>
-                        <input type="text" id="headline" placeholder="e.g., Senior Software Engineer at..." required>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g., Mbabane, Eswatini" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="about">About Summary</label>
-                        <textarea id="about" rows="8"
-                            placeholder="Write a summary about your professional background..."></textarea>
+                    <!-- Basic Information Section -->
+                    <div class="edit-section">
+                        <div class="section-header">
+                            <h2>Basic Information</h2>
+                            <p>Tell us about yourself</p>
+                        </div>
+                        <div class="section-content">
+                            <form id="basicInfoForm" class="profile-form">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name *</label>
+                                        <input type="text" id="fullName" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="headline">Professional Headline</label>
+                                        <input type="text" id="headline" name="headline" placeholder="e.g. Software Developer at Tech Company">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="currentPosition">Current Position</label>
+                                        <input type="text" id="currentPosition" name="currentPosition" placeholder="e.g. Senior Developer">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="industry">Industry</label>
+                                        <select id="industry" name="industry">
+                                            <option value="">Select Industry</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="finance">Finance</option>
+                                            <option value="healthcare">Healthcare</option>
+                                            <option value="education">Education</option>
+                                            <option value="manufacturing">Manufacturing</option>
+                                            <option value="retail">Retail</option>
+                                            <option value="agriculture">Agriculture</option>
+                                            <option value="tourism">Tourism</option>
+                                            <option value="government">Government</option>
+                                            <option value="ngo">Non-Profit</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" id="location" name="location" placeholder="e.g. Mbabane, Eswatini">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <input type="url" id="website" name="website" placeholder="https://your-website.com">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio">About / Bio</label>
+                                    <textarea id="bio" name="bio" rows="6" placeholder="Write a brief description about yourself, your experience, and what you're passionate about..."></textarea>
+                                    <small class="form-hint">0/2000 characters</small>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="btn-text">Save Changes</span>
+                                        <span class="btn-loading" style="display: none;">
+                                            <div class="loading-spinner"></div>
+                                            Saving...
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="cancelBasicInfo">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
-                    <button type="submit" class="auth-button"
-                        style="width: 100%; border-radius: 5px; margin-top: 1rem;">Save Changes</button>
-                    <a href="profile.html" class="auth-button"
-                        style="width: 100%; border-radius: 5px; margin-top: 1rem; background-color: #777; text-align: center; display: block; box-sizing: border-box;">Cancel</a>
-                </form>
-            </section>
+                    <!-- Experience Section -->
+                    <div class="edit-section">
+                        <div class="section-header">
+                            <h2>Experience</h2>
+                            <p>Add your work experience</p>
+                            <button type="button" class="btn btn-secondary" id="addExperienceBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add Experience
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            <div id="experienceList" class="items-list">
+                                <div class="empty-state">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                                    </svg>
+                                    <h4>No experience added yet</h4>
+                                    <p>Add your work experience to showcase your professional background.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="edit-section">
+                        <div class="section-header">
+                            <h2>Education</h2>
+                            <p>Add your educational background</p>
+                            <button type="button" class="btn btn-secondary" id="addEducationBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add Education
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            <div id="educationList" class="items-list">
+                                <div class="empty-state">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M7,9V7H9V9H7M11,9V7H17V9H11M7,13V11H9V13H7M11,13V11H17V13H11M7,17V15H9V17H7M11,17V15H17V17H11Z"/>
+                                    </svg>
+                                    <h4>No education added yet</h4>
+                                    <p>Add your educational background to highlight your qualifications.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="edit-section">
+                        <div class="section-header">
+                            <h2>Skills</h2>
+                            <p>Add skills to showcase your expertise</p>
+                            <button type="button" class="btn btn-secondary" id="addSkillBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add Skill
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            <div class="skill-input-container">
+                                <input type="text" id="skillInput" placeholder="Type a skill and press Enter..." class="skill-search-input">
+                                <div id="skillSuggestions" class="skill-suggestions"></div>
+                            </div>
+                            <div id="skillsList" class="skills-container">
+                                <div class="empty-state">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                                    </svg>
+                                    <h4>No skills added yet</h4>
+                                    <p>Add skills that you have experience with. Start typing to see suggestions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links Section -->
+                    <div class="edit-section">
+                        <div class="section-header">
+                            <h2>Social Links</h2>
+                            <p>Connect your social profiles</p>
+                        </div>
+                        <div class="section-content">
+                            <form id="socialLinksForm" class="profile-form">
+                                <div class="social-links-grid">
+                                    <div class="form-group social-input">
+                                        <label for="linkedinUrl">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                                            </svg>
+                                            LinkedIn
+                                        </label>
+                                        <input type="url" id="linkedinUrl" name="linkedin" placeholder="https://linkedin.com/in/your-profile">
+                                    </div>
+                                    <div class="form-group social-input">
+                                        <label for="githubUrl">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/>
+                                            </svg>
+                                            GitHub
+                                        </label>
+                                        <input type="url" id="githubUrl" name="github" placeholder="https://github.com/your-username">
+                                    </div>
+                                    <div class="form-group social-input">
+                                        <label for="twitterUrl">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/>
+                                            </svg>
+                                            Twitter
+                                        </label>
+                                        <input type="url" id="twitterUrl" name="twitter" placeholder="https://twitter.com/your-handle">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="btn-text">Save Links</span>
+                                        <span class="btn-loading" style="display: none;">
+                                            <div class="loading-spinner"></div>
+                                            Saving...
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- The Global Chat Window HTML -->
-    <div id="global-chat-container" style="display: none;">
+    <!-- Experience Modal -->
+    <div id="experienceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="experienceModalTitle">Add Experience</h3>
+                <button type="button" class="modal-close" id="closeExperienceModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="experienceForm" class="modal-form">
+                    <input type="hidden" id="experienceId">
+                    <div class="form-group">
+                        <label for="expTitle">Job Title *</label>
+                        <input type="text" id="expTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expCompany">Company *</label>
+                        <input type="text" id="expCompany" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expLocation">Location</label>
+                        <input type="text" id="expLocation" name="location" placeholder="e.g. Mbabane, Eswatini">
+                    </div>
+                    <div class="form-group">
+                        <label for="expEmploymentType">Employment Type</label>
+                        <select id="expEmploymentType" name="employmentType">
+                            <option value="">Select type</option>
+                            <option value="full-time">Full-time</option>
+                            <option value="part-time">Part-time</option>
+                            <option value="contract">Contract</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                    </div>
+                    <div class="date-range-group">
+                        <div class="form-group">
+                            <label for="expStartDate">Start Date *</label>
+                            <input type="month" id="expStartDate" name="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expEndDate">End Date</label>
+                            <input type="month" id="expEndDate" name="endDate">
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="expCurrent" name="current">
+                            <span class="checkmark"></span>
+                            I currently work here
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="expDescription">Description</label>
+                        <textarea id="expDescription" name="description" rows="4" placeholder="Describe your role and achievements..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Save Experience</span>
+                            <span class="btn-loading" style="display: none;">
+                                <div class="loading-spinner"></div>
+                                Saving...
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelExperience">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div id="educationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="educationModalTitle">Add Education</h3>
+                <button type="button" class="modal-close" id="closeEducationModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="educationForm" class="modal-form">
+                    <input type="hidden" id="educationId">
+                    <div class="form-group">
+                        <label for="eduSchool">School *</label>
+                        <input type="text" id="eduSchool" name="school" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eduDegree">Degree *</label>
+                        <input type="text" id="eduDegree" name="degree" required placeholder="e.g. Bachelor of Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="eduFieldOfStudy">Field of Study</label>
+                        <input type="text" id="eduFieldOfStudy" name="fieldOfStudy" placeholder="e.g. Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="eduGrade">Grade/GPA</label>
+                        <input type="text" id="eduGrade" name="grade" placeholder="e.g. 3.8/4.0 or First Class">
+                    </div>
+                    <div class="date-range-group">
+                        <div class="form-group">
+                            <label for="eduStartDate">Start Date *</label>
+                            <input type="month" id="eduStartDate" name="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eduEndDate">End Date</label>
+                            <input type="month" id="eduEndDate" name="endDate">
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="eduCurrent" name="current">
+                            <span class="checkmark"></span>
+                            I currently study here
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="eduDescription">Description</label>
+                        <textarea id="eduDescription" name="description" rows="3" placeholder="Activities, societies, awards, etc."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Save Education</span>
+                            <span class="btn-loading" style="display: none;">
+                                <div class="loading-spinner"></div>
+                                Saving...
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelEducation">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Floating Chat Window -->
+    <div id="global-chat-container">
         <div id="chat-window">
             <div id="chat-header">
-                <button id="chat-back-btn">&larr;</button>
+                <button id="chat-back-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
                 <span id="chat-header-title">Messages</span>
+                <button id="chat-close-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
             </div>
             <div id="chat-conversation-list">
-                <!-- List of conversations will be rendered here -->
+                <div class="chat-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading conversations...</p>
+                </div>
             </div>
             <div id="chat-messages" style="display: none;">
-                <!-- Messages for a specific conversation will be rendered here -->
+                <div class="messages-empty-state">
+                    <div class="empty-message-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <p>No messages yet. Start the conversation!</p>
+                </div>
             </div>
             <form id="chat-form" style="display: none;">
-                <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
-                <button type="submit" class="apply-button" style="border-radius: 20px;">Send</button>
+                <div class="chat-input-wrapper">
+                    <button type="button" class="attachment-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                        </svg>
+                    </button>
+                    <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off">
+                    <button type="button" class="emoji-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </button>
+                    <button type="submit" class="send-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
         </div>
         <div id="chat-bubble">
-            <div id="chat-notification-dot"></div>
+            <div id="chat-notification-dot" class="notification-badge"></div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
             </svg>
         </div>
     </div>
 
-    <footer class="main-footer"></footer>
-
-    <script src="../js/theme-toggle.js"></script>
-    <script src="../js/main.js"></script>
     <script src="../js/config.js"></script>
+    <script src="../js/main.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
+        class EditProfileManager {
+            constructor() {
+                this.token = localStorage.getItem('token');
+                this.currentUser = null;
+                this.init();
             }
-
-            // Get references to the form inputs
-            const nameInput = document.getElementById('name');
-            const headlineInput = document.getElementById('headline');
-            const locationInput = document.getElementById('location');
-            const aboutInput = document.getElementById('about');
-            const form = document.getElementById('editProfileForm');
-
-            // --- Part 1: Fetch current user data to pre-populate the form ---
-            try {
-                const response = await fetch(`${API_URL}/api/users/me`, {
-                    headers: { 'x-auth-token': token }
-                });
-                if (!response.ok) throw new Error('Could not fetch user data');
-                const user = await response.json();
-
-                // Populate the form fields with the data we received
-                nameInput.value = user.name || '';
-                headlineInput.value = user.headline || '';
-                locationInput.value = user.location || '';
-                aboutInput.value = user.about || '';
-
-                // Set current profile picture
-                const currentProfilePicture = document.getElementById('currentProfilePicture');
-                if (user.profilePicture && user.profilePicture.filename) {
-                    currentProfilePicture.src = `${API_URL}/api/files/${user.profilePicture.filename}`;
-                } else {
-                    currentProfilePicture.src = 'images/placeholder.svg';
+            
+            init() {
+                if (!this.token) {
+                    window.location.href = 'login.html';
+                    return;
                 }
-
-            } catch (error) {
-                console.error('Failed to load profile for editing:', error);
-                showNotification('Could not load your profile data. Please try again.');
-                window.location.href = 'profile.html'; // Go back if we can't load data
+                
+                this.cacheDOMElements();
+                this.setupEventListeners();
+                this.loadUserProfile();
+                this.setupSkillAutoComplete();
             }
-
-            // --- Part 2: Handle the form submission when the user clicks "Save" ---
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                // Collect the new values from the form
-                const updatedData = {
-                    name: nameInput.value,
-                    headline: headlineInput.value,
-                    location: locationInput.value,
-                    about: aboutInput.value
-                };
-
+            
+            cacheDOMElements() {
+                // Photo elements
+                this.profilePhotoInput = document.getElementById('profilePhotoInput');
+                this.profilePhotoImg = document.getElementById('profilePhotoImg');
+                this.uploadProfilePhotoBtn = document.getElementById('uploadProfilePhotoBtn');
+                this.coverPhotoInput = document.getElementById('coverPhotoInput');
+                this.coverPhotoImg = document.getElementById('coverPhotoImg');
+                this.uploadCoverPhotoBtn = document.getElementById('uploadCoverPhotoBtn');
+                
+                // Forms
+                this.basicInfoForm = document.getElementById('basicInfoForm');
+                this.socialLinksForm = document.getElementById('socialLinksForm');
+                this.experienceForm = document.getElementById('experienceForm');
+                this.educationForm = document.getElementById('educationForm');
+                
+                // Lists
+                this.experienceList = document.getElementById('experienceList');
+                this.educationList = document.getElementById('educationList');
+                this.skillsList = document.getElementById('skillsList');
+                
+                // Modals
+                this.experienceModal = document.getElementById('experienceModal');
+                this.educationModal = document.getElementById('educationModal');
+                
+                // Skills
+                this.skillInput = document.getElementById('skillInput');
+                this.skillSuggestions = document.getElementById('skillSuggestions');
+            }
+            
+            setupEventListeners() {
+                // Photo uploads
+                this.uploadProfilePhotoBtn.addEventListener('click', () => this.profilePhotoInput.click());
+                this.uploadCoverPhotoBtn.addEventListener('click', () => this.coverPhotoInput.click());
+                this.profilePhotoInput.addEventListener('change', (e) => this.handleProfilePhotoUpload(e));
+                this.coverPhotoInput.addEventListener('change', (e) => this.handleCoverPhotoUpload(e));
+                
+                // Forms
+                this.basicInfoForm.addEventListener('submit', (e) => this.handleBasicInfoSubmit(e));
+                this.socialLinksForm.addEventListener('submit', (e) => this.handleSocialLinksSubmit(e));
+                this.experienceForm.addEventListener('submit', (e) => this.handleExperienceSubmit(e));
+                this.educationForm.addEventListener('submit', (e) => this.handleEducationSubmit(e));
+                
+                // Modal handlers
+                document.getElementById('addExperienceBtn').addEventListener('click', () => this.openExperienceModal());
+                document.getElementById('addEducationBtn').addEventListener('click', () => this.openEducationModal());
+                document.getElementById('closeExperienceModal').addEventListener('click', () => this.closeExperienceModal());
+                document.getElementById('closeEducationModal').addEventListener('click', () => this.closeEducationModal());
+                document.getElementById('cancelExperience').addEventListener('click', () => this.closeExperienceModal());
+                document.getElementById('cancelEducation').addEventListener('click', () => this.closeEducationModal());
+                
+                // Skills
+                this.skillInput.addEventListener('keydown', (e) => this.handleSkillInput(e));
+                this.skillInput.addEventListener('input', (e) => this.handleSkillSearch(e));
+                
+                // Character counter
+                const bioTextarea = document.getElementById('bio');
+                bioTextarea.addEventListener('input', () => this.updateCharacterCount(bioTextarea));
+                
+                // Current job/education checkboxes
+                document.getElementById('expCurrent').addEventListener('change', (e) => {
+                    document.getElementById('expEndDate').disabled = e.target.checked;
+                });
+                document.getElementById('eduCurrent').addEventListener('change', (e) => {
+                    document.getElementById('eduEndDate').disabled = e.target.checked;
+                });
+            }
+            
+            async loadUserProfile() {
                 try {
-                    // Send the updated data to the server using a PUT request
-                    const response = await fetch(`${API_URL}/api/users`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-auth-token': token
-                        },
-                        body: JSON.stringify(updatedData)
+                    const response = await fetch(`${API_URL}/api/users/me`, {
+                        headers: { 'x-auth-token': this.token }
                     });
-
+                    
                     if (response.ok) {
-                        showNotification('Profile updated successfully!');
-                        // This new URL with the timestamp forces the browser to reload the page completely
-                        window.location.href = `profile.html?t=${new Date().getTime()}`;
+                        this.currentUser = await response.json();
+                        this.populateForm();
                     } else {
-                        showNotification('Failed to update profile. Please try again.');
+                        throw new Error('Failed to load profile');
                     }
                 } catch (error) {
-                    console.error('Error updating profile:', error);
-                    showNotification('An error occurred while updating your profile. Please try again.');
+                    console.error('Error loading profile:', error);
+                    notificationModule.showNotification('Failed to load profile data', 'error');
                 }
-            });
-
-            // Handle profile picture upload
-            const profilePictureFile = document.getElementById('profilePictureFile');
-            profilePictureFile.addEventListener('change', async (event) => {
+            }
+            
+            populateForm() {
+                const user = this.currentUser;
+                
+                // Basic info
+                document.getElementById('fullName').value = user.name || '';
+                document.getElementById('headline').value = user.headline || '';
+                document.getElementById('currentPosition').value = user.currentPosition || '';
+                document.getElementById('industry').value = user.industry || '';
+                document.getElementById('location').value = user.location || '';
+                document.getElementById('website').value = user.website || '';
+                document.getElementById('bio').value = user.bio || '';
+                
+                // Update character count
+                this.updateCharacterCount(document.getElementById('bio'));
+                
+                // Profile photo
+                if (user.profilePicture) {
+                    this.profilePhotoImg.src = `${API_URL}/api/files/${user.profilePicture.filename || user.profilePicture}`;
+                }
+                
+                // Cover photo
+                if (user.coverPhoto) {
+                    this.coverPhotoImg.src = `${API_URL}/api/files/${user.coverPhoto.filename || user.coverPhoto}`;
+                    this.coverPhotoImg.style.display = 'block';
+                    document.querySelector('.cover-placeholder').style.display = 'none';
+                }
+                
+                // Social links
+                if (user.socialLinks) {
+                    document.getElementById('linkedinUrl').value = user.socialLinks.linkedin || '';
+                    document.getElementById('githubUrl').value = user.socialLinks.github || '';
+                    document.getElementById('twitterUrl').value = user.socialLinks.twitter || '';
+                }
+                
+                // Experience
+                this.renderExperienceList(user.experience || []);
+                
+                // Education
+                this.renderEducationList(user.education || []);
+                
+                // Skills
+                this.renderSkillsList(user.skills || []);
+            }
+            
+            updateCharacterCount(textarea) {
+                const maxLength = 2000;
+                const currentLength = textarea.value.length;
+                const hint = textarea.parentElement.querySelector('.form-hint');
+                hint.textContent = `${currentLength}/${maxLength} characters`;
+                
+                if (currentLength > maxLength * 0.9) {
+                    hint.style.color = '#e74c3c';
+                } else {
+                    hint.style.color = '';
+                }
+            }
+            
+            async handleProfilePhotoUpload(event) {
                 const file = event.target.files[0];
                 if (!file) return;
-
-                // Validate file type
-                if (!file.type.match(/^image\/(jpeg|jpg|png)$/i)) {
-                    showNotification('Please select a valid image file (JPG, JPEG, or PNG)');
-                    return;
-                }
-
-                // Validate file size (max 5MB)
+                
+                // Validate file size (5MB)
                 if (file.size > 5 * 1024 * 1024) {
-                    showNotification('File size must be less than 5MB');
+                    notificationModule.showNotification('File size must be less than 5MB', 'error');
                     return;
                 }
-
-                const formData = new FormData();
-                formData.append('profilePicture', file);
-
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    notificationModule.showNotification('Please select a valid image file', 'error');
+                    return;
+                }
+                
                 try {
-                    const response = await fetch(`${API_URL}/api/users/profilePicture`, {
+                    const formData = new FormData();
+                    formData.append('profilePicture', file);
+                    
+                    const response = await fetch(`${API_URL}/api/users/profile/picture`, {
                         method: 'POST',
-                        headers: { 'x-auth-token': token },
+                        headers: { 'x-auth-token': this.token },
                         body: formData
                     });
-
+                    
                     if (response.ok) {
-                        const updatedUser = await response.json();
-                        // Update the preview image
-                        const currentProfilePicture = document.getElementById('currentProfilePicture');
-                        if (updatedUser.profilePicture && updatedUser.profilePicture.filename) {
-                            currentProfilePicture.src = `${API_URL}/api/files/${updatedUser.profilePicture.filename}`;
-                        }
-                        showNotification('Profile picture updated successfully!');
+                        const result = await response.json();
+                        this.profilePhotoImg.src = `${API_URL}${result.url}`;
+                        notificationModule.showNotification('Profile picture updated successfully!', 'success');
                     } else {
-                        const errorData = await response.json();
-                        showNotification(errorData.msg || 'Failed to upload profile picture');
+                        throw new Error('Failed to upload profile picture');
                     }
                 } catch (error) {
                     console.error('Error uploading profile picture:', error);
-                    showNotification('An error occurred while uploading your profile picture');
+                    notificationModule.showNotification('Failed to upload profile picture', 'error');
                 }
-            });
+            }
+            
+            async handleCoverPhotoUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                // Validate file size (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    notificationModule.showNotification('File size must be less than 5MB', 'error');
+                    return;
+                }
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    notificationModule.showNotification('Please select a valid image file', 'error');
+                    return;
+                }
+                
+                try {
+                    const formData = new FormData();
+                    formData.append('coverPhoto', file);
+                    
+                    const response = await fetch(`${API_URL}/api/users/profile/cover`, {
+                        method: 'POST',
+                        headers: { 'x-auth-token': this.token },
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.coverPhotoImg.src = `${API_URL}${result.url}`;
+                        this.coverPhotoImg.style.display = 'block';
+                        document.querySelector('.cover-placeholder').style.display = 'none';
+                        notificationModule.showNotification('Cover photo updated successfully!', 'success');
+                    } else {
+                        throw new Error('Failed to upload cover photo');
+                    }
+                } catch (error) {
+                    console.error('Error uploading cover photo:', error);
+                    notificationModule.showNotification('Failed to upload cover photo', 'error');
+                }
+            }
+            
+            async handleBasicInfoSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(this.basicInfoForm);
+                const data = Object.fromEntries(formData.entries());
+                
+                this.setFormLoading(this.basicInfoForm, true);
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': this.token
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (response.ok) {
+                        notificationModule.showNotification('Basic information updated successfully!', 'success');
+                    } else {
+                        throw new Error('Failed to update basic information');
+                    }
+                } catch (error) {
+                    console.error('Error updating basic info:', error);
+                    notificationModule.showNotification('Failed to update basic information', 'error');
+                } finally {
+                    this.setFormLoading(this.basicInfoForm, false);
+                }
+            }
+            
+            async handleSocialLinksSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(this.socialLinksForm);
+                const socialLinks = {
+                    linkedin: formData.get('linkedin'),
+                    github: formData.get('github'),
+                    twitter: formData.get('twitter')
+                };
+                
+                this.setFormLoading(this.socialLinksForm, true);
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': this.token
+                        },
+                        body: JSON.stringify({ socialLinks })
+                    });
+                    
+                    if (response.ok) {
+                        notificationModule.showNotification('Social links updated successfully!', 'success');
+                    } else {
+                        throw new Error('Failed to update social links');
+                    }
+                } catch (error) {
+                    console.error('Error updating social links:', error);
+                    notificationModule.showNotification('Failed to update social links', 'error');
+                } finally {
+                    this.setFormLoading(this.socialLinksForm, false);
+                }
+            }
+            
+            setFormLoading(form, loading) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const btnText = submitBtn.querySelector('.btn-text');
+                const btnLoading = submitBtn.querySelector('.btn-loading');
+                
+                if (loading) {
+                    submitBtn.disabled = true;
+                    btnText.style.display = 'none';
+                    btnLoading.style.display = 'flex';
+                } else {
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'block';
+                    btnLoading.style.display = 'none';
+                }
+            }
+            
+            // Experience methods
+            openExperienceModal(experience = null) {
+                if (experience) {
+                    document.getElementById('experienceModalTitle').textContent = 'Edit Experience';
+                    document.getElementById('experienceId').value = experience._id;
+                    document.getElementById('expTitle').value = experience.title;
+                    document.getElementById('expCompany').value = experience.company;
+                    document.getElementById('expLocation').value = experience.location || '';
+                    document.getElementById('expEmploymentType').value = experience.employmentType || '';
+                    document.getElementById('expStartDate').value = this.formatDateForInput(experience.startDate);
+                    document.getElementById('expEndDate').value = experience.endDate ? this.formatDateForInput(experience.endDate) : '';
+                    document.getElementById('expCurrent').checked = experience.current || false;
+                    document.getElementById('expDescription').value = experience.description || '';
+                    document.getElementById('expEndDate').disabled = experience.current || false;
+                } else {
+                    document.getElementById('experienceModalTitle').textContent = 'Add Experience';
+                    document.getElementById('experienceForm').reset();
+                    document.getElementById('experienceId').value = '';
+                    document.getElementById('expEndDate').disabled = false;
+                }
+                this.experienceModal.classList.add('active');
+            }
+            
+            closeExperienceModal() {
+                this.experienceModal.classList.remove('active');
+            }
+            
+            async handleExperienceSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(this.experienceForm);
+                const data = Object.fromEntries(formData.entries());
+                data.current = document.getElementById('expCurrent').checked;
+                
+                const experienceId = document.getElementById('experienceId').value;
+                const isEdit = !!experienceId;
+                
+                this.setFormLoading(this.experienceForm, true);
+                
+                try {
+                    let response;
+                    if (isEdit) {
+                        response = await fetch(`${API_URL}/api/users/profile/experience/${experienceId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-auth-token': this.token
+                            },
+                            body: JSON.stringify(data)
+                        });
+                    } else {
+                        response = await fetch(`${API_URL}/api/users/profile/experience`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-auth-token': this.token
+                            },
+                            body: JSON.stringify(data)
+                        });
+                    }
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.renderExperienceList(result.experience);
+                        this.closeExperienceModal();
+                        notificationModule.showNotification(`Experience ${isEdit ? 'updated' : 'added'} successfully!`, 'success');
+                    } else {
+                        throw new Error(`Failed to ${isEdit ? 'update' : 'add'} experience`);
+                    }
+                } catch (error) {
+                    console.error('Error handling experience:', error);
+                    notificationModule.showNotification(`Failed to ${isEdit ? 'update' : 'add'} experience`, 'error');
+                } finally {
+                    this.setFormLoading(this.experienceForm, false);
+                }
+            }
+            
+            renderExperienceList(experiences) {
+                if (!experiences.length) {
+                    this.experienceList.innerHTML = `
+                        <div class="empty-state">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                            </svg>
+                            <h4>No experience added yet</h4>
+                            <p>Add your work experience to showcase your professional background.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                this.experienceList.innerHTML = experiences.map(exp => `
+                    <div class="list-item">
+                        <div class="item-content">
+                            <h4 class="item-title">${exp.title}</h4>
+                            <p class="item-subtitle">${exp.company}</p>
+                            <p class="item-meta">${this.formatDate(exp.startDate)} - ${exp.current ? 'Present' : this.formatDate(exp.endDate)}</p>
+                            ${exp.location ? `<p class="item-location">${exp.location}</p>` : ''}
+                            ${exp.description ? `<p class="item-description">${exp.description}</p>` : ''}
+                        </div>
+                        <div class="item-actions">
+                            <button class="action-btn edit-btn" onclick="editProfileManager.openExperienceModal(${JSON.stringify(exp).replace(/"/g, '&quot;')})">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="editProfileManager.deleteExperience('${exp._id}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            async deleteExperience(experienceId) {
+                if (!confirm('Are you sure you want to delete this experience?')) return;
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile/experience/${experienceId}`, {
+                        method: 'DELETE',
+                        headers: { 'x-auth-token': this.token }
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.renderExperienceList(result.experience);
+                        notificationModule.showNotification('Experience deleted successfully', 'success');
+                    } else {
+                        throw new Error('Failed to delete experience');
+                    }
+                } catch (error) {
+                    console.error('Error deleting experience:', error);
+                    notificationModule.showNotification('Failed to delete experience', 'error');
+                }
+            }
+            
+            // Education methods (similar structure to experience)
+            openEducationModal(education = null) {
+                if (education) {
+                    document.getElementById('educationModalTitle').textContent = 'Edit Education';
+                    document.getElementById('educationId').value = education._id;
+                    document.getElementById('eduSchool').value = education.school;
+                    document.getElementById('eduDegree').value = education.degree;
+                    document.getElementById('eduFieldOfStudy').value = education.fieldOfStudy || '';
+                    document.getElementById('eduGrade').value = education.grade || '';
+                    document.getElementById('eduStartDate').value = this.formatDateForInput(education.startDate);
+                    document.getElementById('eduEndDate').value = education.endDate ? this.formatDateForInput(education.endDate) : '';
+                    document.getElementById('eduCurrent').checked = education.current || false;
+                    document.getElementById('eduDescription').value = education.description || '';
+                    document.getElementById('eduEndDate').disabled = education.current || false;
+                } else {
+                    document.getElementById('educationModalTitle').textContent = 'Add Education';
+                    document.getElementById('educationForm').reset();
+                    document.getElementById('educationId').value = '';
+                    document.getElementById('eduEndDate').disabled = false;
+                }
+                this.educationModal.classList.add('active');
+            }
+            
+            closeEducationModal() {
+                this.educationModal.classList.remove('active');
+            }
+            
+            async handleEducationSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(this.educationForm);
+                const data = Object.fromEntries(formData.entries());
+                data.current = document.getElementById('eduCurrent').checked;
+                
+                const educationId = document.getElementById('educationId').value;
+                const isEdit = !!educationId;
+                
+                this.setFormLoading(this.educationForm, true);
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile/education`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': this.token
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.renderEducationList(result.education);
+                        this.closeEducationModal();
+                        notificationModule.showNotification('Education added successfully!', 'success');
+                    } else {
+                        throw new Error('Failed to add education');
+                    }
+                } catch (error) {
+                    console.error('Error handling education:', error);
+                    notificationModule.showNotification('Failed to add education', 'error');
+                } finally {
+                    this.setFormLoading(this.educationForm, false);
+                }
+            }
+            
+            renderEducationList(education) {
+                if (!education.length) {
+                    this.educationList.innerHTML = `
+                        <div class="empty-state">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M7,9V7H9V9H7M11,9V7H17V9H11M7,13V11H9V13H7M11,13V11H17V13H11M7,17V15H9V17H7M11,17V15H17V17H11Z"/>
+                            </svg>
+                            <h4>No education added yet</h4>
+                            <p>Add your educational background to highlight your qualifications.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                this.educationList.innerHTML = education.map(edu => `
+                    <div class="list-item">
+                        <div class="item-content">
+                            <h4 class="item-title">${edu.school}</h4>
+                            <p class="item-subtitle">${edu.degree}${edu.fieldOfStudy ? ` in ${edu.fieldOfStudy}` : ''}</p>
+                            <p class="item-meta">${this.formatDate(edu.startDate)} - ${edu.current ? 'Present' : this.formatDate(edu.endDate)}</p>
+                            ${edu.grade ? `<p class="item-grade">Grade: ${edu.grade}</p>` : ''}
+                            ${edu.description ? `<p class="item-description">${edu.description}</p>` : ''}
+                        </div>
+                        <div class="item-actions">
+                            <button class="action-btn edit-btn" onclick="editProfileManager.openEducationModal(${JSON.stringify(edu).replace(/"/g, '&quot;')})">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Skills methods
+            setupSkillAutoComplete() {
+                this.skillSuggestions = [
+                    'JavaScript', 'Python', 'Java', 'C++', 'C#', 'PHP', 'Ruby', 'Go', 'Swift', 'Kotlin',
+                    'HTML', 'CSS', 'React', 'Angular', 'Vue.js', 'Node.js', 'Express.js', 'Django', 'Flask',
+                    'Spring Boot', 'Laravel', 'Ruby on Rails', 'ASP.NET', 'jQuery', 'Bootstrap',
+                    'MongoDB', 'MySQL', 'PostgreSQL', 'SQLite', 'Redis', 'Elasticsearch',
+                    'AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Jenkins', 'Git', 'GitHub',
+                    'Project Management', 'Leadership', 'Communication', 'Problem Solving', 'Critical Thinking',
+                    'Marketing', 'Sales', 'Customer Service', 'Data Analysis', 'Machine Learning', 'AI',
+                    'UI/UX Design', 'Graphic Design', 'Photoshop', 'Illustrator', 'Figma', 'Sketch'
+                ];
+            }
+            
+            handleSkillInput(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    this.addSkill();
+                }
+            }
+            
+            handleSkillSearch(event) {
+                const query = event.target.value.trim().toLowerCase();
+                if (query.length < 2) {
+                    this.skillSuggestions.innerHTML = '';
+                    return;
+                }
+                
+                const matches = this.skillSuggestions.filter(skill => 
+                    skill.toLowerCase().includes(query)
+                ).slice(0, 5);
+                
+                if (matches.length > 0) {
+                    document.getElementById('skillSuggestions').innerHTML = matches.map(skill => 
+                        `<div class="skill-suggestion" onclick="editProfileManager.selectSkill('${skill}')">${skill}</div>`
+                    ).join('');
+                } else {
+                    document.getElementById('skillSuggestions').innerHTML = '';
+                }
+            }
+            
+            selectSkill(skillName) {
+                this.skillInput.value = skillName;
+                document.getElementById('skillSuggestions').innerHTML = '';
+                this.addSkill();
+            }
+            
+            async addSkill() {
+                const skillName = this.skillInput.value.trim();
+                if (!skillName) return;
+                
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile/skills`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': this.token
+                        },
+                        body: JSON.stringify({ name: skillName })
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.renderSkillsList(result.skills);
+                        this.skillInput.value = '';
+                        document.getElementById('skillSuggestions').innerHTML = '';
+                        notificationModule.showNotification('Skill added successfully!', 'success');
+                    } else {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Failed to add skill');
+                    }
+                } catch (error) {
+                    console.error('Error adding skill:', error);
+                    notificationModule.showNotification(error.message || 'Failed to add skill', 'error');
+                }
+            }
+            
+            renderSkillsList(skills) {
+                if (!skills.length) {
+                    this.skillsList.innerHTML = `
+                        <div class="empty-state">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                            </svg>
+                            <h4>No skills added yet</h4>
+                            <p>Add skills that you have experience with. Start typing to see suggestions.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                this.skillsList.innerHTML = `
+                    <div class="skills-grid">
+                        ${skills.map(skill => `
+                            <div class="skill-tag">
+                                <span class="skill-name">${skill.name}</span>
+                                <button class="skill-remove" onclick="editProfileManager.removeSkill('${skill._id}')" title="Remove skill">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            async removeSkill(skillId) {
+                try {
+                    const response = await fetch(`${API_URL}/api/users/profile/skills/${skillId}`, {
+                        method: 'DELETE',
+                        headers: { 'x-auth-token': this.token }
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.renderSkillsList(result.skills);
+                        notificationModule.showNotification('Skill removed successfully', 'success');
+                    } else {
+                        throw new Error('Failed to remove skill');
+                    }
+                } catch (error) {
+                    console.error('Error removing skill:', error);
+                    notificationModule.showNotification('Failed to remove skill', 'error');
+                }
+            }
+            
+            // Utility methods
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+            }
+            
+            formatDateForInput(dateString) {
+                const date = new Date(dateString);
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        let editProfileManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            editProfileManager = new EditProfileManager();
+            
+            // Initialize header module
+            if (typeof headerModule !== 'undefined') {
+                headerModule.init();
+            }
         });
     </script>
 </body>

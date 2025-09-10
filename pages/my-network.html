@@ -82,23 +82,101 @@
     </header>
     <main class="page-main">
         <div class="container">
-            <div class="network-grid-container">
+            <div class="network-layout">
+                <!-- Left Sidebar -->
+                <aside class="network-sidebar-left">
+                    <div class="info-card">
+                        <div class="card-header">
+                            <h3>Manage my network</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="network-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="connections-count">0</span>
+                                    <span class="stat-label">Connections</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="followers-count">0</span>
+                                    <span class="stat-label">Followers</span>
+                                </div>
+                            </div>
+                            <div class="network-actions">
+                                <a href="connect.html" class="network-action-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                    </svg>
+                                    Find connections
+                                </a>
+                                <a href="#" class="network-action-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                    My connections
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
 
+                <!-- Main Content -->
                 <div class="network-main">
-                    <section class="profile-section-card">
-                        <h2>Connect with Professionals</h2>
-                        <p>Discover hiring managers and other professionals on the platform.</p>
-                        <div id="user-list-container" class="user-card-grid" style="margin-top: 1.5rem;"></div>
+                    <!-- Connection Suggestions -->
+                    <section class="info-card network-suggestions">
+                        <div class="card-header">
+                            <h2>People you may know</h2>
+                            <p class="card-subtitle">Based on your profile and activity</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="user-list-container" class="connection-grid"></div>
+                        </div>
+                    </section>
+
+                    <!-- Recent Activity -->
+                    <section class="info-card recent-activity">
+                        <div class="card-header">
+                            <h3>Recent activity from your network</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="activity-feed" class="activity-list">
+                                <div class="activity-placeholder">
+                                    <p>Connect with professionals to see their updates and activities.</p>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 </div>
 
-                <aside class="network-sidebar">
-                    <section class="profile-section-card">
-                        <h3>Your Application Status</h3>
-                        <div id="application-status-list" style="margin-top: 1rem;"></div>
-                    </section>
-                </aside>
+                <!-- Right Sidebar -->
+                <aside class="network-sidebar-right">
+                    <div class="info-card application-status-card">
+                        <div class="card-header">
+                            <h3>Your Applications</h3>
+                            <a href="jobs.html" class="view-all-link">View all</a>
+                        </div>
+                        <div class="card-content">
+                            <div id="application-status-list" class="application-list"></div>
+                        </div>
+                    </div>
 
+                    <div class="info-card">
+                        <div class="card-header">
+                            <h3>Job alerts</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="job-alerts">
+                                <div class="alert-item">
+                                    <span class="alert-title">Software Developer jobs</span>
+                                    <span class="alert-count">5 new jobs</span>
+                                </div>
+                                <div class="alert-item">
+                                    <span class="alert-title">Marketing jobs</span>
+                                    <span class="alert-count">2 new jobs</span>
+                                </div>
+                            </div>
+                            <a href="jobs.html" class="cta-button" style="width: 100%; margin-top: 16px;">Create job alert</a>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </div>
     </main>
@@ -142,14 +220,35 @@
                 }
                 userListContainer.innerHTML = users
                     .filter(user => user._id !== loggedInUserId)
+                    .slice(0, 6) // Show only 6 suggestions initially
                     .map(user => {
-                        const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : 'images/placeholder.svg';
+                        const picUrl = user.profilePicture ? `${API_URL}/api/files/${user.profilePicture}` : '../assets/placeholder.svg';
+                        const mutualConnections = Math.floor(Math.random() * 20) + 1; // Mock mutual connections
+                        const company = user.company || 'Professional';
                         return `
-                        <div class="user-card">
-                            <img src="${picUrl}" alt="${user.name}">
-                            <h3>${user.name}</h3>
-                            <p>${user.headline || 'User'}</p>
-                            <a href="view-profile.html?id=${user._id}" class="apply-button">View Profile</a>
+                        <div class="connection-card">
+                            <div class="connection-header">
+                                <img src="${picUrl}" alt="${user.name}" class="connection-avatar">
+                                <button class="connection-dismiss" onclick="this.closest('.connection-card').remove()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="connection-info">
+                                <h4 class="connection-name">${user.name}</h4>
+                                <p class="connection-title">${user.headline || company}</p>
+                                <p class="connection-mutual">${mutualConnections} mutual connections</p>
+                            </div>
+                            <div class="connection-actions">
+                                <button class="profile-button-primary connect-btn" onclick="connectWithUser('${user._id}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                    </svg>
+                                    Connect
+                                </button>
+                                <a href="view-profile.html?id=${user._id}" class="profile-button-secondary">View profile</a>
+                            </div>
                         </div>
                     `;
                     }).join('');
@@ -162,15 +261,25 @@
                 if (applications.length === 0) {
                     appStatusContainer.innerHTML = '<p>You have not applied to any jobs yet.</p>'; return;
                 }
-                appStatusContainer.innerHTML = applications.map(app => {
+                appStatusContainer.innerHTML = applications.slice(0, 3).map(app => {
                     if (!app.job) return '';
+                    const statusColor = {
+                        'pending': '#f59e0b',
+                        'reviewed': '#0a66c2',
+                        'accepted': '#057642',
+                        'rejected': '#d92e2e'
+                    }[app.status] || '#6b7280';
+                    
                     return `
-                        <div class="application-status-item">
-                            <div class="application-status-info">
-                                <h4>${app.job.title}</h4>
-                                <p>${app.job.company}</p>
+                        <div class="application-item">
+                            <div class="application-content">
+                                <h4 class="application-title">${app.job.title}</h4>
+                                <p class="application-company">${app.job.company}</p>
+                                <div class="application-meta">
+                                    <span class="application-date">Applied ${new Date(app.appliedAt || Date.now()).toLocaleDateString()}</span>
+                                    <span class="application-status" style="background-color: ${statusColor}">${app.status}</span>
+                                </div>
                             </div>
-                            <span class="status-tag status-${app.status}">${app.status}</span>
                         </div>
                     `;
                 }).join('');
@@ -199,13 +308,21 @@
 
                 renderUserList(users);
                 renderApplicationStatuses(applications);
-
-            } catch (err) {
+             } catch (err) {
                 console.error('Failed to load My Network page:', err);
-                userListContainer.innerHTML = '<p style="color: red;">Could not load network.</p>';
-                appStatusContainer.innerHTML = '<p style="color: red;">Could not load applications.</p>';
+                userListContainer.innerHTML = '<div class="error-state"><p>Could not load network suggestions.</p></div>';
+                appStatusContainer.innerHTML = '<div class="error-state"><p>Could not load applications.</p></div>';
             }
         });
+
+        // Helper functions
+        function connectWithUser(userId) {
+            // Mock connection functionality
+            event.target.innerHTML = 'Pending';
+            event.target.disabled = true;
+            event.target.style.backgroundColor = '#6b7280';
+        }
+        }
     </script>
 </body>
 

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting Ownership Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <style>
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        .test-controls h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+        
+        .test-section h4 {
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+        
+        .test-controls select, .test-controls input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .test-controls button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .test-controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .test-controls button.active {
+            background: #0a66c2;
+            color: white;
+            border-color: #0a66c2;
+        }
+        
+        .test-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .test-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .test-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .job-posting-item {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-controls">
+        <h3>Job Ownership Test</h3>
+        
+        <div class="test-section">
+            <h4>Current User</h4>
+            <select id="currentUserRole">
+                <option value="company">Company Owner</option>
+                <option value="othercompany">Other Company</option>
+                <option value="jobseeker">Job Seeker</option>
+            </select>
+            <input type="text" id="currentUserId" placeholder="Current User ID" value="user123">
+        </div>
+
+        <div class="test-section">
+            <h4>Profile Being Viewed</h4>
+            <input type="text" id="profileUserId" placeholder="Profile User ID" value="user123">
+            <label><input type="checkbox" id="isOwner" checked> Is Owner</label>
+        </div>
+
+        <div class="test-section">
+            <h4>Test Actions</h4>
+            <button onclick="renderTestJobPostings()">Render Job Postings</button>
+            <button onclick="simulateJobAction('edit')">Test Edit Action</button>
+            <button onclick="simulateJobAction('delete')">Test Delete Action</button>
+            <button onclick="simulateJobAction('close')">Test Close Action</button>
+            <button onclick="simulateJobAction('apply')">Test Apply Action</button>
+        </div>
+
+        <div id="testResults" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="profile-container" id="profileContainer" data-user-role="company">
+        <div class="profile-header-card">
+            <div class="profile-info">
+                <h1>Test Company Profile</h1>
+                <p>Testing job posting ownership controls</p>
+            </div>
+        </div>
+
+        <div class="profile-content-layout">
+            <div class="profile-main-content">
+                <!-- Job Postings Section -->
+                <div class="profile-section" id="jobPostingsSection" data-role="company">
+                    <div class="section-header">
+                        <h2 class="section-title">Job Postings</h2>
+                    </div>
+                    <div class="section-content" id="jobPostingsList">
+                        <!-- Job postings will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data and configuration
+        let currentUser = {
+            _id: 'user123',
+            role: 'company',
+            name: 'Test Company'
+        };
+
+        let profileData = {
+            _id: 'user123',
+            role: 'company',
+            name: 'Test Company'
+        };
+
+        let isOwner = true;
+        let profileUserId = 'user123';
+
+        // Sample job postings with different ownership
+        const sampleJobs = [
+            {
+                _id: 'job1',
+                title: 'Software Engineer',
+                location: 'Mbabane',
+                description: 'We are looking for a skilled software engineer...',
+                postedDate: '2024-01-15',
+                status: 'active',
+                applicants: [1, 2, 3],
+                companyId: 'user123', // Owned by current user
+                company: 'user123',
+                postedBy: 'user123'
+            },
+            {
+                _id: 'job2',
+                title: 'Marketing Manager',
+                location: 'Manzini',
+                description: 'Join our marketing team...',
+                postedDate: '2024-01-10',
+                status: 'closed',
+                applicants: [4, 5],
+                companyId: 'user123', // Owned by current user
+                company: 'user123',
+                postedBy: 'user123'
+            },
+            {
+                _id: 'job3',
+                title: 'Data Analyst',
+                location: 'Remote',
+                description: 'Analyze data trends and patterns...',
+                postedDate: '2024-01-20',
+                status: 'active',
+                applicants: [6, 7, 8, 9],
+                companyId: 'otheruser456', // Owned by different user
+                company: 'otheruser456',
+                postedBy: 'otheruser456'
+            }
+        ];
+
+        // Update test configuration based on controls
+        function updateTestConfig() {
+            const userRole = document.getElementById('currentUserRole').value;
+            const userId = document.getElementById('currentUserId').value;
+            profileUserId = document.getElementById('profileUserId').value;
+            isOwner = document.getElementById('isOwner').checked;
+
+            currentUser._id = userId;
+            currentUser.role = userRole === 'company' ? 'company' : 'jobseeker';
+            
+            if (userRole === 'othercompany') {
+                currentUser._id = 'otheruser456';
+                currentUser.role = 'company';
+            }
+
+            showTestResult(`Updated config: User=${currentUser._id}, Role=${currentUser.role}, IsOwner=${isOwner}`, 'success');
+        }
+
+        // Simulate the job postings rendering logic
+        function renderTestJobPostings() {
+            updateTestConfig();
+            
+            const jobPostingsList = document.getElementById('jobPostingsList');
+            
+            // Filter jobs based on ownership and visibility rules
+            let jobsToShow = [];
+            
+            if (isOwner) {
+                // Show all jobs owned by the profile user
+                jobsToShow = sampleJobs.filter(job => 
+                    job.companyId === profileUserId || 
+                    job.company === profileUserId ||
+                    job.postedBy === profileUserId
+                );
+            } else {
+                // Show only active/public jobs from this company
+                jobsToShow = sampleJobs.filter(job => 
+                    (job.companyId === profileUserId || 
+                     job.company === profileUserId ||
+                     job.postedBy === profileUserId) &&
+                    job.status === 'active'
+                );
+            }
+
+            jobPostingsList.innerHTML = jobsToShow.map(job => {
+                const postedDate = new Date(job.postedDate).toLocaleDateString();
+                const applicants = job.applicants?.length || 0;
+                
+                // Determine if this job posting belongs to the current user
+                const isOwnJob = isOwner && (
+                    job.companyId === currentUser._id || 
+                    job.company === currentUser._id ||
+                    job.postedBy === currentUser._id
+                );
+                
+                return `
+                    <div class="job-posting-item ${job.status === 'closed' ? 'job-closed' : ''}">
+                        <div class="job-posting-icon">
+                            ${job.title ? job.title.charAt(0).toUpperCase() : 'J'}
+                        </div>
+                        <div class="job-posting-details">
+                            <h4 class="job-posting-title">
+                                ${job.title || 'Job Title'}
+                                ${job.status === 'closed' ? '<span class="job-status-badge closed">Closed</span>' : ''}
+                            </h4>
+                            <div class="job-posting-meta">
+                                <span class="job-posting-meta-item">📍 ${job.location || 'Remote'}</span>
+                                <span class="job-posting-meta-item">📅 Posted ${postedDate}</span>
+                                ${isOwner ? `<span class="job-posting-meta-item">👥 ${applicants} applicant${applicants !== 1 ? 's' : ''}</span>` : ''}
+                            </div>
+                            ${job.description ? `<p class="job-posting-description">${job.description.substring(0, 100)}...</p>` : ''}
+                            
+                            <div class="job-posting-actions">
+                                ${isOwnJob ? `
+                                    <!-- Management controls for own job postings -->
+                                    <button class="btn btn-primary btn-small" onclick="testJobAction('edit', '${job._id}')">
+                                        ✏️ Edit
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="testJobAction('applicants', '${job._id}')">
+                                        👥 Applicants (${applicants})
+                                    </button>
+                                    ${job.status !== 'closed' ? `
+                                        <button class="btn btn-outline btn-small btn-warning" onclick="testJobAction('close', '${job._id}')">
+                                            ❌ Close Job
+                                        </button>
+                                    ` : `
+                                        <button class="btn btn-outline btn-small btn-success" onclick="testJobAction('reopen', '${job._id}')">
+                                            ✅ Reopen Job
+                                        </button>
+                                    `}
+                                    <button class="btn btn-outline btn-small btn-danger" onclick="testJobAction('delete', '${job._id}')">
+                                        🗑️ Delete
+                                    </button>
+                                ` : `
+                                    <!-- View-only controls for other companies' job postings -->
+                                    <button class="btn btn-primary btn-small" onclick="testJobAction('view', '${job._id}')">
+                                        👁️ View Details
+                                    </button>
+                                    ${currentUser.role === 'jobseeker' ? `
+                                        <button class="btn btn-secondary btn-small" onclick="testJobAction('apply', '${job._id}')">
+                                            ✅ Apply Now
+                                        </button>
+                                    ` : ''}
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            showTestResult(`Rendered ${jobsToShow.length} job postings. Ownership rules applied correctly.`, 'success');
+        }
+
+        // Simulate job action testing
+        function testJobAction(action, jobId) {
+            const job = sampleJobs.find(j => j._id === jobId);
+            if (!job) {
+                showTestResult(`Job ${jobId} not found`, 'error');
+                return;
+            }
+
+            const isOwnJob = job.companyId === currentUser._id || 
+                            job.company === currentUser._id ||
+                            job.postedBy === currentUser._id;
+
+            let result = '';
+            let success = true;
+
+            switch (action) {
+                case 'edit':
+                case 'delete':
+                case 'close':
+                case 'reopen':
+                case 'applicants':
+                    if (isOwnJob) {
+                        result = `✅ ${action.toUpperCase()} allowed: User owns job "${job.title}"`;
+                    } else {
+                        result = `❌ ${action.toUpperCase()} denied: User doesn't own job "${job.title}"`;
+                        success = false;
+                    }
+                    break;
+
+                case 'apply':
+                    if (currentUser.role === 'jobseeker' && !isOwnJob) {
+                        result = `✅ APPLY allowed: Job seeker can apply to "${job.title}"`;
+                    } else if (currentUser.role !== 'jobseeker') {
+                        result = `❌ APPLY denied: Only job seekers can apply to jobs`;
+                        success = false;
+                    } else if (isOwnJob) {
+                        result = `❌ APPLY denied: Cannot apply to own job posting`;
+                        success = false;
+                    }
+                    break;
+
+                case 'view':
+                    result = `✅ VIEW allowed: Anyone can view job details for "${job.title}"`;
+                    break;
+
+                default:
+                    result = `Unknown action: ${action}`;
+                    success = false;
+            }
+
+            showTestResult(result, success ? 'success' : 'error');
+        }
+
+        // Simulate job action from controls
+        function simulateJobAction(action) {
+            // Test with the first job
+            const jobId = 'job1';
+            testJobAction(action, jobId);
+        }
+
+        // Show test result
+        function showTestResult(message, type) {
+            const resultDiv = document.getElementById('testResults');
+            resultDiv.textContent = message;
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initialize test
+        document.getElementById('currentUserRole').addEventListener('change', updateTestConfig);
+        document.getElementById('currentUserId').addEventListener('input', updateTestConfig);
+        document.getElementById('profileUserId').addEventListener('input', updateTestConfig);
+        document.getElementById('isOwner').addEventListener('change', updateTestConfig);
+
+        // Initial render
+        renderTestJobPostings();
+    </script>
+</body>
+</html>

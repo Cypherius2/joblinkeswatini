@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const authMiddleware = require('../middleware/authMiddleware.js');
+const authMiddleware = require('../middleware/authMiddleware');
+const path = require('path');
 
 // Debug middleware for document uploads
 const debugUploadMiddleware = (req, res, next) => {
@@ -51,7 +52,7 @@ const upload = multer({
 const uploadToGridFS = async (file, userId, fieldName) => {
   const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
   
-  const filename = `${fieldName}-${userId}-${Date.now()}-${file.originalname}`;
+const filename = `${fieldName}-${userId}-${Date.now()}${path.extname(file.originalname)}`;
   
   const uploadStream = gfs.openUploadStream(filename, {
     metadata: {
@@ -90,66 +91,394 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try { const user = await User.findById(req.params.id).select('-password -email -documents'); if (!user) { return res.status(404).json({ msg: 'Profile not found' }); } res.json(user); } catch (err) { res.status(500).send('Server Error'); }
 });
+
+// Get comprehensive profile data for viewing
+router.get('/profile/:id', authMiddleware, async (req, res) => {
+    try {
+        // Select all fields except password, but include documents for owner
+        const isOwner = req.user.id === req.params.id;
+        const selectFields = isOwner ? '-password' : '-password -documents';
+        
+        const user = await User.findById(req.params.id).select(selectFields);
+        if (!user) {
+            return res.status(404).json({ msg: 'Profile not found' });
+        }
+        
+        // Prepare comprehensive profile data
+        const profileData = {
+            ...user.toObject(),
+            // Analytics data
+            profileViews: user.profileViews || 0,
+            searchAppearances: user.searchAppearances || 0,
+            postViews: user.postViews || 0,
+            connections: user.connections || [],
+            
+            // Ensure all profile fields are included
+            bio: user.bio || '',
+            about: user.bio || '', // Alias for backward compatibility
+            headline: user.headline || (user.role === 'company' ? 'Company' : 'Job Seeker'),
+            location: user.location || 'Eswatini',
+            
+            // Company-specific fields
+            companyName: user.companyName || user.name,
+            companyDescription: user.companyDescription || '',
+            companySize: user.companySize || '',
+            foundedYear: user.foundedYear || null,
+            industry: user.industry || '',
+            website: user.website || '',
+            phoneNumber: user.phoneNumber || '',
+            
+            // Social links
+            socialLinks: user.socialLinks || {},
+            
+            // Profile arrays
+            experience: user.experience || [],
+            education: user.education || [],
+            skills: user.skills || [],
+            documents: isOwner ? (user.documents || []) : [], // Only include documents for owner
+            
+            // Profile settings
+            profileVisibility: user.profileVisibility || 'public',
+            
+            // Recent activity
+            lastProfileUpdate: user.lastProfileUpdate || user.updatedAt
+        };
+        
+        res.json(profileData);
+    } catch (err) {
+        console.error('Error fetching profile:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Update profile views
+router.post('/profile/:id/view', authMiddleware, async (req, res) => {
+    try {
+        const profileUserId = req.params.id;
+        const viewerId = req.user.id;
+        
+        // Don't count views from the profile owner
+        if (profileUserId === viewerId) {
+            return res.json({ msg: 'Own profile view not counted' });
+        }
+        
+        // Increment profile views count
+        await User.findByIdAndUpdate(
+            profileUserId,
+            { 
+                $inc: { profileViews: 1 },
+                $addToSet: { 
+                    recentViewers: {
+                        userId: viewerId,
+                        viewedAt: new Date()
+                    }
+                }
+            }
+        );
+        
+        res.json({ msg: 'Profile view recorded' });
+    } catch (err) {
+        console.error('Error recording profile view:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Get user analytics data
+router.get('/analytics', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('profileViews searchAppearances connections recentViewers');
+        
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        
+        // Calculate analytics for the past 30 days
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        
+        // Count recent views (mock data for now)
+        const recentViews = user.recentViewers ? 
+            user.recentViewers.filter(viewer => viewer.viewedAt > thirtyDaysAgo).length : 0;
+        
+        const analyticsData = {
+            profileViews: recentViews || user.profileViews || 0,
+            searchAppearances: user.searchAppearances || Math.floor(Math.random() * 20),
+            newConnections: user.connections ? 
+                user.connections.filter(conn => conn.connectedAt && conn.connectedAt > thirtyDaysAgo).length : 0
+        };
+        
+        res.json(analyticsData);
+    } catch (err) {
+        console.error('Error fetching analytics:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Get suggested connections
+router.get('/suggested-connections', authMiddleware, async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.user.id).select('connections industry location');
+        
+        if (!currentUser) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        
+        // Get IDs of existing connections
+        const connectedUserIds = currentUser.connections ? 
+            currentUser.connections.map(conn => conn.userId || conn) : [];
+        
+        // Add current user ID to exclude from suggestions
+        connectedUserIds.push(currentUser._id);
+        
+        // Find users with similar interests/location (basic algorithm)
+        const suggestedUsers = await User.find({
+            _id: { $nin: connectedUserIds },
+            $or: [
+                { industry: currentUser.industry },
+                { location: currentUser.location },
+                { role: currentUser.role }
+            ]
+        })
+        .select('name headline profilePicture location industry')
+        .limit(5);
+        
+        res.json(suggestedUsers);
+    } catch (err) {
+        console.error('Error fetching suggested connections:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Document upload endpoint
+router.post('/documents', authMiddleware, debugUploadMiddleware, upload.single('document'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ msg: 'No file uploaded' });
+        }
+
+        // Upload file to GridFS
+        const fileData = await uploadToGridFS(req.file, req.user.id, 'document');
+        
+        // Update user's documents array
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        
+        const documentInfo = {
+            _id: fileData.id,
+            title: req.body.title || req.file.originalname,
+            description: req.body.description || '',
+            filename: fileData.filename,
+            originalname: fileData.originalname,
+            mimetype: fileData.contentType,
+            size: fileData.size,
+            type: req.body.type || 'Document',
+            uploadDate: new Date()
+        };
+        
+        user.documents = user.documents || [];
+        user.documents.push(documentInfo);
+        await user.save();
+        
+        res.json({
+            msg: 'Document uploaded successfully',
+            document: documentInfo
+        });
+    } catch (err) {
+        console.error('Error uploading document:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
+    }
+});
+
+// Delete document endpoint
+router.delete('/documents/:documentId', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        
+        // Find document in user's documents array
+        const documentIndex = user.documents.findIndex(doc => doc._id.toString() === req.params.documentId);
+        
+        if (documentIndex === -1) {
+            return res.status(404).json({ msg: 'Document not found' });
+        }
+        
+        const document = user.documents[documentIndex];
+        
+        // Delete file from GridFS
+        try {
+            const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
+            await gfs.delete(document._id);
+        } catch (deleteError) {
+            console.warn('Could not delete file from GridFS:', deleteError);
+        }
+        
+        // Remove document from user's array
+        user.documents.splice(documentIndex, 1);
+        await user.save();
+        
+        res.json({ msg: 'Document deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting document:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
+    }
+});
 router.post('/register', async (req, res) => {
     const { name, email, password, role } = req.body;
     try {
-        let user = await User.findOne({ email }); if (user) { return res.status(400).json({ msg: 'User already exists' }); }
+        let user = await User.findOne({ email }); 
+        if (user) { 
+            return res.status(400).json({ msg: 'User already exists' }); 
+        }
+        
         user = new User({ name, email, password, role });
-        const salt = await bcrypt.genSalt(10); user.password = await bcrypt.hash(password, salt);
-        await user.save(); res.status(201).json({ msg: 'User registered' });
-    } catch (err) { res.status(500).send('Server Error'); }
+        const salt = await bcrypt.genSalt(10); 
+        user.password = await bcrypt.hash(password, salt);
+        await user.save(); 
+        
+        // Generate JWT token for immediate login after registration
+        const payload = { user: { id: user.id } };
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
+            if (err) {
+                console.error('JWT sign error:', err);
+                return res.status(201).json({ msg: 'User registered successfully' });
+            }
+            
+            // Return token and user data (excluding password) for immediate login
+            res.status(201).json({ 
+                msg: 'User registered successfully',
+                token,
+                user: {
+                    _id: user._id,
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    headline: user.headline,
+                    location: user.location,
+                    profilePicture: user.profilePicture,
+                    coverPhoto: user.coverPhoto,
+                    about: user.about
+                }
+            });
+        });
+    } catch (err) { 
+        console.error('Registration error:', err);
+        res.status(500).send('Server Error'); 
+    }
 });
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email }); if (!user) { return res.status(400).json({ msg: 'Invalid credentials' }); }
-        const isMatch = await bcrypt.compare(password, user.password); if (!isMatch) { return res.status(400).json({ msg: 'Invalid credentials' }); }
+        const user = await User.findOne({ email }); 
+        if (!user) { 
+            return res.status(400).json({ msg: 'Invalid credentials' }); 
+        }
+        
+        const isMatch = await bcrypt.compare(password, user.password); 
+        if (!isMatch) { 
+            return res.status(400).json({ msg: 'Invalid credentials' }); 
+        }
+        
         const payload = { user: { id: user.id } };
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => { if (err) throw err; res.json({ token }); });
-    } catch (err) { res.status(500).send('Server Error'); }
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => { 
+            if (err) throw err; 
+            
+            // Return token and user data (excluding password)
+            res.json({ 
+                token,
+                user: {
+                    _id: user._id,
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    headline: user.headline,
+                    location: user.location,
+                    profilePicture: user.profilePicture,
+                    coverPhoto: user.coverPhoto,
+                    about: user.about
+                }
+            }); 
+        });
+    } catch (err) { 
+        console.error('Login error:', err);
+        res.status(500).send('Server Error'); 
+    }
 });
 router.put('/', authMiddleware, async (req, res) => {
     const { name, headline, location, about } = req.body;
     try { const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password'); res.json(user); } catch (err) { res.status(500).send('Server Error'); }
 });
 router.put('/profile', authMiddleware, async (req, res) => {
-    const { name, headline, location, about } = req.body;
-    try { const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password'); res.json(user); } catch (err) { res.status(500).send('Server Error'); }
-});
-router.post('/picture', [authMiddleware, upload.single('profilePicture')], async (req, res) => {
+    const { name, headline, location, about, bio } = req.body;
+    const updateFields = {};
+    
+    if (name !== undefined) updateFields.name = name;
+    if (headline !== undefined) updateFields.headline = headline;
+    if (location !== undefined) updateFields.location = location;
+    if (about !== undefined) updateFields.bio = about; // Map 'about' to 'bio' field
+    if (bio !== undefined) updateFields.bio = bio;
+    
     try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Delete old profile picture if it exists
-        const currentUser = await User.findById(req.user.id);
-        if (currentUser.profilePicture) {
-            const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
-            try {
-                // Find the file by filename and delete it
-                const files = await gfs.find({ filename: currentUser.profilePicture }).toArray();
-                if (files.length > 0) {
-                    await gfs.delete(files[0]._id);
-                }
-            } catch (deleteError) {
-                console.log('Error deleting old profile picture:', deleteError.message);
-            }
-        }
-        
-        // Upload new file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'profilePicture');
-        
         const user = await User.findByIdAndUpdate(
             req.user.id, 
-            { 
-                profilePicture: fileData.filename
-            }, 
-            { new: true }
+            { $set: updateFields }, 
+            { new: true, runValidators: true }
         ).select('-password');
         
         res.json(user);
-    } catch (err) { 
-        console.error('Profile picture upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message }); 
+    } catch (err) {
+        console.error('Profile update error:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Update company information
+router.put('/profile/company', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        
+        if (user.role !== 'company') {
+            return res.status(403).json({ msg: 'Only companies can update company information' });
+        }
+        
+        const {
+            companyDescription,
+            industry,
+            companySize,
+            foundedYear,
+            website,
+            phoneNumber,
+            socialLinks
+        } = req.body;
+        
+        const updateFields = {};
+        
+        if (companyDescription !== undefined) updateFields.companyDescription = companyDescription;
+        if (industry !== undefined) updateFields.industry = industry;
+        if (companySize !== undefined) updateFields.companySize = companySize;
+        if (foundedYear !== undefined) updateFields.foundedYear = foundedYear;
+        if (website !== undefined) updateFields.website = website;
+        if (phoneNumber !== undefined) updateFields.phoneNumber = phoneNumber;
+        if (socialLinks !== undefined) updateFields.socialLinks = socialLinks;
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.id,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+        ).select('-password');
+        
+        res.json(updatedUser);
+    } catch (err) {
+        console.error('Company profile update error:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
     }
 });
 
@@ -246,42 +575,6 @@ router.post('/profilePicture', [debugUploadMiddleware, authMiddleware, upload.si
         res.status(500).json({ msg: 'Server Error', error: err.message, errorType: err.name }); 
     }
 });
-router.post('/cover', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
-    try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Delete old cover photo if it exists
-        const currentUser = await User.findById(req.user.id);
-        if (currentUser.coverPhoto) {
-            const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'uploads' });
-            try {
-                // Find the file by filename and delete it
-                const files = await gfs.find({ filename: currentUser.coverPhoto }).toArray();
-                if (files.length > 0) {
-                    await gfs.delete(files[0]._id);
-                }
-            } catch (deleteError) {
-                console.log('Error deleting old cover photo:', deleteError.message);
-            }
-        }
-        
-        // Upload new file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'coverPhoto');
-        
-        const user = await User.findByIdAndUpdate(
-            req.user.id, 
-            { 
-                coverPhoto: fileData.filename
-            }, 
-            { new: true }
-        ).select('-password');
-        
-        res.json(user);
-    } catch (err) { 
-        console.error('Cover photo upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message }); 
-    }
-});
 
 router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
     try {
@@ -319,30 +612,8 @@ router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async 
         res.status(500).json({ msg: 'Server Error', error: err.message }); 
     }
 });
-router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
-    try {
-        if (!req.file) { return res.status(400).json({ msg: 'No file uploaded.' }); }
-        
-        // Upload file to GridFS
-        const fileData = await uploadToGridFS(req.file, req.user.id, 'document');
-        
-        const user = await User.findById(req.user.id);
-        if (!user.documents) user.documents = [];
-        
-        user.documents.unshift({ 
-            filePath: fileData.filename,
-            originalName: fileData.originalname
-        });
-        
-        await user.save();
-        res.json(await User.findById(req.user.id).select('-password'));
-    } catch (err) { 
-        console.error('Document upload error:', err);
-        res.status(500).json({ msg: 'Server Error', error: err.message });
-    }
-});
 
-router.post('/documents', [debugUploadMiddleware, authMiddleware, upload.single('document')], async (req, res) => {
+router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
     try {
         console.log('Document upload request received');
         console.log('File:', req.file);

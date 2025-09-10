@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Profile & Navigation - JobLink Eswatini</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+        }
+        
+        .test-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-button:hover {
+            background: #0052a3;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-info {
+            background: #e3f2fd;
+            border-left: 4px solid #0066cc;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-left">
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo">JobLink<span class="logo-eswatini">Eswatini</span></h1>
+                </a>
+            </div>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="pages/jobs.html" class="header-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    <span>Jobs</span>
+                </a>
+                
+                <div class="auth-buttons">
+                    <div id="loggedOutNav" style="display: flex;">
+                        <a href="pages/login.html" class="header-nav-item">Sign In</a>
+                    </div>
+                    <div class="profile-dropdown-container header-nav-item header-nav-item--me" id="loggedInNav" style="display: none;">
+                        <img src="assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
+                        <span>Me &#9662;</span>
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <div class="dropdown-user-info" id="dropdownUserInfo">
+                                <div class="dropdown-user-name" id="dropdownUserName">Loading...</div>
+                                <div class="dropdown-user-role" id="dropdownUserRole">Loading...</div>
+                            </div>
+                            <a href="pages/profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                View Profile
+                            </a>
+                            <a href="pages/edit-profile.html" class="dropdown-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                                Edit Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-link" id="signOutBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                </svg>
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="test-container">
+            <h1>JobLink Eswatini - Profile & Navigation Test</h1>
+            
+            <div class="test-info">
+                <strong>Test Instructions:</strong>
+                <ol>
+                    <li>First, make sure your backend server is running on localhost:3000</li>
+                    <li>Create a test account or login to an existing account</li>
+                    <li>Test the dropdown functionality in the top navigation</li>
+                    <li>Test the profile pages to ensure they load correctly</li>
+                </ol>
+            </div>
+
+            <div class="test-section">
+                <h3>🔐 Authentication Test</h3>
+                <p>Current authentication status: <span id="authStatus" class="status-indicator">Checking...</span></p>
+                <div id="authDetails"></div>
+                <div style="margin-top: 1rem;">
+                    <a href="pages/login.html" class="test-button">Go to Login</a>
+                    <a href="pages/register.html" class="test-button">Go to Register</a>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h3>🧭 Navigation Dropdown Test</h3>
+                <p>The dropdown menu in the header should:</p>
+                <ul>
+                    <li>Show when clicking on "Me" (when logged in)</li>
+                    <li>Display user name and role</li>
+                    <li>Hide when clicking outside</li>
+                    <li>Work consistently across all pages</li>
+                </ul>
+                <p>Dropdown status: <span id="dropdownStatus" class="status-indicator">Ready</span></p>
+            </div>
+
+            <div class="test-section">
+                <h3>👤 Profile Pages Test</h3>
+                <p>Test all profile-related pages:</p>
+                <div style="margin-top: 1rem;">
+                    <a href="pages/profile.html" class="test-button">View Profile</a>
+                    <a href="pages/edit-profile.html" class="test-button">Edit Profile</a>
+                    <a href="pages/profile.html?id=test" class="test-button">View Other Profile</a>
+                </div>
+                <p id="profileTestResult"></p>
+            </div>
+
+            <div class="test-section">
+                <h3>🔗 Cross-Page Navigation Test</h3>
+                <p>Test that the dropdown works on different pages:</p>
+                <div style="margin-top: 1rem;">
+                    <a href="index.html" class="test-button">Homepage</a>
+                    <a href="pages/jobs.html" class="test-button">Jobs Page</a>
+                    <a href="pages/apply.html?jobId=test" class="test-button">Apply Page</a>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h3>🎯 Quick Tests</h3>
+                <button onclick="testDropdownFunctionality()" class="test-button">Test Dropdown</button>
+                <button onclick="testApiConnectivity()" class="test-button">Test API</button>
+                <button onclick="refreshUserData()" class="test-button">Refresh User Data</button>
+                <div id="quickTestResults"></div>
+            </div>
+
+            <div class="test-section">
+                <h3>📊 System Information</h3>
+                <div id="systemInfo">
+                    <p><strong>API URL:</strong> <span id="apiUrl">Loading...</span></p>
+                    <p><strong>Current Page:</strong> <span id="currentPage">Loading...</span></p>
+                    <p><strong>Local Storage Token:</strong> <span id="tokenStatus">Loading...</span></p>
+                    <p><strong>Header Nav Status:</strong> <span id="headerNavStatus">Loading...</span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer"></footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/header-nav.js"></script>
+    
+    <script>
+        // Test functionality
+        function updateAuthStatus() {
+            const token = localStorage.getItem('token');
+            const authStatusEl = document.getElementById('authStatus');
+            const authDetailsEl = document.getElementById('authDetails');
+            
+            if (token) {
+                authStatusEl.textContent = 'Authenticated';
+                authStatusEl.className = 'status-indicator status-success';
+                authDetailsEl.innerHTML = `
+                    <p>✅ Token found in localStorage</p>
+                    <p><small>Token: ${token.substring(0, 20)}...</small></p>
+                `;
+            } else {
+                authStatusEl.textContent = 'Not Authenticated';
+                authStatusEl.className = 'status-indicator status-error';
+                authDetailsEl.innerHTML = '<p>❌ No authentication token found</p>';
+            }
+        }
+
+        function testDropdownFunctionality() {
+            const dropdown = document.getElementById('profileDropdownMenu');
+            const loggedInNav = document.getElementById('loggedInNav');
+            const resultsEl = document.getElementById('quickTestResults');
+            
+            if (!dropdown || !loggedInNav) {
+                resultsEl.innerHTML = '<p>❌ Dropdown elements not found</p>';
+                return;
+            }
+
+            // Simulate click
+            loggedInNav.click();
+            
+            setTimeout(() => {
+                const isOpen = dropdown.classList.contains('is-open');
+                resultsEl.innerHTML = isOpen ? 
+                    '<p>✅ Dropdown opened successfully</p>' : 
+                    '<p>❌ Dropdown did not open</p>';
+                    
+                // Close it
+                document.body.click();
+            }, 100);
+        }
+
+        async function testApiConnectivity() {
+            const resultsEl = document.getElementById('quickTestResults');
+            resultsEl.innerHTML = '<p>⏳ Testing API connectivity...</p>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/users/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultsEl.innerHTML = `
+                        <p>✅ API connectivity successful</p>
+                        <p>User: ${data.name} (${data.role})</p>
+                    `;
+                } else {
+                    resultsEl.innerHTML = `<p>⚠️ API responded but request failed: ${response.status}</p>`;
+                }
+            } catch (error) {
+                resultsEl.innerHTML = `<p>❌ API connectivity failed: ${error.message}</p>`;
+            }
+        }
+
+        function refreshUserData() {
+            if (window.headerNav && window.headerNav.refreshUserData) {
+                window.headerNav.refreshUserData();
+                document.getElementById('quickTestResults').innerHTML = '<p>✅ User data refresh triggered</p>';
+            } else {
+                document.getElementById('quickTestResults').innerHTML = '<p>❌ Header navigation not available</p>';
+            }
+        }
+
+        function updateSystemInfo() {
+            document.getElementById('apiUrl').textContent = typeof API_URL !== 'undefined' ? API_URL : 'Not defined';
+            document.getElementById('currentPage').textContent = window.location.pathname;
+            
+            const token = localStorage.getItem('token');
+            document.getElementById('tokenStatus').textContent = token ? 'Present' : 'Not found';
+            
+            const headerNavStatus = window.headerNav && window.headerNav.isInitialized ? 'Initialized' : 'Not initialized';
+            document.getElementById('headerNavStatus').textContent = headerNavStatus;
+        }
+
+        // Initialize tests
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthStatus();
+            updateSystemInfo();
+            
+            // Update system info every 5 seconds
+            setInterval(updateSystemInfo, 5000);
+        });
+
+        // Monitor header nav initialization
+        let headerNavCheckInterval = setInterval(() => {
+            if (window.headerNav && window.headerNav.isInitialized) {
+                document.getElementById('headerNavStatus').textContent = 'Initialized';
+                clearInterval(headerNavCheckInterval);
+            }
+        }, 500);
+    </script>
+</body>
+</html>
