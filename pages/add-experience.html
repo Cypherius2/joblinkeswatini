@@ -166,7 +166,7 @@
             };
 
             if (!experienceData.title || !experienceData.company || !experienceData.from) {
-                alert('Title, Company, and From Date are required fields.');
+                showNotification('Title, Company, and From Date are required fields.', 'error');
                 return;
             }
 

@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const User = require('../models/User');
+<<<<<<< HEAD
 const authMiddleware = require('../middleware/authMiddleware');
+=======
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 const path = require('path');
 
 // Debug middleware for document uploads
@@ -414,6 +417,7 @@ router.put('/', authMiddleware, async (req, res) => {
     try { const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password'); res.json(user); } catch (err) { res.status(500).send('Server Error'); }
 });
 router.put('/profile', authMiddleware, async (req, res) => {
+<<<<<<< HEAD
     const { name, headline, location, about, bio } = req.body;
     const updateFields = {};
     
@@ -480,6 +484,11 @@ router.put('/profile/company', authMiddleware, async (req, res) => {
         console.error('Company profile update error:', err);
         res.status(500).json({ msg: 'Server Error', error: err.message });
     }
+=======
+    const { name, headline, location, about } = req.body;
+    try { const user = await User.findByIdAndUpdate(req.user.id, { $set: { name, headline, location, about } }, { new: true }).select('-password'); res.json(user); } catch (err) { res.status(500).send('Server Error'); }
+});
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 });
 
 router.post('/profilePicture', [debugUploadMiddleware, authMiddleware, upload.single('profilePicture')], async (req, res) => {
@@ -575,6 +584,10 @@ router.post('/profilePicture', [debugUploadMiddleware, authMiddleware, upload.si
         res.status(500).json({ msg: 'Server Error', error: err.message, errorType: err.name }); 
     }
 });
+<<<<<<< HEAD
+=======
+});
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 
 router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async (req, res) => {
     try {
@@ -612,9 +625,12 @@ router.post('/coverPhoto', [authMiddleware, upload.single('coverPhoto')], async 
         res.status(500).json({ msg: 'Server Error', error: err.message }); 
     }
 });
+<<<<<<< HEAD
 
 router.post('/document', [authMiddleware, upload.single('document')], async (req, res) => {
     try {
+=======
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
         console.log('Document upload request received');
         console.log('File:', req.file);
         console.log('Body:', req.body);

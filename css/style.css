@@ -1,6 +1,7 @@
 /* ==========================================================================
    1. General & Core Styles - LinkedIn Modern Design
    ========================================================================== */
+<<<<<<< HEAD
 * {
     box-sizing: border-box;
 }
@@ -9,13 +10,20 @@ html {
     scroll-behavior: smooth;
 }
 
+=======
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
+<<<<<<< HEAD
     padding: 0;
     background-color: #f3f2ef;
     color: rgba(0, 0, 0, 0.9);
     line-height: 1.6;
+=======
+    background-color: #f8f9fa;
+    color: #333;
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
     overflow-x: hidden;
     min-height: 100vh;
 }
@@ -63,9 +71,15 @@ body {
    2. Header & Navigation - LinkedIn Style
    ========================================================================== */
 .main-header {
+<<<<<<< HEAD
     background-color: #ffffff;
     padding: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+=======
+background-color: #FFFFFF;
+    padding: 1rem 0;
+border-bottom: 1px solid #e0e0e0;
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -422,9 +436,278 @@ body {
     text-align: center;
 }
 
+<<<<<<< HEAD
 .photo-preview {
     width: 150px;
     height: 150px;
+=======
+/* ==========================================================================
+   3. Buttons & Common Components
+   ========================================================================== */
+.nav-button-outline,
+.nav-button,
+.cta-button,
+.apply-button,
+.auth-button,
+.filter-button,
+.profile-button-primary,
+.profile-button-secondary,
+.document-link {
+    display: inline-block;
+    padding: 10px 22px;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-button-outline:hover,
+.profile-button-secondary:hover {
+    background-color: #00205B;
+    color: #FFFFFF;
+}
+
+.nav-button:hover,
+.auth-button:hover,
+.filter-button:hover,
+.profile-button-primary:hover,
+.document-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #a80c29;
+    /* Darker Red */
+}
+
+.nav-button-outline {
+    color: #00205B;
+    border-color: #00205B;
+    margin-right: 10px;
+}
+
+.nav-button {
+    background-color: #D21034;
+    color: #FFFFFF;
+    border: none;
+}
+
+.cta-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 15px 35px;
+    border-radius: 30px;
+}
+
+.apply-button {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 8px 18px;
+}
+
+.filter-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D21034;
+    color: #FFFFFF;
+    border-radius: 25px;
+    font-size: 1.1rem;
+}
+
+.profile-button-primary {
+    background-color: #D21034;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+.profile-button-secondary {
+    color: #00205B;
+    border-color: #00205B;
+    margin-left: 10px;
+}
+
+.document-link {
+    background-color: #00205B;
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 25px;
+}
+
+/* ==========================================================================
+   4. Page-Specific Layouts (Homepage, Jobs)
+   ========================================================================== */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    height: fit-content;
+}
+
+.content-main {
+    width: 75%;
+}
+
+.job-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.job-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.job-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   CSS FOR THE MODERN FILTER SIDEBAR
+   ========================================================================== */
+
+/* This styles the main sidebar card itself */
+.sidebar {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+    height: fit-content;
+    /* Ensures it doesn't stretch unnecessarily */
+    border-top: 4px solid #00205B;
+    /* A strong top border using your Primary Blue */
+}
+
+/* This styles the "Filter Jobs" heading */
+.sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #00205B;
+    /* Primary Blue */
+    font-size: 1.3rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1rem;
+}
+
+/* This is the container for each filter (label + input) */
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+/* This styles the labels like "Search by Title" */
+.filter-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+/* These are the shared styles for the text box and the dropdown menu */
+.filter-group input[type="text"],
+.filter-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    /* Slightly more rounded for a modern feel */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect width */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* This is the interactive state when a user clicks on an input */
+/* It creates a red border and a soft red "glow" */
+.filter-group input[type="text"]:focus,
+.filter-group select:focus {
+    outline: none;
+    /* Removes the default browser outline */
+    border-color: #D21034;
+    /* Accent Red */
+    box-shadow: 0 0 0 3px rgba(210, 16, 52, 0.15);
+}
+
+/* This is a special trick to make the dropdown arrow look modern and consistent */
+.filter-group select {
+    appearance: none;
+    /* This removes the default system arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* We add our own arrow using an SVG background image */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+    /* Add space so text doesn't overlap our custom arrow */
+}
+
+/* ==========================================================================
+   5. Profile Page (LinkedIn Style - FINAL)
+   ========================================================================== */
+
+/* Profile Picture Edit Section */
+.profile-picture-edit-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 15px;
+    border: 2px dashed #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.profile-picture-edit-section:hover {
+    border-color: #D21034;
+    box-shadow: 0 8px 25px rgba(210, 16, 52, 0.1);
+}
+
+.profile-picture-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.current-profile-picture-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
     border-radius: 50%;
     position: relative;
     margin: 0 auto 16px auto;
@@ -2795,6 +3078,7 @@ body {
    12. Responsive Design - Mobile First Approach
    ========================================================================== */
 @media (max-width: 768px) {
+<<<<<<< HEAD
     .container {
         padding: 0 16px;
     }
@@ -2810,13 +3094,23 @@ body {
     }
 
     .main-nav {
+=======
+    .desktop-only {
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
         display: none;
     }
 
-    .mobile-menu-button {
+    .mobile-only {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .desktop-only {
         display: block;
     }
 
+<<<<<<< HEAD
     /* Show Mobile Navigation */
     .mobile-nav {
         display: block;
@@ -2981,6 +3275,10 @@ body {
     .button-3d {
         min-width: auto;
         width: 100%;
+=======
+    .mobile-only {
+        display: none;
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
     }
 }
 

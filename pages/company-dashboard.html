@@ -320,7 +320,7 @@
                                 body: JSON.stringify({ status: status })
                             });
                             if (res.ok) {
-                                alert('Application status updated.');
+                                showNotification('Application status updated.', 'success');
                                 document.getElementById('applicantModal').classList.remove('is-open');
                                 const app = currentApplications.find(a => a._id === appId);
                                 if (app) app.status = status; // Update local data

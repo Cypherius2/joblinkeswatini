@@ -4,9 +4,8 @@
 function showNotification(message, type = 'success') {
     const container = document.getElementById('notification-container');
     if (!container) {
-        // Fallback to alert if the container is missing for any reason
-        console.error('Notification container not found. Falling back to alert.');
-        alert(message);
+        // Fallback to console if the container is missing for any reason
+        console.error('Notification container not found. Cannot show notification:', message);
         return;
     }
     const notification = document.createElement('div');
@@ -57,7 +56,7 @@ const headerModule = {
             signOutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('token');
-                alert('You have been signed out.');
+                showNotification('You have been signed out.', 'success');
                 window.location.href = 'login.html';
             });
         }

@@ -16,6 +16,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/style.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/profile.css">
     
@@ -34,6 +35,8 @@
     <meta name="twitter:title" content="Profile | JobLink Eswatini">
     <meta name="twitter:description" content="Professional networking platform for Eswatini">
     <meta name="twitter:image" content="../assets/twitter-card.jpg">
+=======
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
 </head>
 
 <body>
@@ -93,6 +96,7 @@
                         <img src="../assets/placeholder.svg" alt="My Profile" class="nav-profile-pic" id="navProfilePic">
                         <span>Me &#9662;</span>
                         <div class="profile-dropdown-menu" id="profileDropdownMenu">
+<<<<<<< HEAD
                             <div class="dropdown-user-info" id="dropdownUserInfo">
                                 <div class="dropdown-user-name" id="dropdownUserName">Loading...</div>
                                 <div class="dropdown-user-role" id="dropdownUserRole">Loading...</div>
@@ -122,6 +126,10 @@
                                 </svg>
                                 Sign Out
                             </a>
+=======
+                            <a href="profile.html" class="dropdown-link">View Profile</a>
+                            <a href="edit-profile.html" class="dropdown-link">Edit Profile</a>
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
                         </div>
                     </div>
                 </div>
@@ -458,6 +466,7 @@
         </div>
     </main>
 
+<<<<<<< HEAD
     <!-- Global Chat Container -->
     <div id="global-chat-container">
         <div id="chat-window">
@@ -486,6 +495,120 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
                         </svg>
+=======
+    <div id="global-chat-container" style="display: none;">
+        </div>
+
+    <footer class="main-footer"></footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
+
+
+    <script>
+        // --- Reusable Render Functions ---
+        const renderProfileHeader = (user) => {
+            const localPlaceholder = '../assets/placeholder.svg';
+            const pic = document.getElementById('profilePicture');
+            const banner = document.getElementById('profileBanner');
+
+            // Use GridFS file serving endpoints
+            const picUrl = user.profilePicture && user.profilePicture.filename 
+                ? `${API_URL}/api/files/${user.profilePicture.filename}` 
+                : localPlaceholder;
+            const coverUrl = user.coverPhoto && user.coverPhoto.filename 
+                ? `${API_URL}/api/files/${user.coverPhoto.filename}` 
+                : '';
+
+pic.src = `${picUrl}?t=${new Date().getTime()}`
+            if (coverUrl) {
+banner.style.backgroundImage = `url('${coverUrl}?t=${new Date().getTime()}')`;
+            } else {
+                banner.style.backgroundImage = 'linear-gradient(to top, #00205B, #003380)';
+            }
+
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileHeadline').textContent = user.headline;
+            document.getElementById('profileLocation').textContent = user.location;
+
+            // Set the public profile URL
+            const publicProfileUrlEl = document.getElementById('publicProfileUrl');
+            if (publicProfileUrlEl) {
+                publicProfileUrlEl.href = `view-profile.html?id=${user._id}`;
+                publicProfileUrlEl.textContent = `joblinkeswatini.com/in/${user.name.toLowerCase().replace(/\s/g, '-')}`;
+            }
+        };
+
+        const renderAbout = (user) => {
+            const aboutEl = document.getElementById('profileAbout');
+            if (aboutEl) aboutEl.textContent = user.about || 'Click "Edit Profile" to add a summary about your professional journey.';
+        };
+
+        const renderExperience = (experience) => {
+            const expList = document.getElementById('experienceList');
+            if (!expList) return;
+            if (!experience || experience.length === 0) {
+                expList.innerHTML = '<p>No experience added yet. Click the + button to add your work history.</p>';
+                return;
+            }
+            expList.innerHTML = experience.map(exp => `
+                <div class="experience-item">
+                    <h3>${exp.title}</h3>
+                    <p class="company">${exp.company} | ${exp.location || ''}</p>
+                    <p class="date">${new Date(exp.from).toLocaleDateString()} - ${exp.to ? new Date(exp.to).toLocaleDateString() : 'Present'}</p>
+                    <p>${exp.description || ''}</p>
+                </div>
+            `).join('');
+        };
+
+        const renderSkills = (skills) => {
+            const skillsList = document.getElementById('skillsList');
+            if (!skillsList) return;
+            if (!skills || skills.length === 0) {
+                skillsList.innerHTML = '<p>No skills added yet. Click the + button to showcase your talents.</p>';
+                return;
+            }
+            skillsList.innerHTML = skills.map(skill => `
+                <span class="skill-tag">
+                    ${skill.name}
+                    <button class="delete-skill-btn" data-id="${skill._id}">&times;</button>
+                </span>
+            `).join('');
+        };
+
+        const renderDocumentsSection = (documents) => {
+            const container = document.getElementById('documentList');
+            if (!container) return;
+            container.innerHTML = '';
+            if (!documents || documents.length === 0) {
+                container.innerHTML = '<li class="document-item"><p>You have not uploaded any documents yet. Click "Upload Document" to get started.</p></li>';
+                return;
+            }
+            container.innerHTML = documents.map(doc => `
+                <li class="document-item">
+                    <a href="#" onclick="window.open('${API_URL}/api/files/${doc.filename}', '_blank')" rel="noopener noreferrer">${doc.originalName}</a>
+                    <button class="delete-doc-btn" data-id="${doc._id}">&times;</button>
+                </li>
+            `).join('');
+        };
+
+        const fetchAndRenderMyJobs = async (token) => {
+            const myJobsList = document.getElementById('my-jobs-list');
+            if (!myJobsList) return;
+            myJobsList.innerHTML = '<p>Loading your jobs...</p>';
+            try {
+                const response = await fetch(`${API_URL}/api/jobs/myjobs`, { headers: { 'x-auth-token': token } });
+                if (!response.ok) throw new Error('Could not fetch jobs');
+                const jobs = await response.json();
+                if (jobs.length === 0) {
+                    myJobsList.innerHTML = '<p>You have not posted any jobs yet.</p>'; return;
+                }
+                myJobsList.innerHTML = jobs.map(job => `
+                    <div class="experience-item">
+                        <h3>${job.title}</h3>
+                        <p class="company">${job.company} - ${job.location}</p>
+                        <button class="profile-button-primary delete-btn" data-id="${job._id}" style="margin-top: 10px;">Delete</button>
+>>>>>>> 0f9492498fef7e783687cc119c04fb17bb3ac79c
                     </div>
                     <p>No messages yet. Start the conversation!</p>
                 </div>

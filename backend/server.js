@@ -53,7 +53,8 @@ app.use((req, res, next) => {
     next();
 });
 // 4. Make the 'uploads' folder public so files can be accessed
-app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
+// Serve backend uploads (not used for GridFS, but kept for any legacy/static files)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //app.use('/public', express.static(path.join(__dirname, 'public'))); // Optional: Serve static files from 'public' folder
 // 5. application routes will be added here
 
